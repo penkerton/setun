@@ -1,0 +1,3940 @@
+<!doctype html>
+<html lang="ru" data-theme="blue-dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Сетунь — хоккейная команда (SHL)</title>
+    <meta
+      name="description"
+      content="Хоккейная команда «Сетунь» (SHL): турнирная таблица, ближайшие матчи, статистика игроков дивизиона и дни рождения."
+    />
+    <meta name="theme-color" content="#070f1f" />
+    <link rel="preconnect" href="https://fs.mtgame.ru" crossorigin />
+    <script>
+      /* Тема применяется до первой отрисовки — без «мигания» при загрузке.
+         По умолчанию тёмно-синяя; доступны ещё «Зелёный хаки» и светлая. */
+      (function () {
+        var allowed = ["blue-dark", "khaki", "light"];
+        var legacy = {
+          dark: "blue-dark",
+          light: "light",
+          ice: "blue-dark",
+          "club-light": "light",
+          "club-dark": "blue-dark",
+        };
+        var theme = "blue-dark";
+        try {
+          var saved = localStorage.getItem("setun-shl:theme");
+          if (legacy[saved]) saved = legacy[saved];
+          if (allowed.indexOf(saved) !== -1) theme = saved;
+        } catch (error) {
+          /* приватный режим — остаётся тема по умолчанию */
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+    <style>
+      /* ==========================================================================
+         1. Токены тем
+
+         Тема по умолчанию — тёмно-синяя (ниже, тема 1).
+         Тема 2 — зелёный хаки, тема 3 — светлая белая.
+         Переменная --ice отвечает за второй акцент и хайлайты.
+         ========================================================================== */
+      :root,
+      html[data-theme="blue-dark"] {
+        color-scheme: dark;
+        --font-ui: "Manrope", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        --font-display: "Russo One", "Bahnschrift", "Arial Narrow", "Segoe UI", sans-serif;
+        --bg: #070f1f;
+        --bg-soft: #0d1628;
+        --surface: rgba(255, 255, 255, 0.045);
+        --surface-2: rgba(255, 255, 255, 0.085);
+        --line: rgba(255, 255, 255, 0.1);
+        --line-strong: rgba(255, 255, 255, 0.2);
+        --text: #eff5ff;
+        --muted: #97a8c7;
+        --ice: #64bbff;
+        --accent: #3b8fff;
+        --accent-2: #1d5fc0;
+        --amber: #f1b44f;
+        --green: #5acb8f;
+        --red: #ef3a4f;
+        --gold: #ffd166;
+        --silver: #cbd5e1;
+        --bronze: #e08e5a;
+        --shadow-lg: 0 30px 70px -30px rgba(0, 0, 0, 0.85);
+        --shadow-sm: 0 10px 30px -18px rgba(0, 0, 0, 0.9);
+        --radius: 20px;
+        --radius-sm: 14px;
+        --aurora-blend: screen;
+        --aurora-opacity: 0.62;
+        --grain-opacity: 0.04;
+        --header-bg: rgba(7, 15, 31, 0.76);
+        --club-stripe: #2d7ef0;
+        --club-stripe-opacity: 0.9;
+        --streak-opacity: 0.22;
+        --bg-glow-a: rgba(100, 186, 255, 0.24);
+        --bg-glow-b: rgba(255, 255, 255, 0.1);
+        --bg-glow-c: rgba(239, 58, 79, 0.08);
+        --paint-spot-a: rgba(73, 143, 225, 0.26);
+        --paint-spot-b: rgba(255, 255, 255, 0.1);
+        --streak-a: rgba(108, 190, 255, 0.62);
+        --streak-b: rgba(232, 67, 88, 0.28);
+        --btn-grad: linear-gradient(115deg, #84c7ff 0 24%, #3b8fff 25% 78%, #1d5fc0 79%);
+        --title-grad: linear-gradient(100deg, #ffffff 0 32%, #83c8ff 33% 84%, #ef3a4f 85%);
+      }
+
+      /* Тема 2: зелёный хаки — оливковый фон и спокойные контрасты */
+      html[data-theme="khaki"] {
+        color-scheme: dark;
+        --bg: #434c33;
+        --bg-soft: #555f40;
+        --surface: rgba(250, 255, 238, 0.11);
+        --surface-2: rgba(250, 255, 238, 0.17);
+        --line: rgba(234, 243, 208, 0.25);
+        --line-strong: rgba(234, 243, 208, 0.38);
+        --text: #f5fae8;
+        --muted: #d0dcba;
+        --ice: #c4e39a;
+        --accent: #9ab36b;
+        --accent-2: #697d45;
+        --amber: #f1cb76;
+        --green: #b0d776;
+        --red: #d36050;
+        --gold: #f5df95;
+        --silver: #d9e5ca;
+        --bronze: #e29f64;
+        --shadow-lg: 0 30px 60px -35px rgba(22, 30, 16, 0.7);
+        --shadow-sm: 0 12px 28px -20px rgba(22, 30, 16, 0.72);
+        --aurora-blend: normal;
+        --aurora-opacity: 0.3;
+        --grain-opacity: 0.025;
+        --header-bg: rgba(63, 71, 50, 0.85);
+        --club-stripe: #9ab36b;
+        --club-stripe-opacity: 0.9;
+        --streak-opacity: 0.24;
+        --bg-glow-a: rgba(188, 223, 132, 0.2);
+        --bg-glow-b: rgba(119, 146, 78, 0.18);
+        --bg-glow-c: rgba(190, 96, 69, 0.12);
+        --paint-spot-a: rgba(177, 207, 115, 0.32);
+        --paint-spot-b: rgba(132, 90, 58, 0.24);
+        --streak-a: rgba(190, 222, 129, 0.52);
+        --streak-b: rgba(211, 96, 80, 0.28);
+        --btn-grad: linear-gradient(116deg, #d6ecab 0 24%, #9ab36b 25% 78%, #697d45 79%);
+        --title-grad: linear-gradient(100deg, #f7ffe9 0 36%, #d0ecaa 37% 84%, #d36050 85%);
+      }
+
+      /* Тема 3: светлая — белый фон, тёмный текст, синий+красный акцент */
+      html[data-theme="light"] {
+        color-scheme: light;
+        --bg: #f8fbff;
+        --bg-soft: #ffffff;
+        --surface: rgba(255, 255, 255, 0.86);
+        --surface-2: rgba(255, 255, 255, 0.98);
+        --line: rgba(16, 30, 56, 0.13);
+        --line-strong: rgba(16, 30, 56, 0.25);
+        --text: #111a2d;
+        --muted: #5e6f8b;
+        --ice: #2e85d7;
+        --accent: #2f76ca;
+        --accent-2: #164f9a;
+        --amber: #b57b18;
+        --green: #258a5d;
+        --red: #ce2033;
+        --gold: #b3862a;
+        --silver: #607086;
+        --bronze: #9f5f2a;
+        --shadow-lg: 0 30px 60px -35px rgba(20, 52, 92, 0.28);
+        --shadow-sm: 0 12px 28px -20px rgba(20, 52, 92, 0.34);
+        --aurora-blend: normal;
+        --aurora-opacity: 0.28;
+        --grain-opacity: 0.02;
+        --header-bg: rgba(248, 251, 255, 0.84);
+        --club-stripe: #2f76ca;
+        --club-stripe-opacity: 0.85;
+        --streak-opacity: 0.14;
+        --bg-glow-a: rgba(96, 164, 228, 0.12);
+        --bg-glow-b: rgba(255, 255, 255, 0.4);
+        --bg-glow-c: rgba(206, 32, 51, 0.08);
+        --paint-spot-a: rgba(112, 173, 233, 0.2);
+        --paint-spot-b: rgba(206, 32, 51, 0.12);
+        --streak-a: rgba(57, 131, 210, 0.34);
+        --streak-b: rgba(206, 32, 51, 0.2);
+        --btn-grad: linear-gradient(116deg, #ffffff 0 18%, #6caee9 19% 58%, #2f76ca 59% 84%, #164f9a 85%);
+        --title-grad: linear-gradient(100deg, #134f94 0 42%, #2e85d7 43% 88%, #ce2033 89%);
+      }
+
+      /* ==========================================================================
+         2. База
+         ========================================================================== */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100svh;
+        font-family: var(--font-ui);
+        font-synthesis-weight: none;
+        line-height: 1.6;
+        color: var(--text);
+        background: radial-gradient(circle at 12% -8%, var(--bg-glow-a), transparent 42%),
+          radial-gradient(circle at 86% 110%, var(--bg-glow-b), transparent 38%),
+          radial-gradient(circle at 56% 42%, var(--bg-glow-c), transparent 45%), var(--bg);
+        overflow-x: hidden;
+        scrollbar-color: color-mix(in srgb, var(--ice) 45%, transparent) transparent;
+      }
+
+      /* Диагональные штрихи поверх фона в стиле матчевых постеров */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        opacity: var(--streak-opacity, 0.14);
+        background: radial-gradient(52vmax 34vmax at 14% 26%, var(--paint-spot-a), transparent 72%),
+          radial-gradient(44vmax 30vmax at 84% 72%, var(--paint-spot-b), transparent 74%),
+          linear-gradient(122deg, transparent 0 36%, var(--streak-a) 37% 39%, transparent 40% 100%),
+          linear-gradient(111deg, transparent 0 62%, var(--streak-b) 63% 65%, transparent 66% 100%);
+      }
+
+      /* Медленно дышащие цветовые пятна на фоне */
+      .aurora {
+        position: fixed;
+        inset: -25vmax;
+        z-index: -3;
+        pointer-events: none;
+        opacity: var(--aurora-opacity);
+        filter: blur(30px);
+      }
+
+      .aurora i {
+        position: absolute;
+        display: block;
+        border-radius: 50%;
+        filter: blur(80px);
+        mix-blend-mode: var(--aurora-blend, screen);
+        animation: drift 30s ease-in-out infinite alternate;
+      }
+
+      .aurora i:nth-child(1) {
+        width: 48vmax;
+        height: 48vmax;
+        top: -6vmax;
+        left: -4vmax;
+        background: radial-gradient(circle at 40% 40%, color-mix(in srgb, var(--accent) 85%, transparent), transparent 68%);
+      }
+
+      .aurora i:nth-child(2) {
+        width: 40vmax;
+        height: 40vmax;
+        top: 8vmax;
+        right: -6vmax;
+        background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--ice) 80%, transparent), transparent 66%);
+        animation-duration: 24s;
+        animation-delay: -8s;
+      }
+
+      .aurora i:nth-child(3) {
+        width: 44vmax;
+        height: 44vmax;
+        bottom: -14vmax;
+        left: 22vmax;
+        background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent-2) 78%, transparent), transparent 68%);
+        animation-duration: 36s;
+        animation-delay: -16s;
+      }
+
+      @keyframes drift {
+        from {
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        to {
+          transform: translate3d(6vmax, -5vmax, 0) scale(1.18);
+        }
+      }
+
+      /* Слой клетки отключён по запросу: оставляем только зерно и световые штрихи */
+      .rink-lines {
+        display: none;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 3;
+        pointer-events: none;
+        opacity: var(--grain-opacity);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      button {
+        font: inherit;
+        color: inherit;
+      }
+
+      ::selection {
+        background: color-mix(in srgb, var(--ice) 45%, transparent);
+        color: #fff;
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--ice);
+        outline-offset: 3px;
+        border-radius: 6px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: var(--font-display);
+        line-height: 1.12;
+        text-wrap: balance;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+      }
+
+      p {
+        text-wrap: pretty;
+      }
+
+      .wrap {
+        width: min(1180px, 92vw);
+        margin: 0 auto;
+      }
+
+      .skip-link {
+        position: absolute;
+        left: 12px;
+        top: -60px;
+        z-index: 100;
+        padding: 10px 16px;
+        border-radius: 10px;
+        background: var(--accent);
+        color: #fff;
+        font-weight: 600;
+        transition: top 0.2s ease;
+      }
+
+      .skip-link:focus {
+        top: 12px;
+      }
+
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
+
+      /* ==========================================================================
+         3. Индикатор прокрутки и шапка
+         ========================================================================== */
+      .scroll-progress {
+        position: fixed;
+        inset: 0 0 auto 0;
+        height: 3px;
+        z-index: 60;
+        background: color-mix(in srgb, var(--ice) 12%, transparent);
+      }
+
+      .scroll-progress span {
+        display: block;
+        height: 100%;
+        width: 100%;
+        transform-origin: 0 50%;
+        transform: scaleX(var(--p, 0));
+        background: linear-gradient(90deg, var(--ice), var(--accent), var(--accent-2));
+        box-shadow: 0 0 18px color-mix(in srgb, var(--ice) 60%, transparent);
+      }
+
+      /* Нативная scroll-driven animation, если браузер умеет */
+      @supports (animation-timeline: scroll()) {
+        .scroll-progress span {
+          animation: grow linear both;
+          animation-timeline: scroll(root block);
+        }
+
+        @keyframes grow {
+          from {
+            transform: scaleX(0);
+          }
+          to {
+            transform: scaleX(1);
+          }
+        }
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: var(--header-bg);
+        backdrop-filter: blur(16px) saturate(150%);
+        -webkit-backdrop-filter: blur(16px) saturate(150%);
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      }
+
+      .site-header.is-scrolled {
+        border-bottom-color: var(--line);
+        box-shadow: 0 18px 40px -30px rgba(0, 0, 0, 0.9), 0 2px 0 color-mix(in srgb, var(--accent) 64%, transparent);
+      }
+
+      .header-inner {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 12px 0;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-right: auto;
+      }
+
+      .brand-mark {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 13px;
+        color: #fff;
+        background: linear-gradient(140deg, var(--ice), var(--accent) 55%, var(--accent-2));
+        box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--accent) 90%, transparent);
+        overflow: hidden;
+      }
+
+      .brand-mark::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%);
+        transform: translateX(-120%);
+        transition: transform 0.7s ease;
+      }
+
+      .brand:hover .brand-mark::after {
+        transform: translateX(120%);
+      }
+
+      .brand-text {
+        display: grid;
+        line-height: 1.15;
+      }
+
+      .brand-text strong {
+        font-size: 1.02rem;
+        letter-spacing: -0.01em;
+      }
+
+      .brand-text small {
+        color: var(--muted);
+        font-size: 0.74rem;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .nav a {
+        position: relative;
+        padding: 9px 13px;
+        border-radius: 10px;
+        color: var(--muted);
+        font-size: 0.94rem;
+        font-weight: 500;
+        transition: color 0.22s ease, background 0.22s ease;
+      }
+
+      .nav a::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 3px;
+        width: 0;
+        height: 2px;
+        border-radius: 2px;
+        background: linear-gradient(90deg, var(--ice), var(--accent-2));
+        transform: translateX(-50%);
+        transition: width 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .nav a:hover {
+        color: var(--text);
+        background: var(--surface);
+      }
+
+      .nav a:hover::after,
+      .nav a.is-active::after {
+        width: 60%;
+      }
+
+      .nav a.is-active {
+        color: var(--text);
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .live-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 12px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.8rem;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+
+      .live-chip::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: 0 0 0 0 color-mix(in srgb, var(--green) 70%, transparent);
+        animation: pulse 2.4s ease-out infinite;
+      }
+
+      @keyframes pulse {
+        70% {
+          box-shadow: 0 0 0 7px transparent;
+        }
+        100% {
+          box-shadow: 0 0 0 0 transparent;
+        }
+      }
+
+      .icon-btn {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--surface);
+        cursor: pointer;
+        transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      }
+
+      .icon-btn:hover {
+        transform: translateY(-2px);
+        border-color: var(--line-strong);
+        background: var(--surface-2);
+      }
+
+      .icon-btn svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      /* Переключатель тем: три образца палитры */
+      .theme-picker {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+      }
+
+      .swatch {
+        position: relative;
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        border: 1px solid var(--line-strong);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .swatch:hover {
+        transform: translateY(-2px);
+      }
+
+      .swatch[aria-pressed="true"] {
+        box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px color-mix(in srgb, var(--text) 55%, transparent);
+      }
+
+      .swatch::after {
+        content: attr(data-label);
+        position: absolute;
+        top: calc(100% + 12px);
+        left: 50%;
+        z-index: 5;
+        padding: 5px 9px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--bg-soft);
+        color: var(--text);
+        font-size: 0.72rem;
+        font-weight: 600;
+        white-space: nowrap;
+        opacity: 0;
+        transform: translate(-50%, -4px);
+        pointer-events: none;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+
+      .swatch:hover::after,
+      .swatch:focus-visible::after {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+
+      .theme-picker .swatch:last-child::after {
+        left: auto;
+        right: -6px;
+        transform: translateY(-4px);
+      }
+
+      .theme-picker .swatch:last-child:hover::after,
+      .theme-picker .swatch:last-child:focus-visible::after {
+        transform: none;
+      }
+
+      /* Образцы палитр не зависят от активной темы */
+      .swatch-blue-dark {
+        background: linear-gradient(135deg, #0d1628 0 42%, #1f4d7f 42% 56%, #dc2437 56%);
+      }
+
+      .swatch-khaki {
+        background: linear-gradient(135deg, #4b553a 0 44%, #c0e194 44% 56%, #ef3146 56%);
+      }
+
+      .swatch-light {
+        background: linear-gradient(135deg, #ffffff 0 44%, #7ba5cf 44% 56%, #ce2033 56%);
+      }
+
+      /* Клубные темы: красная полоса под шапкой */
+      .site-header::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -1px;
+        height: 2px;
+        background: var(--club-stripe, transparent);
+        opacity: var(--club-stripe-opacity, 0);
+        transition: opacity 0.3s ease;
+      }
+
+      .burger {
+        display: none;
+      }
+
+      .burger span {
+        display: block;
+        width: 18px;
+        height: 2px;
+        border-radius: 2px;
+        background: currentColor;
+        transition: transform 0.25s ease, opacity 0.2s ease;
+      }
+
+      .burger span + span {
+        margin-top: 4px;
+      }
+
+      body.nav-open .burger span:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+      }
+
+      body.nav-open .burger span:nth-child(2) {
+        opacity: 0;
+      }
+
+      body.nav-open .burger span:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+      }
+
+      /* ==========================================================================
+         4. Универсальные элементы
+         ========================================================================== */
+      .section {
+        padding: 46px 0 8px;
+        scroll-margin-top: 84px;
+      }
+
+      .section-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 20px;
+      }
+
+      .section-head h2 {
+        margin: 0;
+        font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+      }
+
+      .section-head h2::before {
+        content: attr(data-step);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        color: transparent;
+        background: linear-gradient(120deg, var(--ice), var(--accent-2));
+        -webkit-background-clip: text;
+        background-clip: text;
+      }
+
+      .section-head p {
+        margin: 0;
+        max-width: 52ch;
+        color: var(--muted);
+        font-size: 0.96rem;
+      }
+
+      .card {
+        position: relative;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: linear-gradient(165deg, color-mix(in srgb, var(--surface-2) 44%, transparent), var(--surface));
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        box-shadow: var(--shadow-sm);
+        padding: 22px;
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      /* Блик, следующий за курсором */
+      .spotlight::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        opacity: 0;
+        background: radial-gradient(
+          420px circle at var(--mx, 50%) var(--my, 0%),
+          color-mix(in srgb, var(--ice) 16%, transparent),
+          transparent 62%
+        );
+        transition: opacity 0.35s ease;
+      }
+
+      .spotlight:hover::before {
+        opacity: 1;
+      }
+
+      .btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 12px 20px;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        cursor: pointer;
+        overflow: hidden;
+        transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.22s ease, background 0.22s ease,
+          border-color 0.22s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .btn-primary {
+        background: var(--btn-grad);
+        color: #fff;
+        box-shadow: 0 18px 34px -20px color-mix(in srgb, var(--accent) 95%, transparent), 0 0 0 1px color-mix(in srgb, #fff 22%, transparent)
+          inset;
+      }
+
+      .btn-primary::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.35) 50%, transparent 65%);
+        transform: translateX(-130%);
+        transition: transform 0.75s ease;
+      }
+
+      .btn-primary:hover::after {
+        transform: translateX(130%);
+      }
+
+      .btn-ghost {
+        border-color: var(--line-strong);
+        background: var(--surface);
+        color: var(--text);
+      }
+
+      .btn-ghost:hover {
+        background: var(--surface-2);
+      }
+
+      .btn-mini {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 12px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      }
+
+      .btn-mini:hover {
+        color: var(--text);
+        border-color: var(--line-strong);
+        transform: translateY(-1px);
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 11px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        font-size: 0.76rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        color: var(--muted);
+      }
+
+      .badge.accent {
+        color: color-mix(in srgb, var(--ice) 80%, var(--text));
+        border-color: color-mix(in srgb, var(--ice) 40%, transparent);
+        background: color-mix(in srgb, var(--ice) 14%, transparent);
+      }
+
+      .table-wrap {
+        position: relative;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        overflow: auto;
+        scrollbar-width: thin;
+      }
+
+      table.data {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 780px;
+        font-variant-numeric: tabular-nums;
+      }
+
+      table.data caption {
+        caption-side: top;
+        text-align: left;
+        padding: 14px 16px 0;
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      table.data th,
+      table.data td {
+        padding: 12px 14px;
+        text-align: left;
+        border-bottom: 1px solid var(--line);
+        white-space: nowrap;
+      }
+
+      table.data thead th {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: color-mix(in srgb, var(--bg-soft) 82%, transparent);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      table.data thead th[data-sort] {
+        cursor: pointer;
+        user-select: none;
+        transition: color 0.2s ease;
+      }
+
+      table.data thead th[data-sort]:hover {
+        color: var(--text);
+      }
+
+      table.data thead th[data-sort]::after {
+        content: "";
+        display: inline-block;
+        width: 0;
+        height: 0;
+        margin-left: 7px;
+        vertical-align: middle;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 5px solid currentColor;
+        opacity: 0.3;
+        transition: opacity 0.2s ease, transform 0.25s ease;
+      }
+
+      table.data thead th[aria-sort="descending"]::after {
+        opacity: 1;
+      }
+
+      table.data thead th[aria-sort="ascending"]::after {
+        opacity: 1;
+        transform: rotate(180deg);
+      }
+
+      table.data td.num {
+        text-align: center;
+      }
+
+      table.data tbody tr {
+        transition: background 0.22s ease, box-shadow 0.22s ease;
+      }
+
+      table.data tbody tr:hover {
+        background: color-mix(in srgb, var(--ice) 8%, transparent);
+      }
+
+      table.data tbody tr:last-child td {
+        border-bottom: 0;
+      }
+
+      table.data tbody tr.is-own {
+        background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%);
+        box-shadow: inset 3px 0 0 0 var(--ice);
+      }
+
+      table.data tbody tr.is-own:hover {
+        background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 32%, transparent), transparent 72%);
+      }
+
+      mark {
+        background: color-mix(in srgb, var(--amber) 55%, transparent);
+        color: inherit;
+        border-radius: 4px;
+        padding: 0 2px;
+      }
+
+      .rank {
+        display: inline-grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 9px;
+        background: var(--surface-2);
+        border: 1px solid var(--line);
+        font-weight: 700;
+        font-size: 0.82rem;
+      }
+
+      .rank.medal-1 {
+        background: linear-gradient(140deg, color-mix(in srgb, var(--gold) 60%, transparent), transparent);
+        border-color: color-mix(in srgb, var(--gold) 60%, transparent);
+        color: var(--gold);
+      }
+
+      .rank.medal-2 {
+        background: linear-gradient(140deg, color-mix(in srgb, var(--silver) 45%, transparent), transparent);
+        border-color: color-mix(in srgb, var(--silver) 45%, transparent);
+        color: var(--silver);
+      }
+
+      .rank.medal-3 {
+        background: linear-gradient(140deg, color-mix(in srgb, var(--bronze) 45%, transparent), transparent);
+        border-color: color-mix(in srgb, var(--bronze) 45%, transparent);
+        color: var(--bronze);
+      }
+
+      .bar {
+        display: block;
+        height: 6px;
+        width: 100%;
+        min-width: 54px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--text) 10%, transparent);
+        overflow: hidden;
+      }
+
+      .bar i {
+        display: block;
+        height: 100%;
+        width: 0;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--ice), var(--accent));
+        transition: width 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+        transition-delay: var(--delay, 0ms);
+      }
+
+      .bar.own i {
+        background: linear-gradient(90deg, var(--amber), var(--accent-2));
+      }
+
+      .is-visible .bar i {
+        width: var(--w, 0%);
+      }
+
+      /* Появление блоков при прокрутке */
+      .reveal {
+        opacity: 0;
+        transform: translateY(22px) scale(0.985);
+        filter: blur(6px);
+        transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+          filter 0.75s ease;
+        transition-delay: var(--delay, 0ms);
+      }
+
+      .reveal.is-visible {
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
+
+      /* ==========================================================================
+         5. Герой
+         ========================================================================== */
+      .hero {
+        position: relative;
+        padding: clamp(28px, 5vw, 60px) 0 10px;
+      }
+
+      .hero-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+        gap: clamp(24px, 4vw, 52px);
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 0 18px;
+        padding: 7px 14px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--ice);
+        box-shadow: 0 0 12px var(--ice);
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-size: clamp(2.1rem, 6vw, 4rem);
+        font-weight: 800;
+        text-shadow: 0 10px 28px color-mix(in srgb, var(--bg) 78%, transparent);
+      }
+
+      .hero h1 .grad {
+        display: block;
+        color: transparent;
+        background: var(--title-grad);
+        -webkit-background-clip: text;
+        background-clip: text;
+        filter: drop-shadow(0 7px 16px color-mix(in srgb, var(--accent) 42%, transparent));
+      }
+
+      .lead {
+        margin: 18px 0 0;
+        max-width: 56ch;
+        color: var(--muted);
+        font-size: clamp(1rem, 1.6vw, 1.12rem);
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 20px;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 26px;
+      }
+
+      .season-kpis {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .season-kpi {
+        padding: 12px 14px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: linear-gradient(180deg, color-mix(in srgb, var(--surface-2) 72%, transparent), var(--surface));
+      }
+
+      .season-kpi strong {
+        display: block;
+        font-size: clamp(1.45rem, 3.2vw, 2rem);
+        font-weight: 800;
+        color: var(--ice);
+        font-variant-numeric: tabular-nums;
+        line-height: 1.05;
+      }
+
+      .season-kpi span {
+        display: block;
+        margin-top: 4px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.72rem;
+      }
+
+      .hero-facts {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin: 32px 0 0;
+        padding: 18px 0 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .hero-facts div {
+        min-width: 0;
+      }
+
+      .hero-facts dt {
+        color: var(--muted);
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .hero-facts dd {
+        margin: 4px 0 0;
+        font-size: 1.15rem;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .hero-visual {
+        display: grid;
+        gap: 18px;
+      }
+
+      .logo-stage {
+        position: relative;
+        display: grid;
+        place-items: center;
+        aspect-ratio: 16 / 10;
+        border: 1px solid var(--line);
+        border-radius: calc(var(--radius) + 6px);
+        background: radial-gradient(circle at 50% 25%, color-mix(in srgb, var(--ice) 20%, transparent), transparent 62%),
+          linear-gradient(142deg, color-mix(in srgb, var(--accent) 14%, transparent), transparent 48%),
+          var(--surface);
+        overflow: hidden;
+      }
+
+      .logo-stage::before {
+        content: "";
+        position: absolute;
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        background: conic-gradient(from 0deg, transparent, color-mix(in srgb, var(--ice) 55%, transparent), transparent 65%);
+        animation: spin 9s linear infinite;
+        opacity: 0.55;
+      }
+
+      .logo-stage::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 120%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 60%);
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .logo-stage img {
+        position: relative;
+        z-index: 1;
+        width: clamp(120px, 20vw, 176px);
+        aspect-ratio: 1;
+        padding: 14px;
+        border-radius: 26px;
+        background: #fff;
+        object-fit: contain;
+        box-shadow: var(--shadow-lg);
+      }
+
+      /* Анимированное кольцо-бордер: @property + conic-gradient */
+      @property --angle {
+        syntax: "<angle>";
+        initial-value: 0deg;
+        inherits: false;
+      }
+
+      .ring {
+        display: none;
+      }
+
+      @supports (background: conic-gradient(from var(--a), red, blue)) {
+        .logo-stage::before {
+          background: none;
+        }
+
+        .ring {
+          display: block;
+          position: absolute;
+          inset: 12px;
+          border-radius: 22px;
+          padding: 1px;
+          background: conic-gradient(
+            from var(--angle),
+            transparent 0 55%,
+            color-mix(in srgb, var(--ice) 90%, transparent) 70%,
+            color-mix(in srgb, var(--accent-2) 90%, transparent) 84%,
+            transparent 100%
+          );
+          -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite: exclude;
+          animation: angle-spin 7s linear infinite;
+          pointer-events: none;
+        }
+
+        @keyframes angle-spin {
+          to {
+            --angle: 360deg;
+          }
+        }
+      }
+
+      /* Карточка ближайшего матча */
+      .next-match {
+        position: relative;
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: calc(var(--radius) + 6px);
+        background: linear-gradient(150deg, color-mix(in srgb, var(--accent) 18%, transparent), transparent 60%), var(--surface);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        box-shadow: var(--shadow-sm);
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .next-match .label {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .next-match .teams {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 12px 0 6px;
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+
+      .next-match .teams .vs {
+        padding: 3px 9px;
+        border-radius: 8px;
+        background: var(--surface-2);
+        color: var(--muted);
+        font-size: 0.76rem;
+        letter-spacing: 0.08em;
+      }
+
+      .next-match .meta {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .countdown {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: 16px;
+      }
+
+      .countdown div {
+        padding: 10px 6px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: color-mix(in srgb, var(--bg-soft) 55%, transparent);
+        text-align: center;
+      }
+
+      .countdown b {
+        display: block;
+        font-size: 1.35rem;
+        font-variant-numeric: tabular-nums;
+        background: linear-gradient(120deg, var(--ice), var(--accent-2));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .countdown span {
+        color: var(--muted);
+        font-size: 0.68rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      /* ==========================================================================
+         6. Обзор: плитки и график
+         ========================================================================== */
+      .stat-tiles {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 14px;
+      }
+
+      .tile {
+        position: relative;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        background: var(--surface);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        overflow: hidden;
+        transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s ease;
+        container-type: inline-size;
+      }
+
+      .tile:hover {
+        transform: translateY(-4px);
+        border-color: var(--line-strong);
+      }
+
+      .tile .tile-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .tile .tile-value {
+        margin: 10px 0 0;
+        font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+        font-weight: 800;
+        font-variant-numeric: tabular-nums;
+        line-height: 1;
+      }
+
+      .tile .tile-note {
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+
+      .tile.accent {
+        background: linear-gradient(150deg, color-mix(in srgb, var(--accent) 26%, transparent), transparent 65%), var(--surface);
+      }
+
+      .tile.good .tile-value {
+        color: var(--green);
+      }
+
+      .tile.warn .tile-value {
+        color: var(--amber);
+      }
+
+      .chart {
+        margin-top: 16px;
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+      }
+
+      .chart h3 {
+        margin: 0 0 4px;
+        font-size: 1.06rem;
+      }
+
+
+      .chart-rows {
+        display: grid;
+        gap: 11px;
+      }
+
+      .chart-row {
+        display: grid;
+        grid-template-columns: minmax(120px, 190px) 1fr auto;
+        align-items: center;
+        gap: 12px;
+        font-size: 0.9rem;
+      }
+
+      .chart-row .name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: var(--muted);
+      }
+
+      .chart-row.own .name {
+        color: var(--text);
+        font-weight: 700;
+      }
+
+      .chart-row .track {
+        display: block;
+        height: 10px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--text) 8%, transparent);
+        overflow: hidden;
+      }
+
+      .chart-row .fill {
+        display: block;
+        height: 100%;
+        width: 0;
+        border-radius: inherit;
+        background: linear-gradient(90deg, color-mix(in srgb, var(--ice) 70%, transparent), color-mix(in srgb, var(--accent) 90%, transparent));
+        transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        transition-delay: var(--delay, 0ms);
+      }
+
+      .chart-row.own .fill {
+        background: linear-gradient(90deg, var(--amber), var(--accent-2));
+        box-shadow: 0 0 20px -4px color-mix(in srgb, var(--amber) 80%, transparent);
+      }
+
+      .chart-row .value {
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .is-visible .chart-row .fill {
+        width: var(--w, 0%);
+      }
+
+      /* ==========================================================================
+         7. Формы и матчи
+         ========================================================================== */
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: flex-end;
+        margin-bottom: 16px;
+      }
+
+      .field {
+        display: grid;
+        gap: 6px;
+      }
+
+      .field > span {
+        color: var(--muted);
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .field input,
+      .field select {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: color-mix(in srgb, var(--bg-soft) 60%, transparent);
+        color: var(--text);
+        font: inherit;
+        font-size: 0.94rem;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      }
+
+      .field input::placeholder {
+        color: color-mix(in srgb, var(--muted) 80%, transparent);
+      }
+
+      .field:has(input:focus-visible) > span,
+      .field:has(select:focus-visible) > span {
+        color: color-mix(in srgb, var(--ice) 80%, var(--text));
+      }
+
+      .field.grow {
+        flex: 1 1 240px;
+      }
+
+      #statistics .toolbar {
+        justify-content: center;
+      }
+
+      #statistics .toolbar .field input,
+      #statistics .toolbar .field select,
+      #statistics .toolbar .btn-mini {
+        min-height: 44px;
+      }
+
+      #statistics .toolbar .btn-mini {
+        padding: 0 14px;
+        border-radius: 12px;
+      }
+
+      #statistics .toolbar #stats-reset {
+        width: 44px;
+        padding: 0;
+        justify-content: center;
+      }
+
+      .switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 11px 14px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: color-mix(in srgb, var(--bg-soft) 60%, transparent);
+        color: var(--muted);
+        font-size: 0.9rem;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .switch input {
+        appearance: none;
+        width: 38px;
+        height: 22px;
+        margin: 0;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--text) 16%, transparent);
+        position: relative;
+        cursor: pointer;
+        transition: background 0.25s ease;
+      }
+
+      .switch input::after {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #fff;
+        transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .switch input:checked {
+        background: linear-gradient(120deg, var(--accent), var(--accent-2));
+      }
+
+      .switch input:checked::after {
+        transform: translateX(16px);
+      }
+
+      .match-list {
+        display: grid;
+        gap: 14px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        container-type: inline-size;
+      }
+
+      .match {
+        position: relative;
+        display: grid;
+        gap: 14px;
+        padding: 18px 20px;
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--line-strong);
+        border-radius: var(--radius-sm);
+        background: var(--surface);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s ease, background 0.28s ease;
+      }
+
+      .match:hover {
+        transform: translateX(4px);
+        border-color: var(--line-strong);
+      }
+
+      .match.is-home {
+        border-left-color: var(--ice);
+      }
+
+      .match.is-away {
+        border-left-color: var(--amber);
+      }
+
+      .match.is-next {
+        border-color: color-mix(in srgb, var(--ice) 55%, transparent);
+        background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 20%, transparent), transparent 62%), var(--surface);
+        box-shadow: 0 24px 50px -34px color-mix(in srgb, var(--ice) 80%, transparent);
+      }
+
+      .match.is-past {
+        opacity: 0.68;
+      }
+
+      .match-top {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .match-top .when {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        color: var(--muted);
+        font-size: 0.88rem;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .match-top .when svg {
+        width: 15px;
+        height: 15px;
+      }
+
+      .match-teams {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+        font-weight: 700;
+      }
+
+      .match-teams .vs {
+        padding: 3px 10px;
+        border-radius: 999px;
+        background: var(--surface-2);
+        color: var(--muted);
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .match-foot {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .match-foot .tour {
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+
+      .match-foot .spacer {
+        margin-left: auto;
+      }
+
+      .countdown-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        background: color-mix(in srgb, var(--ice) 16%, transparent);
+        color: color-mix(in srgb, var(--ice) 85%, var(--text));
+        border: 1px solid color-mix(in srgb, var(--ice) 32%, transparent);
+      }
+
+      .countdown-chip.past {
+        background: var(--surface);
+        border-color: var(--line);
+        color: var(--muted);
+      }
+
+      .countdown-chip.today {
+        background: var(--amber);
+        border-color: transparent;
+        color: var(--bg);
+        animation: bounce-soft 1.8s ease-in-out infinite;
+      }
+
+      @keyframes bounce-soft {
+        50% {
+          transform: translateY(-3px);
+        }
+      }
+
+      @container (min-width: 620px) {
+        .match {
+          grid-template-columns: minmax(0, 1fr) auto;
+          align-items: center;
+        }
+
+        .match-foot {
+          grid-column: 2;
+          grid-row: 1 / span 2;
+          flex-direction: column;
+          align-items: flex-end;
+        }
+
+        .match-foot .spacer {
+          display: none;
+        }
+      }
+
+      /* ==========================================================================
+         8. Статистика игроков
+         ========================================================================== */
+      .podium {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        gap: 14px;
+        margin-bottom: 18px;
+      }
+
+      .podium-card {
+        position: relative;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        background: var(--surface);
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .podium-card .place {
+        margin: 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .podium-card .player {
+        margin: 10px 0 2px;
+        font-size: 1.1rem;
+        font-weight: 700;
+      }
+
+      .podium-card .team {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      .podium-card .goals {
+        margin: 12px 0 0;
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .podium-card .goals b {
+        font-size: 1.7rem;
+        line-height: 1;
+      }
+
+      .podium-card .goals span {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .podium-card.first {
+        border-color: color-mix(in srgb, var(--gold) 55%, transparent);
+        background: linear-gradient(150deg, color-mix(in srgb, var(--gold) 20%, transparent), transparent 60%), var(--surface);
+      }
+
+      .podium-card.second {
+        border-color: color-mix(in srgb, var(--silver) 45%, transparent);
+      }
+
+      .podium-card.third {
+        border-color: color-mix(in srgb, var(--bronze) 45%, transparent);
+      }
+
+      .heat {
+        display: block;
+        margin: 6px auto 0;
+        height: 5px;
+        width: 70px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--text) 10%, transparent);
+        overflow: hidden;
+      }
+
+      .heat i {
+        display: block;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--ice), var(--amber));
+        width: 0;
+        transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .is-visible .heat i {
+        width: var(--w, 0%);
+      }
+
+      .pagination {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 14px;
+      }
+
+      .pagination button {
+        min-width: 38px;
+        padding: 8px 12px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--surface);
+        color: var(--text);
+        cursor: pointer;
+        font-variant-numeric: tabular-nums;
+        transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+      }
+
+      .pagination button:hover:not(:disabled) {
+        transform: translateY(-2px);
+        border-color: var(--line-strong);
+      }
+
+      .pagination button[aria-current="page"] {
+        background: linear-gradient(120deg, var(--accent), var(--accent-2));
+        border-color: transparent;
+        color: #fff;
+        font-weight: 700;
+      }
+
+      .pagination button:disabled {
+        opacity: 0.42;
+        cursor: not-allowed;
+      }
+
+      .page-info {
+        color: var(--muted);
+        font-size: 0.86rem;
+        margin: 0 auto 0 0;
+      }
+
+      .empty-row td {
+        text-align: center;
+        color: var(--muted);
+        padding: 34px 14px;
+      }
+
+      /* ==========================================================================
+         9. Дни рождения
+         ========================================================================== */
+      .bday-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 16px;
+      }
+
+      .bday-col {
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .bday-col h3 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 14px;
+        font-size: 1.02rem;
+      }
+
+      .bday-col h3 .count {
+        padding: 2px 9px;
+        border-radius: 999px;
+        background: var(--surface-2);
+        border: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.76rem;
+        font-weight: 700;
+      }
+
+      .bday-list {
+        display: grid;
+        gap: 9px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .bday-item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 11px 14px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: color-mix(in srgb, var(--bg-soft) 55%, transparent);
+        transition: transform 0.22s ease, border-color 0.22s ease;
+      }
+
+      .bday-item:hover {
+        transform: translateX(3px);
+        border-color: var(--line-strong);
+      }
+
+      .bday-item .who {
+        display: grid;
+        gap: 2px;
+        min-width: 0;
+      }
+
+      .bday-item .who strong {
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+
+      .bday-item .who small {
+        color: var(--muted);
+        font-size: 0.78rem;
+      }
+
+      .bday-item .when {
+        display: grid;
+        justify-items: end;
+        gap: 2px;
+        color: var(--muted);
+        font-size: 0.82rem;
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .bday-item .in {
+        color: color-mix(in srgb, var(--ice) 85%, var(--text));
+        font-weight: 600;
+      }
+
+      .bday-item.upcoming {
+        border-color: color-mix(in srgb, var(--ice) 30%, transparent);
+        background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
+          color-mix(in srgb, var(--bg-soft) 55%, transparent);
+      }
+
+      .bday-item.soon .in {
+        color: var(--amber);
+      }
+
+      .bday-item.today {
+        border-color: transparent;
+        background: linear-gradient(120deg, color-mix(in srgb, var(--amber) 32%, transparent), color-mix(in srgb, var(--accent-2) 26%, transparent));
+        animation: glow 2.6s ease-in-out infinite;
+      }
+
+      @keyframes glow {
+        50% {
+          box-shadow: 0 0 0 4px color-mix(in srgb, var(--amber) 18%, transparent);
+        }
+      }
+
+      .bday-item.past {
+        opacity: 0.72;
+      }
+
+      /* ==========================================================================
+         10. Подвал и служебное
+         ========================================================================== */
+      footer.site-footer {
+        margin: 56px 0 0;
+        padding: 28px 0 40px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .footer-inner {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      footer.site-footer a {
+        color: color-mix(in srgb, var(--ice) 80%, var(--text));
+        border-bottom: 1px solid color-mix(in srgb, var(--ice) 40%, transparent);
+        transition: border-color 0.2s ease;
+      }
+
+      footer.site-footer a:hover {
+        border-color: currentColor;
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      .to-top {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        z-index: 45;
+        display: grid;
+        place-items: center;
+        width: 46px;
+        height: 46px;
+        border: 1px solid var(--line-strong);
+        border-radius: 14px;
+        background: var(--header-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: var(--text);
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(14px);
+        pointer-events: none;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+      .to-top.is-visible {
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+      }
+
+      .to-top svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      /* ==========================================================================
+         11. Адаптив
+         ========================================================================== */
+      @media (max-width: 980px) {
+        .hero-inner {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-visual {
+          order: -1;
+        }
+
+        .logo-stage {
+          aspect-ratio: 21 / 9;
+        }
+      }
+
+      @media (max-width: 860px) {
+        .burger {
+          display: grid;
+        }
+
+        .nav {
+          position: fixed;
+          inset: 62px 0 auto 0;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 2px;
+          padding: 14px 4vw 22px;
+          background: var(--header-bg);
+          backdrop-filter: blur(18px);
+          -webkit-backdrop-filter: blur(18px);
+          border-bottom: 1px solid var(--line);
+          transform: translateY(-14px);
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.28s;
+        }
+
+        body.nav-open .nav {
+          transform: none;
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .nav a {
+          padding: 13px 14px;
+          font-size: 1rem;
+        }
+
+        .nav a::after {
+          display: none;
+        }
+
+        .live-chip {
+          display: none;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .season-kpis {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 8px;
+        }
+
+        .season-kpi {
+          padding: 10px 10px;
+        }
+
+        .season-kpi strong {
+          font-size: 1.3rem;
+        }
+
+        .season-kpi span {
+          font-size: 0.66rem;
+          letter-spacing: 0.06em;
+        }
+
+        .hero-facts {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .countdown {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .chart-row {
+          grid-template-columns: 1fr auto;
+        }
+
+        .chart-row .track {
+          grid-column: 1 / -1;
+        }
+
+        /* Турнирная таблица на телефоне: компактная таблица с шапкой,
+           без подписи «Команда» у каждой строки и без полосы очков */
+        #standings-table {
+          min-width: 0;
+          table-layout: fixed;
+        }
+
+        #standings-table th,
+        #standings-table td {
+          padding: 7px 2px;
+          text-align: center;
+          font-variant-numeric: tabular-nums;
+        }
+
+        #standings-table tbody td {
+          font-size: 0.74rem;
+        }
+
+        #standings-table thead th {
+          padding: 11px 1px;
+          font-size: 0.62rem;
+          letter-spacing: 0.01em;
+        }
+
+        /* У первой колонки шапку не подписываем: место видно по бейджу */
+        #standings-table thead th:first-child {
+          font-size: 0;
+        }
+
+        /* Стрелки сортировки в узких колонках мешают — подсвечиваем столбец цветом */
+        #standings-table thead th[data-sort]::after {
+          display: none;
+        }
+
+        #standings-table thead th[aria-sort] {
+          color: color-mix(in srgb, var(--ice) 85%, var(--text));
+          box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--ice) 60%, transparent);
+        }
+
+        /* Ширины колонок: цифровые — по содержимому, название команды — остаток */
+        #standings-table th:first-child,
+        #standings-table td:first-child {
+          width: 24px;
+        }
+
+        #standings-table th:nth-child(3),
+        #standings-table td:nth-child(3),
+        #standings-table th:nth-child(4),
+        #standings-table td:nth-child(4),
+        #standings-table th:nth-child(5),
+        #standings-table td:nth-child(5),
+        #standings-table th:nth-child(6),
+        #standings-table td:nth-child(6),
+        #standings-table th:nth-child(10),
+        #standings-table td:nth-child(10) {
+          width: 22px;
+        }
+
+        #standings-table th:nth-child(7),
+        #standings-table td:nth-child(7),
+        #standings-table th:nth-child(8),
+        #standings-table td:nth-child(8) {
+          width: 28px;
+        }
+
+        #standings-table th:nth-child(9),
+        #standings-table td:nth-child(9) {
+          width: 30px;
+        }
+
+        #standings-table tbody td:nth-child(2) {
+          padding-left: 8px;
+          text-align: left;
+          font-weight: 600;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        /* Полоса очков, бейдж «мы» и хвост «2016» на телефоне не нужны */
+        #standings-table .bar,
+        #standings-table .team-year,
+        #standings-table tbody td:nth-child(2) .badge {
+          display: none;
+        }
+
+        #standings-table .rank {
+          width: 21px;
+          height: 21px;
+          border-radius: 7px;
+          font-size: 0.68rem;
+        }
+
+        /* Статистика игроков остаётся в виде карточек */
+        /* Таблицы превращаются в карточки, если JS добавил подписи колонок */
+        table.data.as-cards {
+          min-width: 0;
+        }
+
+        table.data.as-cards thead {
+          display: none;
+        }
+
+        table.data.as-cards tbody tr {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 8px 12px;
+          padding: 14px 16px;
+          border-bottom: 1px solid var(--line);
+        }
+
+        table.data.as-cards tbody td {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+          padding: 0;
+          border: 0;
+          white-space: normal;
+          text-align: right;
+        }
+
+        table.data.as-cards tbody td::before {
+          content: attr(data-label);
+          color: var(--muted);
+          font-size: 0.72rem;
+          text-transform: uppercase;
+          letter-spacing: 0.06em;
+        }
+
+        table.data.as-cards tbody td:first-child {
+          grid-column: 1 / -1;
+          justify-content: flex-start;
+        }
+
+        table.data.as-cards tbody td:first-child::before {
+          display: none;
+        }
+
+        table.data.as-cards tbody td.cell-team {
+          grid-column: 1 / -1;
+          justify-content: flex-start;
+          font-size: 1.05rem;
+          font-weight: 700;
+        }
+
+        .match-foot .tour {
+          display: none;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .season-kpis {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-facts {
+          grid-template-columns: 1fr;
+        }
+
+        .card,
+        .bday-col {
+          padding: 16px;
+        }
+
+        .to-top {
+          right: 12px;
+          bottom: 12px;
+        }
+      }
+
+      /* ==========================================================================
+         12. Предпочтения пользователя
+         ========================================================================== */
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+        }
+
+        .reveal {
+          opacity: 1;
+          transform: none;
+          filter: none;
+        }
+      }
+
+      @media print {
+        .aurora,
+        .rink-lines,
+        .scroll-progress,
+        .site-header,
+        .to-top,
+        body::after {
+          display: none !important;
+        }
+
+        body {
+          background: #fff;
+          color: #000;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+    <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress-bar"></span></div>
+    <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="rink-lines" aria-hidden="true"></div>
+
+    <header class="site-header" id="top">
+      <div class="wrap header-inner">
+        <a class="brand" href="#top" aria-label="Сетунь — наверх">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+              <ellipse cx="12" cy="7" rx="8" ry="3.2" />
+              <path d="M4 7v8.2c0 1.8 3.6 3.2 8 3.2s8-1.4 8-3.2V7" />
+              <path d="M4 11.2c0 1.8 3.6 3.2 8 3.2s8-1.4 8-3.2" />
+            </svg>
+          </span>
+          <span class="brand-text">
+            <strong>Сетунь</strong>
+            <small>SHL · Москва</small>
+          </span>
+        </a>
+
+        <nav class="nav" id="primary-nav" aria-label="Основная навигация">
+          <a href="#dashboard">Обзор</a>
+          <a href="#standings">Таблица</a>
+          <a href="#matches">Матчи</a>
+          <a href="#statistics">Статистика</a>
+          <a href="#birthdays">Дни рождения</a>
+        </nav>
+
+        <div class="header-actions">
+          <span class="live-chip" id="live-clock" aria-label="Текущее время по Москве">--:--:-- МСК</span>
+          <div class="theme-picker" role="group" aria-label="Тема оформления">
+            <button
+              class="swatch swatch-blue-dark"
+              type="button"
+              data-theme-value="blue-dark"
+              data-label="Тёмно-синяя"
+              aria-label="Тема: Тёмно-синяя"
+              aria-pressed="true"
+            ></button>
+            <button
+              class="swatch swatch-khaki"
+              type="button"
+              data-theme-value="khaki"
+              data-label="Зелёный хаки"
+              aria-label="Тема: Зелёный хаки"
+              aria-pressed="false"
+              tabindex="-1"
+            ></button>
+            <button
+              class="swatch swatch-light"
+              type="button"
+              data-theme-value="light"
+              data-label="Светлая"
+              aria-label="Тема: Светлая"
+              aria-pressed="false"
+              tabindex="-1"
+            ></button>
+          </div>
+          <button class="icon-btn burger" id="nav-toggle" type="button" aria-label="Меню" aria-expanded="false" aria-controls="primary-nav">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ================= ГЕРОЙ ================= -->
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="wrap hero-inner">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">SHL · Сезон 2026/2027</p>
+            <h1 id="hero-title">Хоккейная команда <span class="grad">«Сетунь»</span></h1>
+            <p class="lead">
+              Команда из Москвы, выступающая в SHL. Разделы страницы автоматически заполняются из данных дивизиона.
+            </p>
+            <div class="chips">
+              <span class="badge accent">Москва</span>
+              <span class="badge">SHL</span>
+              <span class="badge">Рубин А/Рубин Б</span>
+              <span class="badge">Сезон 2026/2027</span>
+            </div>
+            <div class="actions">
+              <a class="btn btn-primary" href="https://shlmos.ru/team/2641" target="_blank" rel="noopener noreferrer">
+                Карточка команды
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <path d="M7 17 17 7M9 7h8v8" />
+                </svg>
+              </a>
+              <a class="btn btn-ghost" href="https://shlmos.ru/" target="_blank" rel="noopener noreferrer">
+                Сайт SHL
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <path d="M7 17 17 7M9 7h8v8" />
+                </svg>
+              </a>
+            </div>
+
+            <div class="season-kpis reveal" style="--delay: 120ms" aria-label="KPI дивизиона">
+              <div class="season-kpi">
+                <strong id="season-games" data-count="0">0</strong>
+                <span>Матчи</span>
+              </div>
+              <div class="season-kpi">
+                <strong id="season-wins" data-count="0">0</strong>
+                <span>Победы</span>
+              </div>
+              <div class="season-kpi">
+                <strong id="season-points" data-count="0">0</strong>
+                <span>Очки</span>
+              </div>
+            </div>
+
+            <dl class="hero-facts">
+              <div>
+                <dt>Место в таблице</dt>
+                <dd><span data-count="0">0</span>-е из <span id="hero-total-teams">0</span></dd>
+              </div>
+              <div>
+                <dt>Очков за игру</dt>
+                <dd><span data-count="0" data-decimals="2">0,00</span></dd>
+              </div>
+              <div>
+                <dt>Разница шайб</dt>
+                <dd><span id="hero-goal-diff">0</span></dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="hero-visual reveal" style="--delay: 140ms">
+            <div class="logo-stage">
+              <span class="ring" aria-hidden="true"></span>
+              <img
+                src="https://fs.mtgame.ru/setun.png"
+                alt="Логотип команды Сетунь"
+                width="176"
+                height="176"
+              />
+            </div>
+
+            <div class="next-match spotlight" id="next-match">
+              <p class="label">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                  <rect x="3" y="5" width="18" height="16" rx="3" />
+                  <path d="M8 3v4M16 3v4M3 10h18" />
+                </svg>
+                Ближайший матч
+              </p>
+              <p class="teams">
+                <span>Команда 1</span>
+                <span class="vs">vs</span>
+                <span>Сетунь</span>
+              </p>
+              <p class="meta">Ожидаем обновление расписания…</p>
+              <div class="countdown" id="countdown" role="timer" aria-label="До ближайшего матча">
+                <div><b data-cd="days">--</b><span>дней</span></div>
+                <div><b data-cd="hours">--</b><span>часов</span></div>
+                <div><b data-cd="minutes">--</b><span>минут</span></div>
+                <div><b data-cd="seconds">--</b><span>секунд</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= ОБЗОР ================= -->
+      <section class="section" id="dashboard" aria-labelledby="dashboard-title">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <h2 id="dashboard-title" data-step="01">Обзор сезона</h2>
+            <p>Показатели «Сетуни» в дивизионе SHL. Данные обновляются автоматически при запуске скрипта.</p>
+          </div>
+
+          <div class="stat-tiles reveal">
+            <article class="tile accent spotlight">
+              <p class="tile-label">Место</p>
+              <p class="tile-value">0<span style="font-size: 0.5em; color: var(--muted)"> / 0</span></p>
+              <p class="tile-note">Актуальные данные дивизиона SHL</p>
+            </article>
+            <article class="tile spotlight">
+              <p class="tile-label">Игры</p>
+              <p class="tile-value" data-count="0">0</p>
+              <p class="tile-note">Победы/поражения из текущей таблицы</p>
+            </article>
+            <article class="tile good spotlight">
+              <p class="tile-label">Заброшено</p>
+              <p class="tile-value" data-count="0">0</p>
+              <p class="tile-note">Суммарно по данным таблицы</p>
+            </article>
+            <article class="tile spotlight">
+              <p class="tile-label">Пропущено</p>
+              <p class="tile-value" data-count="0">0</p>
+              <p class="tile-note">Суммарно по данным таблицы</p>
+            </article>
+            <article class="tile good spotlight">
+              <p class="tile-label">Разница шайб</p>
+              <p class="tile-value"><span data-count="0">0</span></p>
+              <p class="tile-note">Разница заброшенных и пропущенных</p>
+            </article>
+            <article class="tile warn spotlight">
+              <p class="tile-label">Очков за игру</p>
+              <p class="tile-value" data-count="0" data-decimals="2">0,00</p>
+              <p class="tile-note">Рассчитывается автоматически</p>
+            </article>
+          </div>
+
+          <div class="chart reveal" id="points-chart">
+            <h3>Очки команд в турнире</h3>
+            <div class="chart-rows" id="chart-rows"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= ТАБЛИЦА ================= -->
+      <section class="section" id="standings" aria-labelledby="standings-title">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <h2 id="standings-title" data-step="02">Турнирная таблица</h2>
+          </div>
+
+          <div class="table-wrap reveal">
+            <table class="data" id="standings-table">
+              <caption class="visually-hidden">Турнирная таблица 2016 г.р., первый этап</caption>
+              <thead>
+                <tr>
+                  <th scope="col" data-sort="number">Место</th>
+                  <th scope="col">Команда</th>
+                  <th scope="col" data-sort="number" title="Сыграно игр">И</th>
+                  <th scope="col" data-sort="number" title="Выиграно игр">В</th>
+                  <th scope="col" data-sort="number" title="Игр в ничью">Н</th>
+                  <th scope="col" data-sort="number" title="Поражений">П</th>
+                  <th scope="col" data-sort="number" title="Шайб заброшено">ШЗ</th>
+                  <th scope="col" data-sort="number" title="Шайб пропущено">ШП</th>
+                  <th scope="col" data-sort="number" title="Разница шайб">РШ</th>
+                  <th scope="col" data-sort="number" title="Очков">О</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= МАТЧИ ================= -->
+      <section class="section" id="matches" aria-labelledby="matches-title">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <h2 id="matches-title" data-step="03">Ближайшие матчи</h2>
+          </div>
+
+          <ul class="match-list reveal"></ul>
+        </div>
+      </section>
+
+      <!-- ================= СТАТИСТИКА ================= -->
+      <section class="section" id="statistics" aria-labelledby="stats-title">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <h2 id="stats-title" data-step="04">Статистика игроков турнира</h2>
+          </div>
+
+          <div class="podium reveal" id="podium"></div>
+
+          <div class="toolbar reveal">
+            <label class="field">
+              <span>Группа</span>
+              <select id="group-filter">
+                <option value="all">Все группы</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Команда</span>
+              <select id="team-filter">
+                <option value="all">Все команды</option>
+              </select>
+            </label>
+            <label class="field grow">
+              <span>Поиск игрока</span>
+              <input id="player-search" type="search" placeholder="Введите часть ФИО" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Строк на странице</span>
+              <select id="page-size">
+                <option value="10">10</option>
+                <option value="15" selected>15</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+              </select>
+            </label>
+            <button class="btn-mini" id="stats-reset" type="button" aria-label="Сброс фильтров и сортировки" title="Сброс">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+                <path d="M21 3v6h-6" />
+              </svg>
+            </button>
+            <button class="btn-mini" id="stats-export" type="button">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M12 3v12M7 10l5 5 5-5M5 20h14" />
+              </svg>
+              CSV
+            </button>
+          </div>
+
+          <div class="table-wrap reveal">
+            <table class="data" id="goals-table">
+              <caption class="visually-hidden">Бомбардиры турнира 2016 г.р., сезон 2026/2027</caption>
+              <thead>
+                <tr>
+                  <th scope="col" data-sort="number">Позиция</th>
+                  <th scope="col" data-sort="text">Игрок</th>
+                  <th scope="col" data-sort="text">Группа</th>
+                  <th scope="col" data-sort="text">Команда</th>
+                  <th scope="col" data-sort="number">Игры</th>
+                  <th scope="col" data-sort="number">Голы</th>
+                  <th scope="col" data-sort="number"><abbr title="point per game = goals/games">PPG</abbr></th>
+                </tr>
+              </thead>
+              <tbody id="goals-table-body"></tbody>
+            </table>
+          </div>
+
+          <div class="pagination">
+            <p class="page-info" id="stats-status" role="status" aria-live="polite"></p>
+            <button type="button" id="stats-prev-page" aria-label="Предыдущая страница">Назад</button>
+            <span id="stats-pages" style="display: contents"></span>
+            <button type="button" id="stats-next-page" aria-label="Следующая страница">Вперёд</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= ДНИ РОЖДЕНИЯ ================= -->
+      <section class="section" id="birthdays" aria-labelledby="bday-title">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <h2 id="bday-title" data-step="05">Дни рождения</h2>
+          </div>
+
+          <div class="bday-grid">
+            <article class="bday-col reveal spotlight">
+              <h3>Предстоящие <span class="count" id="bday-upcoming-count">0</span></h3>
+              <ul class="bday-list" id="bday-upcoming"></ul>
+            </article>
+
+            <article class="bday-col reveal spotlight" style="--delay: 120ms">
+              <h3>Прошедшие <span class="count" id="bday-past-count">0</span></h3>
+              <ul class="bday-list" id="bday-past"></ul>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p style="margin: 0">
+          Источник данных: SHL / MTGame API —
+          <a href="https://shlmos.ru/team/2641" target="_blank" rel="noopener noreferrer">страница команды</a>.
+          Информация обновляется скриптом по ходу сезона.
+        </p>
+        <div class="footer-links">
+          <a href="#dashboard">Обзор</a>
+          <a href="#standings">Таблица</a>
+          <a href="#statistics">Статистика</a>
+          <a href="#top">Наверх</a>
+        </div>
+      </div>
+    </footer>
+
+    <button class="to-top" id="to-top" type="button" aria-label="Наверх">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M12 19V5M6 11l6-6 6 6" />
+      </svg>
+    </button>
+
+    <script src="setun_shl_data.js"></script>
+    <script>
+      /* CENTR2016APPSTART */
+      (() => {
+        "use strict";
+
+        const $ = (selector, root = document) => root.querySelector(selector);
+        const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const canHover = window.matchMedia("(hover: hover)").matches;
+        const numberFmt = new Intl.NumberFormat("ru-RU");
+        const decimalsFmt = new Intl.NumberFormat("ru-RU", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const fullDateFmt = new Intl.DateTimeFormat("ru-RU", { day: "2-digit", month: "2-digit", year: "numeric" });
+        const dateWeekdayFmt = new Intl.DateTimeFormat("ru-RU", { weekday: "short", day: "numeric", month: "long" });
+        const html = document.documentElement;
+        const appData = window.shlAppData && typeof window.shlAppData === "object" ? window.shlAppData : null;
+
+        /** Русская плюрализация: plural(3, "день", "дня", "дней") → "дня". */
+        function plural(count, one, few, many) {
+          const n = Math.abs(count) % 100;
+          const n1 = n % 10;
+          if (n > 10 && n < 20) return many;
+          if (n1 > 1 && n1 < 5) return few;
+          if (n1 === 1) return one;
+          return many;
+        }
+
+        function escapeHtml(value) {
+          return String(value).replace(
+            /[&<>"']/g,
+            (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char])
+          );
+        }
+
+        function repairMojibake(value) {
+          const text = String(value || "");
+          if (!/[ÂÃÐÑ]/.test(text)) {
+            return text;
+          }
+
+          try {
+            const bytes = Uint8Array.from(text, (char) => char.charCodeAt(0) & 255);
+            const decoded = new TextDecoder("utf-8").decode(bytes);
+            if (/[\u0400-\u04FF]/.test(decoded) || decoded.includes("·")) {
+              return decoded;
+            }
+          } catch (error) {
+            /* оставляем fallback ниже */
+          }
+
+          return text.replace(/Â·/g, "·").replace(/Ñ‚ÑƒÑ€/g, "тур");
+        }
+
+        function fromIso(iso) {
+          const [year, month, day] = iso.split("-").map(Number);
+          return new Date(year, month - 1, day);
+        }
+
+        function startOfDay(date) {
+          return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        }
+
+        function daysBetween(from, to) {
+          return Math.round((startOfDay(to) - startOfDay(from)) / 86400000);
+        }
+
+        function hydrateFromAppData() {
+          if (!appData) return;
+
+          const meta = appData.meta || {};
+          const overview = appData.overview || {};
+          const standings = Array.isArray(appData.standings) ? appData.standings : [];
+          const matches = Array.isArray(appData.matches) ? appData.matches : [];
+          const birthdays = Array.isArray(appData.birthdays) ? appData.birthdays : [];
+
+          const teamName = String(meta.teamName || "Сетунь");
+          const seasonLabel = String(meta.seasonLabel || "2026/2027");
+          const division = String(meta.division || "SHL");
+          const city = String(meta.city || "Москва");
+
+          const title = document.querySelector("title");
+          if (title) title.textContent = `${teamName} — хоккейная команда (SHL)`;
+          const description = document.querySelector('meta[name="description"]');
+          if (description) {
+            description.setAttribute(
+              "content",
+              `Хоккейная команда «${teamName}» (SHL): турнирная таблица, ближайшие матчи, статистика игроков дивизиона и дни рождения.`
+            );
+          }
+
+          const brandStrong = document.querySelector(".brand-text strong");
+          if (brandStrong) brandStrong.textContent = teamName;
+          const brandSmall = document.querySelector(".brand-text small");
+          if (brandSmall) brandSmall.textContent = `SHL · ${city}`;
+
+          const eyebrow = document.querySelector(".hero .eyebrow");
+          if (eyebrow) eyebrow.textContent = `SHL · Сезон ${seasonLabel}`;
+          const heroGrad = document.querySelector("#hero-title .grad");
+          if (heroGrad) heroGrad.textContent = `«${teamName}»`;
+          const heroLead = document.querySelector(".hero .lead");
+          if (heroLead) heroLead.textContent = `Команда из ${city}, выступающая в SHL. Дивизион: ${division}.`;
+
+          const actionLinks = document.querySelectorAll(".hero .actions a");
+          if (actionLinks[0] && meta.teamUrl) actionLinks[0].setAttribute("href", meta.teamUrl);
+          if (actionLinks[1]) actionLinks[1].setAttribute("href", "https://shlmos.ru/");
+
+          const logo = document.querySelector(".logo-stage img");
+          if (logo && meta.logoUrl) {
+            logo.setAttribute("src", meta.logoUrl);
+            logo.setAttribute("alt", `Логотип команды ${teamName}`);
+          }
+
+          const placeCount = document.querySelector(".hero-facts [data-count]");
+          if (placeCount && Number.isFinite(Number(overview.place))) {
+            placeCount.dataset.count = String(Number(overview.place));
+            placeCount.textContent = String(Number(overview.place));
+          }
+          const totalTeams = document.querySelector("#hero-total-teams");
+          if (totalTeams && Number.isFinite(Number(overview.totalTeams))) {
+            totalTeams.textContent = String(Number(overview.totalTeams));
+          }
+
+          const heroStats = document.querySelectorAll(".hero-facts [data-count]");
+          if (heroStats[1]) {
+            heroStats[1].dataset.count = String(Number(overview.ppg || 0));
+            heroStats[1].textContent = decimalsFmt.format(Number(overview.ppg || 0));
+          }
+          const heroDiff = document.querySelector("#hero-goal-diff");
+          if (heroDiff) {
+            const diff = Number(overview.goalDiff || 0);
+            heroDiff.textContent = diff > 0 ? `+${diff}` : String(diff);
+          }
+
+          const seasonGames = document.querySelector("#season-games");
+          if (seasonGames) {
+            seasonGames.dataset.count = String(Number(overview.games || 0));
+            seasonGames.textContent = String(Number(overview.games || 0));
+          }
+          const seasonWins = document.querySelector("#season-wins");
+          if (seasonWins) {
+            seasonWins.dataset.count = String(Number(overview.wins || 0));
+            seasonWins.textContent = String(Number(overview.wins || 0));
+          }
+          const seasonPoints = document.querySelector("#season-points");
+          if (seasonPoints) {
+            seasonPoints.dataset.count = String(Number(overview.points || 0));
+            seasonPoints.textContent = String(Number(overview.points || 0));
+          }
+
+          const tiles = document.querySelectorAll(".stat-tiles .tile");
+          if (tiles.length >= 6) {
+            const place = Number(overview.place || 0);
+            const allTeams = Number(overview.totalTeams || 0);
+            const games = Number(overview.games || 0);
+            const wins = Number(overview.wins || 0);
+            const losses = Number(overview.losses || 0);
+            const gf = Number(overview.goalsFor || 0);
+            const ga = Number(overview.goalsAgainst || 0);
+            const diff = Number(overview.goalDiff || 0);
+            const ppg = Number(overview.ppg || 0);
+
+            const placeValue = tiles[0].querySelector(".tile-value");
+            if (placeValue) placeValue.innerHTML = `${place}<span style="font-size: 0.5em; color: var(--muted)"> / ${allTeams}</span>`;
+            const gamesValue = tiles[1].querySelector(".tile-value");
+            if (gamesValue) {
+              gamesValue.dataset.count = String(games);
+              gamesValue.textContent = String(games);
+            }
+            const gamesNote = tiles[1].querySelector(".tile-note");
+            if (gamesNote) gamesNote.textContent = `${wins} побед, ${losses} поражений`;
+
+            const gfValue = tiles[2].querySelector(".tile-value");
+            if (gfValue) {
+              gfValue.dataset.count = String(gf);
+              gfValue.textContent = String(gf);
+            }
+            const gaValue = tiles[3].querySelector(".tile-value");
+            if (gaValue) {
+              gaValue.dataset.count = String(ga);
+              gaValue.textContent = String(ga);
+            }
+            const diffValue = tiles[4].querySelector(".tile-value [data-count]") || tiles[4].querySelector(".tile-value");
+            if (diffValue) {
+              diffValue.dataset.count = String(diff);
+              diffValue.textContent = diff > 0 ? `+${diff}` : String(diff);
+            }
+            const ppgValue = tiles[5].querySelector(".tile-value");
+            if (ppgValue) {
+              ppgValue.dataset.count = String(ppg);
+              ppgValue.textContent = decimalsFmt.format(ppg);
+            }
+          }
+
+          const standingsBody = document.querySelector("#standings-table tbody");
+          if (standingsBody && standings.length) {
+            standingsBody.innerHTML = standings
+              .map(
+                (row) => `<tr>
+                <td class="num">${Number(row.place || 0)}</td>
+                <td>${escapeHtml(String(row.team || ""))}</td>
+                <td class="num">${Number(row.games || 0)}</td>
+                <td class="num">${Number(row.wins || 0)}</td>
+                <td class="num">${Number(row.draws || 0)}</td>
+                <td class="num">${Number(row.losses || 0)}</td>
+                <td class="num">${Number(row.gf || 0)}</td>
+                <td class="num">${Number(row.ga || 0)}</td>
+                <td class="num">${Number(row.diff || 0)}</td>
+                <td class="num">${Number(row.points || 0)}</td>
+              </tr>`
+              )
+              .join("");
+          }
+
+          const matchList = document.querySelector(".match-list");
+          if (matchList && matches.length) {
+            matchList.innerHTML = matches
+              .map((m) => {
+                const date = String(m.date || "");
+                const time = String(m.time || "");
+                const home = String(m.home || "");
+                const away = String(m.away || "");
+                const venue = String(m.venue || "away");
+                const tour = repairMojibake(String(m.tour || ""));
+                const label = time ? `${dateWeekdayFmt.format(fromIso(date))}, ${time}` : dateWeekdayFmt.format(fromIso(date));
+                return `<li class="match" data-home="${escapeHtml(home)}" data-away="${escapeHtml(away)}" data-date="${escapeHtml(
+                  date
+                )}" data-time="${escapeHtml(time)}" data-venue="${escapeHtml(venue)}" data-tour="${escapeHtml(tour)}"><strong>${escapeHtml(
+                  label
+                )}</strong> · ${escapeHtml(home)} — ${escapeHtml(away)}</li>`;
+              })
+              .join("");
+          }
+
+          if (matches.length) {
+            const first = matches[0];
+            const nextTeams = document.querySelectorAll("#next-match .teams span");
+            if (nextTeams[0]) nextTeams[0].textContent = String(first.home || "");
+            if (nextTeams[2]) nextTeams[2].textContent = String(first.away || "");
+            const nextMeta = document.querySelector("#next-match .meta");
+            if (nextMeta) {
+              const localDate = fromIso(String(first.date || "1970-01-01"));
+              const dtText = `${dateWeekdayFmt.format(localDate)}${first.time ? `, ${first.time}` : ""}`;
+              const venueText = first.venue === "home" ? "дома" : "в гостях";
+              const tour = repairMojibake(String(first.tour || "SHL"));
+              nextMeta.textContent = `${dtText} · ${tour} · ${venueText}`;
+            }
+          }
+
+          const upcomingList = document.querySelector("#bday-upcoming");
+          const pastList = document.querySelector("#bday-past");
+          if (upcomingList) {
+            upcomingList.innerHTML = birthdays
+              .map(
+                (b) => `<li class="bday-item upcoming" data-date="${escapeHtml(String(b.date || ""))}"><span class="who"><strong>${escapeHtml(
+                  String(b.name || "")
+                )}</strong></span><span class="when">${escapeHtml(fullDateFmt.format(fromIso(String(b.date || "2000-01-01"))))}</span></li>`
+              )
+              .join("");
+          }
+          if (pastList) pastList.innerHTML = "";
+        }
+
+        hydrateFromAppData();
+
+        /* ====================================================================
+           Тема оформления: тёмно-синяя (по умолчанию), зелёный хаки и светлая
+           ==================================================================== */
+        const THEME_KEY = "setun-shl:theme";
+        const DEFAULT_THEME = "blue-dark";
+        const THEMES = {
+          "blue-dark": { label: "Тёмно-синяя", color: "#070f1f" },
+          khaki: { label: "Зелёный хаки", color: "#545d44" },
+          light: { label: "Светлая", color: "#f8fbff" },
+        };
+        const themeButtons = $$(".theme-picker .swatch");
+        const themeColor = document.querySelector('meta[name="theme-color"]');
+
+        function applyTheme(theme, persist) {
+          const next = Object.prototype.hasOwnProperty.call(THEMES, theme) ? theme : DEFAULT_THEME;
+          html.dataset.theme = next;
+          themeButtons.forEach((button) => {
+            const isActive = button.dataset.themeValue === next;
+            button.setAttribute("aria-pressed", String(isActive));
+            button.tabIndex = isActive ? 0 : -1;
+          });
+          themeColor?.setAttribute("content", THEMES[next].color);
+          if (persist) {
+            try {
+              localStorage.setItem(THEME_KEY, next);
+            } catch (error) {
+              /* приватный режим — просто не запоминаем выбор */
+            }
+          }
+        }
+
+        themeButtons.forEach((button, index) => {
+          button.addEventListener("click", () => applyTheme(button.dataset.themeValue, true));
+          button.addEventListener("keydown", (event) => {
+            let step = 0;
+            if (event.key === "ArrowRight" || event.key === "ArrowDown") step = 1;
+            if (event.key === "ArrowLeft" || event.key === "ArrowUp") step = -1;
+            if (!step) return;
+            event.preventDefault();
+            const target = themeButtons[(index + step + themeButtons.length) % themeButtons.length];
+            target.focus();
+            applyTheme(target.dataset.themeValue, true);
+          });
+        });
+
+        applyTheme(html.dataset.theme || DEFAULT_THEME, false);
+
+        /* ====================================================================
+           Шапка: прогресс прокрутки, состояние, меню, часы, активный раздел
+           ==================================================================== */
+        const progressBar = $("#scroll-progress-bar");
+        const header = $(".site-header");
+        const toTop = $("#to-top");
+        const nativeScrollTimeline = Boolean(window.CSS && CSS.supports && CSS.supports("animation-timeline: scroll()"));
+        let scrollScheduled = false;
+
+        function onScroll() {
+          const scrollTop = window.scrollY || html.scrollTop;
+          const max = html.scrollHeight - html.clientHeight;
+          if (!nativeScrollTimeline && progressBar) {
+            progressBar.style.setProperty("--p", max > 0 ? String(Math.min(scrollTop / max, 1)) : "0");
+          }
+          header?.classList.toggle("is-scrolled", scrollTop > 12);
+          toTop?.classList.toggle("is-visible", scrollTop > 600);
+          scrollScheduled = false;
+        }
+
+        window.addEventListener(
+          "scroll",
+          () => {
+            if (!scrollScheduled) {
+              scrollScheduled = true;
+              requestAnimationFrame(onScroll);
+            }
+          },
+          { passive: true }
+        );
+        onScroll();
+
+        function scrollToTop() {
+          window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+        }
+
+        toTop?.addEventListener("click", scrollToTop);
+        $$("a[href='#top']").forEach((link) => {
+          link.addEventListener("click", (event) => {
+            event.preventDefault();
+            scrollToTop();
+          });
+        });
+
+        const navToggle = $("#nav-toggle");
+        const nav = $("#primary-nav");
+
+        function closeNav() {
+          document.body.classList.remove("nav-open");
+          navToggle?.setAttribute("aria-expanded", "false");
+        }
+
+        navToggle?.addEventListener("click", () => {
+          const open = document.body.classList.toggle("nav-open");
+          navToggle.setAttribute("aria-expanded", String(open));
+        });
+
+        nav?.addEventListener("click", (event) => {
+          if (event.target.closest("a")) closeNav();
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") closeNav();
+        });
+
+        const clock = $("#live-clock");
+        const moscowTime = new Intl.DateTimeFormat("ru-RU", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          timeZone: "Europe/Moscow",
+        });
+
+        if (clock) {
+          const tickClock = () => {
+            clock.textContent = `${moscowTime.format(new Date())} МСК`;
+          };
+          tickClock();
+          setInterval(tickClock, 1000);
+        }
+
+        const navLinks = $$("#primary-nav a");
+        const navSections = navLinks.map((link) => $(link.getAttribute("href"))).filter(Boolean);
+
+        if ("IntersectionObserver" in window && navSections.length) {
+          const navObserver = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                navLinks.forEach((link) =>
+                  link.classList.toggle("is-active", link.getAttribute("href") === `#${entry.target.id}`)
+                );
+              });
+            },
+            { rootMargin: "-45% 0px -50% 0px" }
+          );
+          navSections.forEach((section) => navObserver.observe(section));
+        }
+
+        /* ====================================================================
+           Появление блоков, счётчики, блик под курсором
+           ==================================================================== */
+        function animateCount(element) {
+          const target = Number(element.dataset.count);
+          if (!Number.isFinite(target)) return;
+          const format = Number(element.dataset.decimals || 0) ? decimalsFmt : numberFmt;
+          if (reduceMotion) {
+            element.textContent = format.format(target);
+            return;
+          }
+          const duration = 1100;
+          const start = performance.now();
+          const frame = (now) => {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            element.textContent = format.format(target * eased);
+            if (progress < 1) requestAnimationFrame(frame);
+          };
+          requestAnimationFrame(frame);
+        }
+
+        function fillCounterStatic(element) {
+          const format = Number(element.dataset.decimals || 0) ? decimalsFmt : numberFmt;
+          element.textContent = format.format(Number(element.dataset.count));
+        }
+
+        const revealItems = $$(".reveal");
+
+        if ("IntersectionObserver" in window && !reduceMotion) {
+          const revealObserver = new IntersectionObserver(
+            (entries, observer) => {
+              entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add("is-visible");
+                $$("[data-count]", entry.target).forEach(animateCount);
+                observer.unobserve(entry.target);
+              });
+            },
+            { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }
+          );
+          revealItems.forEach((item) => revealObserver.observe(item));
+        } else {
+          revealItems.forEach((item) => {
+            item.classList.add("is-visible");
+            $$("[data-count]", item).forEach(fillCounterStatic);
+          });
+        }
+
+        if (!reduceMotion && canHover) {
+          document.addEventListener(
+            "pointermove",
+            (event) => {
+              const target = event.target;
+              const card = target instanceof Element ? target.closest(".spotlight") : null;
+              if (!card) return;
+              const rect = card.getBoundingClientRect();
+              card.style.setProperty("--mx", `${event.clientX - rect.left}px`);
+              card.style.setProperty("--my", `${event.clientY - rect.top}px`);
+            },
+            { passive: true }
+          );
+        }
+
+        /* ====================================================================
+           Турнирная таблица: сортировка, поиск, полосы очков, график
+           ==================================================================== */
+        const standingsTable = $("#standings-table");
+        const OWN_TEAM = String((appData && appData.meta && appData.meta.teamName) || "Сетунь");
+
+        if (standingsTable) {
+          const headCells = $$("thead th", standingsTable);
+          const columnLabels = headCells.map((th) => th.textContent.trim());
+          const tbody = $("tbody", standingsTable);
+          const teams = [];
+
+          // «2016» есть в названии каждой команды турнира: на телефоне этот хвост
+          // скрывается (см. медиазапрос), чтобы длинные названия помещались целиком
+          const TEAM_YEAR = /\s*2016$/;
+
+          function teamCellHtml(name, query) {
+            const text = String(name);
+            const year = text.match(TEAM_YEAR);
+            const base = year ? text.slice(0, year.index) : text;
+            const suffix = year ? `<span class="team-year">${escapeHtml(year[0])}</span>` : "";
+
+            if (!query) return escapeHtml(base) + suffix;
+
+            const at = base.toLocaleLowerCase("ru").indexOf(query);
+            if (at === -1) return escapeHtml(base) + suffix;
+
+            return `${escapeHtml(base.slice(0, at))}<mark>${escapeHtml(
+              base.slice(at, at + query.length)
+            )}</mark>${escapeHtml(base.slice(at + query.length))}${suffix}`;
+          }
+
+          $$("tbody tr", standingsTable).forEach((row, rowIndex) => {
+            const cells = $$("td", row);
+            const numeric = cells.slice(2).map((cell) => Number(cell.textContent.replace(/\s/g, "").replace(",", ".")));
+            const record = {
+              row,
+              index: rowIndex,
+              place: Number(cells[0].textContent),
+              team: cells[1].textContent.trim(),
+              values: numeric,
+              own: cells[1].textContent.trim() === OWN_TEAM,
+            };
+            record.points = numeric[7];
+            record.diff = numeric[6];
+            teams.push(record);
+
+            const medal = record.place <= 3 ? ` medal-${record.place}` : "";
+            cells[0].innerHTML = `<span class="rank${medal}">${record.place}</span>`;
+            cells[1].classList.add("cell-team");
+            cells[1].innerHTML = `${teamCellHtml(record.team, "")}${
+              record.own ? ' <span class="badge accent">мы</span>' : ""
+            }`;
+            cells.forEach((cell, cellIndex) => {
+              cell.dataset.label = columnLabels[cellIndex] || "";
+            });
+          });
+
+          // Турнирная таблица на телефоне остаётся таблицей с шапкой
+          // (компактный вид задаётся в медиазапросе), карточки не включаем
+
+          const maxPoints = Math.max(...teams.map((team) => team.points), 1);
+          teams.forEach((team) => {
+            const pointsCell = $$("td", team.row)[9];
+            pointsCell.classList.add("num");
+            pointsCell.innerHTML = `${team.points}<span class="bar${team.own ? " own" : ""}" style="margin-top: 5px"><i style="--w: ${
+              (team.points / maxPoints) * 100
+            }%; --delay: ${team.index * 45}ms"></i></span>`;
+          });
+
+          const chartRows = $("#chart-rows");
+          if (chartRows) {
+            // График — по всем командам турнира, сортировка по очкам и разнице шайб
+            const ranked = [...teams].sort((a, b) => b.points - a.points || b.diff - a.diff);
+            const max = Math.max(...ranked.map((team) => team.points), 1);
+            chartRows.innerHTML = ranked
+              .map((team, index) => {
+                const step = index * 50;
+                const row = `
+                <div class="chart-row${team.own ? " own" : ""}" style="--delay: ${step}ms">
+                  <span class="name">${escapeHtml(team.team)}</span>
+                  <span class="track"><span class="fill" style="--w: ${(team.points / max) * 100}%; --delay: ${step}ms"></span></span>
+                  <span class="value">${team.points}</span>
+                </div>`;
+                return row;
+              })
+              .join("");
+          }
+
+          function applyStandingsFilters() {
+            const query = standingsSearch.value.trim().toLocaleLowerCase("ru");
+            const onlyTop8 = standingsTop8.checked;
+            let visible = 0;
+
+            teams.forEach((team) => {
+              const matchesQuery = !query || team.team.toLocaleLowerCase("ru").includes(query);
+              const matchesTop = !onlyTop8 || team.place <= 8;
+              const show = matchesQuery && matchesTop;
+              team.row.hidden = !show;
+
+              if (show) {
+                visible += 1;
+                team.row.children[1].innerHTML = `${teamCellHtml(team.team, query)}${
+                  team.own ? ' <span class="badge accent">мы</span>' : ""
+                }`;
+              }
+            });
+
+            standingsStatus.textContent = visible
+              ? `Показано команд: ${visible} из ${teams.length}`
+              : "Ничего не найдено";
+          }
+
+          let sortState = { key: -1, direction: 1 };
+
+          function sortStandings(columnIndex, type) {
+            sortState =
+              sortState.key === columnIndex
+                ? { key: columnIndex, direction: sortState.direction * -1 }
+                : { key: columnIndex, direction: type === "text" ? 1 : -1 };
+            const direction = sortState.direction;
+
+            const sorted = [...teams].sort((a, b) => {
+              if (columnIndex === 1) return a.team.localeCompare(b.team, "ru") * direction;
+              if (columnIndex === 0) return (a.place - b.place) * direction;
+              return (a.values[columnIndex - 2] - b.values[columnIndex - 2]) * direction;
+            });
+
+            sorted.forEach((team) => tbody.append(team.row));
+
+            headCells.forEach((th, index) => {
+              if (index === columnIndex) {
+                th.setAttribute("aria-sort", direction === 1 ? "ascending" : "descending");
+              } else {
+                th.removeAttribute("aria-sort");
+              }
+            });
+          }
+
+          headCells.forEach((th, index) => {
+            const type = th.dataset.sort;
+            if (!type) return;
+            th.tabIndex = 0;
+            const handler = () => sortStandings(index, type);
+            th.addEventListener("click", handler);
+            th.addEventListener("keydown", (event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                handler();
+              }
+            });
+          });
+        }
+
+        /* ====================================================================
+           Матчи: состояния, отсчёт, добавление в календарь (.ics)
+           ==================================================================== */
+        const matches = $$(".match").map((element) => {
+          const date = element.dataset.date;
+          const time = element.dataset.time || "";
+          return {
+            element,
+            home: element.dataset.home,
+            away: element.dataset.away,
+            tour: element.dataset.tour || "",
+            venue: element.dataset.venue === "home" ? "home" : "away",
+            date,
+            time,
+            datetime: new Date(`${date}T${time || "00:00"}:00`),
+            hasTime: Boolean(time),
+          };
+        });
+
+        const nextMatch = matches.find((match) => match.datetime >= new Date()) || null;
+
+        function countdownLabel(match) {
+          const days = daysBetween(new Date(), match.datetime);
+          if (days === 0) return { text: "сегодня", state: "today" };
+          if (days > 0) return { text: `через ${days} ${plural(days, "день", "дня", "дней")}`, state: "future" };
+          const past = Math.abs(days);
+          return { text: `${past} ${plural(past, "день", "дня", "дней")} назад`, state: "past" };
+        }
+
+        function buildIcs(match) {
+          const pad = (value) => String(value).padStart(2, "0");
+          const utcStamp = (date) =>
+            `${date.getUTCFullYear()}${pad(date.getUTCMonth() + 1)}${pad(date.getUTCDate())}T${pad(date.getUTCHours())}${pad(
+              date.getUTCMinutes()
+            )}${pad(date.getUTCSeconds())}Z`;
+          const localStamp = (date) =>
+            `${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}T${pad(date.getHours())}${pad(
+              date.getMinutes()
+            )}00`;
+          const end = new Date(match.datetime.getTime() + 90 * 60000);
+          return [
+            "BEGIN:VCALENDAR",
+            "VERSION:2.0",
+            "PRODID:-//Setun SHL//Onepager//RU",
+            "CALSCALE:GREGORIAN",
+            "BEGIN:VEVENT",
+            `UID:setun-shl-${match.date.replace(/-/g, "")}@demo`,
+            `DTSTAMP:${utcStamp(new Date())}`,
+            `DTSTART:${localStamp(match.datetime)}`,
+            `DTEND:${localStamp(end)}`,
+            `SUMMARY:${match.home} — ${match.away}`,
+            `DESCRIPTION:${match.tour.replace(/,/g, "\\,")}`,
+            "END:VEVENT",
+            "END:VCALENDAR",
+          ].join("\r\n");
+        }
+
+        function downloadFile(name, content, type) {
+          const blob = new Blob([content], { type });
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = name;
+          document.body.append(link);
+          link.click();
+          link.remove();
+          setTimeout(() => URL.revokeObjectURL(url), 4000);
+        }
+
+        matches.forEach((match) => {
+          const state = countdownLabel(match);
+          const isNext = nextMatch === match;
+          match.element.classList.add(match.venue === "home" ? "is-home" : "is-away");
+          match.element.classList.toggle("is-next", isNext);
+          match.element.classList.toggle("is-past", state.state === "past");
+          match.element.dataset.state = state.state;
+
+          const when = match.hasTime
+            ? `${dateWeekdayFmt.format(match.datetime)}, ${match.time}`
+            : `${dateWeekdayFmt.format(match.datetime)}, время уточняется`;
+
+          match.element.innerHTML = `
+            <div class="match-top">
+              <span class="badge${match.venue === "home" ? " accent" : ""}">${
+            match.venue === "home" ? "дома" : "в гостях"
+          }</span>
+              <span class="when">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                  <rect x="3" y="5" width="18" height="16" rx="3" />
+                  <path d="M8 3v4M16 3v4M3 10h18" />
+                </svg>
+                ${escapeHtml(when)}
+              </span>
+              ${isNext ? '<span class="badge accent">следующий</span>' : ""}
+            </div>
+            <div class="match-teams">
+              <span>${escapeHtml(match.home)}</span>
+              <span class="vs">vs</span>
+              <span>${escapeHtml(match.away)}</span>
+            </div>
+            <div class="match-foot">
+              <span class="tour">${escapeHtml(match.tour)}</span>
+              <span class="countdown-chip ${state.state === "past" ? "past" : state.state === "today" ? "today" : ""}">${escapeHtml(
+            state.text
+          )}</span>
+              <span class="spacer"></span>
+              <button class="btn-mini" type="button" data-ics>В календарь</button>
+            </div>`;
+
+          $("[data-ics]", match.element)?.addEventListener("click", (event) => {
+            const button = event.currentTarget;
+            downloadFile(`setun-shl-${match.date}.ics`, buildIcs(match), "text/calendar;charset=utf-8");
+            button.textContent = "Файл готов";
+            setTimeout(() => {
+              button.textContent = "В календарь";
+            }, 2000);
+          });
+        });
+
+        const countdownFields = {
+          days: $('[data-cd="days"]'),
+          hours: $('[data-cd="hours"]'),
+          minutes: $('[data-cd="minutes"]'),
+          seconds: $('[data-cd="seconds"]'),
+        };
+
+        if (nextMatch && nextMatch.hasTime && countdownFields.days) {
+          const target = nextMatch.datetime;
+          let timer = 0;
+
+          const renderCountdown = () => {
+            const diff = target - new Date();
+            if (diff <= 0) {
+              Object.values(countdownFields).forEach((field) => {
+                if (field) field.textContent = "0";
+              });
+              const meta = $(".next-match .meta");
+              if (meta) meta.textContent = "Матч уже начался или завершён";
+              if (timer) clearInterval(timer);
+              timer = 0;
+              return;
+            }
+            const totalSeconds = Math.floor(diff / 1000);
+            const parts = {
+              days: Math.floor(totalSeconds / 86400),
+              hours: String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, "0"),
+              minutes: String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0"),
+              seconds: String(totalSeconds % 60).padStart(2, "0"),
+            };
+            Object.entries(parts).forEach(([key, value]) => {
+              if (countdownFields[key]) countdownFields[key].textContent = String(value);
+            });
+          };
+
+          renderCountdown();
+          if (target - new Date() > 0) timer = setInterval(renderCountdown, 1000);
+        }
+
+        /* ====================================================================
+           Статистика игроков
+           ==================================================================== */
+        const rawPlayers = Array.isArray(appData && appData.players)
+          ? appData.players
+          : Array.isArray(window.playerGoalsData)
+          ? window.playerGoalsData
+          : [];
+        const groupFilter = $("#group-filter");
+        const teamFilter = $("#team-filter");
+        const playerSearch = $("#player-search");
+        const pageSizeSelect = $("#page-size");
+        const tableBody = $("#goals-table-body");
+        const prevPageButton = $("#stats-prev-page");
+        const nextPageButton = $("#stats-next-page");
+        const pagesContainer = $("#stats-pages");
+        const statsStatus = $("#stats-status");
+
+        const maxGoals = rawPlayers.reduce((max, item) => Math.max(max, Number(item.goals) || 0), 1);
+        const rankedPlayers = [...rawPlayers]
+          .sort((a, b) => b.goals - a.goals || b.games - a.games || String(a.player).localeCompare(String(b.player), "ru"))
+          .map((item, index) => {
+            const games = Number(item.games) || 0;
+            const goals = Number(item.goals) || 0;
+            return {
+              ...item,
+              games,
+              goals,
+              ppg: games > 0 ? goals / games : 0,
+              position: index + 1,
+            };
+          });
+
+        let currentPage = 1;
+        let pageSize = Number(pageSizeSelect?.value || 15);
+        let statsSort = { key: "goals", direction: -1 };
+        let searchTimer = 0;
+
+        function fillFilterOptions(selectElement, values) {
+          [...values]
+            .sort((left, right) => String(left).localeCompare(String(right), "ru", { sensitivity: "base", numeric: true }))
+            .forEach((value) => {
+              const option = document.createElement("option");
+              option.value = value;
+              option.textContent = value;
+              selectElement.append(option);
+            });
+        }
+
+        function getFilteredPlayers() {
+          const group = groupFilter?.value || "all";
+          const team = teamFilter?.value || "all";
+          const query = (playerSearch?.value || "").trim().toLocaleLowerCase("ru");
+
+          const filtered = rankedPlayers
+            .filter((item) => (group === "all" ? true : item.group === group))
+            .filter((item) => (team === "all" ? true : item.team === team))
+            .filter((item) => (query ? String(item.player).toLocaleLowerCase("ru").includes(query) : true));
+
+          const direction = statsSort.direction;
+          return filtered.sort((a, b) => {
+            if (statsSort.key === "player" || statsSort.key === "group" || statsSort.key === "team") {
+              return String(a[statsSort.key]).localeCompare(String(b[statsSort.key]), "ru") * direction;
+            }
+            return ((a[statsSort.key] || 0) - (b[statsSort.key] || 0)) * direction;
+          });
+        }
+
+        function highlightName(name, query) {
+          const text = String(name);
+          if (!query) return escapeHtml(text);
+          const index = text.toLocaleLowerCase("ru").indexOf(query);
+          if (index === -1) return escapeHtml(text);
+          return `${escapeHtml(text.slice(0, index))}<mark>${escapeHtml(text.slice(index, index + query.length))}</mark>${escapeHtml(
+            text.slice(index + query.length)
+          )}`;
+        }
+
+        function renderPodium(players) {
+          const podium = $("#podium");
+          if (!podium) return;
+          const classes = ["first", "second", "third"];
+          const places = ["1-е место", "2-е место", "3-е место"];
+          podium.innerHTML = players
+            .slice(0, 3)
+            .map(
+              (player, index) => `
+              <article class="podium-card ${classes[index]} spotlight">
+                <p class="place">${places[index]}</p>
+                <p class="player">${escapeHtml(player.player)}</p>
+                <p class="team">${escapeHtml(player.team)} · ${escapeHtml(player.group)}</p>
+                <p class="goals"><b>${numberFmt.format(player.goals)}</b><span>${plural(
+                player.goals,
+                "гол",
+                "гола",
+                "голов"
+              )} за ${numberFmt.format(player.games)} ${plural(player.games, "игру", "игры", "игр")}</span></p>
+              </article>`
+            )
+            .join("");
+        }
+
+        function renderPageButtons(totalPages) {
+          if (!pagesContainer) return;
+          const windowSize = 5;
+          let start = Math.max(1, currentPage - Math.floor(windowSize / 2));
+          const end = Math.min(totalPages, start + windowSize - 1);
+          start = Math.max(1, end - windowSize + 1);
+          const buttons = [];
+          for (let page = start; page <= end; page += 1) {
+            buttons.push(
+              `<button type="button" data-page="${page}"${page === currentPage ? ' aria-current="page"' : ""}>${page}</button>`
+            );
+          }
+          pagesContainer.innerHTML = buttons.join("");
+        }
+
+        function renderGoalsTable() {
+          if (!tableBody) return;
+          const query = (playerSearch?.value || "").trim().toLocaleLowerCase("ru");
+          const filtered = getFilteredPlayers();
+          const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+          currentPage = Math.min(currentPage, totalPages);
+
+          if (!filtered.length) {
+            tableBody.innerHTML =
+              '<tr class="empty-row"><td colspan="7">По выбранным фильтрам игроков не найдено. Попробуйте изменить запрос.</td></tr>';
+            statsStatus.textContent = "Найдено: 0";
+            prevPageButton.disabled = true;
+            nextPageButton.disabled = true;
+            if (pagesContainer) pagesContainer.innerHTML = "";
+            renderPodium([]);
+            return;
+          }
+
+          const startIndex = (currentPage - 1) * pageSize;
+          const labels = ["Позиция", "Игрок", "Группа", "Команда", "Игры", "Голы", "PPG"];
+
+          tableBody.innerHTML = filtered
+            .slice(startIndex, startIndex + pageSize)
+            .map(
+              (item) => `
+              <tr>
+                <td class="num" data-label="${labels[0]}"><span class="rank">${item.position}</span></td>
+                <td data-label="${labels[1]}">${highlightName(item.player, query)}</td>
+                <td data-label="${labels[2]}">${escapeHtml(item.group)}</td>
+                <td class="cell-team" data-label="${labels[3]}">${escapeHtml(item.team)}</td>
+                <td class="num" data-label="${labels[4]}">${numberFmt.format(item.games)}</td>
+                <td class="num" data-label="${labels[5]}">${numberFmt.format(item.goals)}
+                  <span class="heat"><i style="--w: ${(item.goals / maxGoals) * 100}%"></i></span>
+                </td>
+                <td class="num" data-label="${labels[6]}">${decimalsFmt.format(item.ppg)}</td>
+              </tr>`
+            )
+            .join("");
+
+          $("#goals-table")?.classList.add("as-cards");
+          renderPodium(filtered);
+
+          const from = startIndex + 1;
+          const to = Math.min(startIndex + pageSize, filtered.length);
+          statsStatus.textContent = `Показано ${from}–${to} из ${filtered.length} · страница ${currentPage} из ${totalPages}`;
+          prevPageButton.disabled = currentPage <= 1;
+          nextPageButton.disabled = currentPage >= totalPages;
+          renderPageButtons(totalPages);
+        }
+
+        function resetPaginationAndRender() {
+          currentPage = 1;
+          renderGoalsTable();
+        }
+
+        if (rawPlayers.length && groupFilter && teamFilter) {
+          fillFilterOptions(groupFilter, [...new Set(rankedPlayers.map((item) => item.group))]);
+          fillFilterOptions(teamFilter, [...new Set(rankedPlayers.map((item) => item.team))]);
+
+          groupFilter.addEventListener("change", resetPaginationAndRender);
+          teamFilter.addEventListener("change", resetPaginationAndRender);
+
+          pageSizeSelect?.addEventListener("change", () => {
+            pageSize = Number(pageSizeSelect.value) || 15;
+            resetPaginationAndRender();
+          });
+
+          playerSearch?.addEventListener("input", () => {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(resetPaginationAndRender, 180);
+          });
+
+          prevPageButton?.addEventListener("click", () => {
+            if (currentPage > 1) {
+              currentPage -= 1;
+              renderGoalsTable();
+            }
+          });
+
+          nextPageButton?.addEventListener("click", () => {
+            const totalPages = Math.max(1, Math.ceil(getFilteredPlayers().length / pageSize));
+            if (currentPage < totalPages) {
+              currentPage += 1;
+              renderGoalsTable();
+            }
+          });
+
+          pagesContainer?.addEventListener("click", (event) => {
+            const button = event.target.closest("button[data-page]");
+            if (!button) return;
+            currentPage = Number(button.dataset.page);
+            renderGoalsTable();
+          });
+
+          $("#stats-reset")?.addEventListener("click", () => {
+            groupFilter.value = "all";
+            teamFilter.value = "all";
+            if (playerSearch) playerSearch.value = "";
+            statsSort = { key: "position", direction: 1 };
+            updateStatsSortAria();
+            resetPaginationAndRender();
+          });
+
+          $("#stats-export")?.addEventListener("click", () => {
+            const rows = [["Позиция", "Игрок", "Группа", "Команда", "Игры", "Голы", "PPG"]];
+            getFilteredPlayers().forEach((item) => {
+              rows.push([item.position, item.player, item.group, item.team, item.games, item.goals, item.ppg.toFixed(2)]);
+            });
+            const csv = rows
+              .map((row) => row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(";"))
+              .join("\r\n");
+            downloadFile("setun-shl-stats.csv", `\uFEFF${csv}`, "text/csv;charset=utf-8");
+          });
+
+          const keyByLabel = {
+            Позиция: "position",
+            Игрок: "player",
+            Группа: "group",
+            Команда: "team",
+            Игры: "games",
+            Голы: "goals",
+            PPG: "ppg",
+          };
+          const statsHeadCells = $$("#goals-table thead th");
+
+          function updateStatsSortAria() {
+            statsHeadCells.forEach((cell) => {
+              const key = keyByLabel[cell.textContent.trim()];
+              if (!key) {
+                cell.removeAttribute("aria-sort");
+                return;
+              }
+              if (key === statsSort.key) {
+                cell.setAttribute("aria-sort", statsSort.direction === 1 ? "ascending" : "descending");
+              } else {
+                cell.removeAttribute("aria-sort");
+              }
+            });
+          }
+
+          statsHeadCells.forEach((th) => {
+            const key = keyByLabel[th.textContent.trim()];
+            if (!key) return;
+            th.tabIndex = 0;
+            const handler = () => {
+              statsSort =
+                statsSort.key === key
+                  ? { key, direction: statsSort.direction * -1 }
+                  : { key, direction: th.dataset.sort === "text" ? 1 : -1 };
+              updateStatsSortAria();
+              resetPaginationAndRender();
+            };
+            th.addEventListener("click", handler);
+            th.addEventListener("keydown", (event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                handler();
+              }
+            });
+          });
+
+          updateStatsSortAria();
+          renderGoalsTable();
+        } else if (tableBody) {
+          tableBody.innerHTML =
+            '<tr class="empty-row"><td colspan="7">Не удалось загрузить данные статистики (файл setun_shl_data.js).</td></tr>';
+          if (statsStatus) statsStatus.textContent = "Данные недоступны";
+        }
+
+        /* ====================================================================
+           Дни рождения: ближайшая дата, «через N дней», возраст
+           ==================================================================== */
+        const birthdaySource = $$(".bday-item");
+
+        if (birthdaySource.length) {
+          const today = startOfDay(new Date());
+          const birthdays = birthdaySource.map((element) => {
+            const birth = fromIso(element.dataset.date);
+            const thisYear = new Date(today.getFullYear(), birth.getMonth(), birth.getDate());
+            const upcoming = daysBetween(today, thisYear) >= 0;
+            const next = upcoming ? thisYear : new Date(today.getFullYear() + 1, birth.getMonth(), birth.getDate());
+            return {
+              name: $("strong", element)?.textContent.trim() || "",
+              birth,
+              next,
+              upcoming,
+              daysUntil: daysBetween(today, next),
+              daysAgo: daysBetween(thisYear, today),
+            };
+          });
+
+          function buildBirthdayItem(entry) {
+            const age = entry.upcoming
+              ? entry.next.getFullYear() - entry.birth.getFullYear()
+              : today.getFullYear() - entry.birth.getFullYear();
+            const days = Math.abs(entry.daysUntil);
+            let label;
+            let stateClass = "";
+            if (entry.upcoming && days === 0) {
+              label = "сегодня!";
+              stateClass = "today";
+            } else if (entry.upcoming) {
+              label = `через ${days} ${plural(days, "день", "дня", "дней")}`;
+              stateClass = days <= 7 ? "soon" : "";
+            } else {
+              label = `${entry.daysAgo} ${plural(entry.daysAgo, "день", "дня", "дней")} назад`;
+            }
+            const classes = [
+              "bday-item",
+              entry.upcoming ? "upcoming" : "past",
+              stateClass,
+            ]
+              .filter(Boolean)
+              .join(" ");
+
+            return `
+              <li class="${classes}">
+                <span class="who">
+                  <strong>${escapeHtml(entry.name)}</strong>
+                  <small>${entry.upcoming ? "исполнится" : "исполнилось"} ${age} ${plural(age, "год", "года", "лет")}</small>
+                </span>
+                <span class="when">
+                  <span>${fullDateFmt.format(entry.birth)}</span>
+                  <span class="in">${label}</span>
+                </span>
+              </li>`;
+          }
+
+          const upcomingList = $("#bday-upcoming");
+          const pastList = $("#bday-past");
+          const upcomingEntries = birthdays.filter((entry) => entry.upcoming).sort((a, b) => a.daysUntil - b.daysUntil);
+          const pastEntries = birthdays.filter((entry) => !entry.upcoming).sort((a, b) => a.daysAgo - b.daysAgo);
+
+          if (upcomingList) {
+            upcomingList.innerHTML =
+              upcomingEntries.map(buildBirthdayItem).join("") ||
+              '<li class="bday-item"><span class="who"><strong>В ближайшее время дней рождения нет</strong></span></li>';
+          }
+          if (pastList) pastList.innerHTML = pastEntries.map(buildBirthdayItem).join("");
+
+          const upcomingCount = $("#bday-upcoming-count");
+          const pastCount = $("#bday-past-count");
+          if (upcomingCount) upcomingCount.textContent = String(upcomingEntries.length);
+          if (pastCount) pastCount.textContent = String(pastEntries.length);
+        }
+      })();
+    </script>
+  </body>
+</html>
