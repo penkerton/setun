@@ -1,21 +1,16 @@
-name: Update FHMMoscow data
+name: Update SHL data
 
 on:
   schedule:
-    - cron: "17 3 * * *"
+    - cron: "0 */6 * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
 
-concurrency:
-  group: "update-fhm-data"
-  cancel-in-progress: false
-
 jobs:
   update-data:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,33 +18,19 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: 20
 
-      - name: Update data files
-        run: node ./update_fhm_2016_stats.mjs
+      - name: Refresh data files
+        run: node update_shl_setun_stats.mjs
 
-      - name: Detect data changes
-        id: changes
-        shell: bash
-        run: |
-          git add all_2016_players_season5.js
-          if git diff --cached --quiet; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Commit updated data
-        if: steps.changes.outputs.changed == 'true'
+      - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore(data): update FHMMoscow stats"
-
-      - name: Push changes
-        if: steps.changes.outputs.changed == 'true'
-        run: git push
-
-      - name: No changes
-        if: steps.changes.outputs.changed != 'true'
-        run: echo "No data changes detected; nothing to commit."
+          git add setun_shl_data.json setun_shl_data.js
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "chore: auto-update SHL data"
+          git push

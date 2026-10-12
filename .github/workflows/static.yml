@@ -9,11 +9,6 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-  # Runs after scheduled/manual data updates complete successfully
-  workflow_run:
-    workflows: ["Update FHMMoscow data"]
-    types: [completed]
-
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
@@ -29,7 +24,6 @@ concurrency:
 jobs:
   # Single deploy job since we're just deploying
   deploy:
-    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

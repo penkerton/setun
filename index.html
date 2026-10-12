@@ -1,24 +1,30 @@
 <!doctype html>
-<html lang="ru" data-theme="club-light">
+<html lang="ru" data-theme="blue-dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Центр — хоккейная команда (Москва)</title>
+    <title>Сетунь — хоккейная команда (SHL)</title>
     <meta
       name="description"
-      content="Хоккейная команда «Центр» (Москва): турнирная таблица, ближайшие матчи, статистика игроков турнира, и дни рождения."
+      content="Хоккейная команда «Сетунь» (SHL): турнирная таблица, ближайшие матчи, статистика игроков дивизиона и дни рождения."
     />
-    <meta name="theme-color" content="#f6f4f5" />
-    <link rel="preconnect" href="https://cdn.fhmoscow.com" crossorigin />
+    <meta name="theme-color" content="#070f1f" />
+    <link rel="preconnect" href="https://fs.mtgame.ru" crossorigin />
     <script>
       /* Тема применяется до первой отрисовки — без «мигания» при загрузке.
-         По умолчанию клубная светлая; доступна также клубная тёмная. */
+         По умолчанию тёмно-синяя; доступны ещё «Зелёный хаки» и светлая. */
       (function () {
-        var allowed = ["club-light", "club-dark"];
-        var legacy = { dark: "club-dark", light: "club-light" };
-        var theme = "club-light";
+        var allowed = ["blue-dark", "khaki", "light"];
+        var legacy = {
+          dark: "blue-dark",
+          light: "light",
+          ice: "blue-dark",
+          "club-light": "light",
+          "club-dark": "blue-dark",
+        };
+        var theme = "blue-dark";
         try {
-          var saved = localStorage.getItem("centr2016:theme");
+          var saved = localStorage.getItem("setun-shl:theme");
           if (legacy[saved]) saved = legacy[saved];
           if (allowed.indexOf(saved) !== -1) theme = saved;
         } catch (error) {
@@ -31,69 +37,132 @@
       /* ==========================================================================
          1. Токены тем
 
-         Тема по умолчанию — клубная светлая.
-         Дополнительно доступна клубная тёмная.
-         Переменная --ice здесь отвечает за второй акцент и хайлайты,
-         в клубных темах она тоже красная.
+         Тема по умолчанию — тёмно-синяя (ниже, тема 1).
+         Тема 2 — зелёный хаки, тема 3 — светлая белая.
+         Переменная --ice отвечает за второй акцент и хайлайты.
          ========================================================================== */
       :root,
-      html[data-theme="club-light"] {
-        color-scheme: light;
-        --bg: #f6f4f5;
-        --bg-soft: #ffffff;
-        --surface: rgba(255, 255, 255, 0.82);
-        --surface-2: rgba(255, 255, 255, 0.96);
-        --line: rgba(24, 18, 20, 0.13);
-        --line-strong: rgba(24, 18, 20, 0.26);
-        --text: #171113;
-        --muted: #6b6367;
-        --ice: #d21f34;
-        --accent: #b3121f;
-        --accent-2: #7f0b16;
-        --amber: #a8560a;
-        --green: #0f7a4f;
-        --red: #b3121f;
-        --gold: #a9750a;
-        --silver: #5f6873;
-        --bronze: #9a5a1f;
-        --shadow-lg: 0 30px 60px -35px rgba(90, 12, 22, 0.32);
-        --shadow-sm: 0 12px 28px -20px rgba(90, 12, 22, 0.38);
-        --aurora-blend: normal;
-        --aurora-opacity: 0.28;
-        --grain-opacity: 0.022;
-        --header-bg: rgba(246, 244, 245, 0.8);
-        --club-stripe: #b3121f;
-        --club-stripe-opacity: 0.9;
-      }
-
-      /* Клубная тёмная — чёрный фон, белый текст, красные акценты */
-      html[data-theme="club-dark"] {
+      html[data-theme="blue-dark"] {
         color-scheme: dark;
-        --bg: #0a0a0c;
-        --bg-soft: #131316;
-        --surface: rgba(255, 255, 255, 0.05);
-        --surface-2: rgba(255, 255, 255, 0.09);
-        --line: rgba(255, 255, 255, 0.11);
-        --line-strong: rgba(255, 255, 255, 0.22);
-        --text: #f6f2f3;
-        --muted: #a49ea2;
-        --ice: #ff5f6d;
-        --accent: #e01b2b;
-        --accent-2: #c8102e;
-        --amber: #ffb03a;
-        --green: #3ec98a;
-        --red: #ff5f6d;
+        --font-ui: "Manrope", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        --font-display: "Russo One", "Bahnschrift", "Arial Narrow", "Segoe UI", sans-serif;
+        --bg: #070f1f;
+        --bg-soft: #0d1628;
+        --surface: rgba(255, 255, 255, 0.045);
+        --surface-2: rgba(255, 255, 255, 0.085);
+        --line: rgba(255, 255, 255, 0.1);
+        --line-strong: rgba(255, 255, 255, 0.2);
+        --text: #eff5ff;
+        --muted: #97a8c7;
+        --ice: #64bbff;
+        --accent: #3b8fff;
+        --accent-2: #1d5fc0;
+        --amber: #f1b44f;
+        --green: #5acb8f;
+        --red: #ef3a4f;
         --gold: #ffd166;
         --silver: #cbd5e1;
         --bronze: #e08e5a;
-        --shadow-lg: 0 30px 70px -30px rgba(0, 0, 0, 0.92);
-        --shadow-sm: 0 10px 30px -18px rgba(0, 0, 0, 0.95);
+        --shadow-lg: 0 30px 70px -30px rgba(0, 0, 0, 0.85);
+        --shadow-sm: 0 10px 30px -18px rgba(0, 0, 0, 0.9);
+        --radius: 20px;
+        --radius-sm: 14px;
         --aurora-blend: screen;
-        --aurora-opacity: 0.5;
-        --grain-opacity: 0.045;
-        --header-bg: rgba(10, 10, 12, 0.76);
-        --club-stripe: #e01b2b;
-        --club-stripe-opacity: 1;
+        --aurora-opacity: 0.62;
+        --grain-opacity: 0.04;
+        --header-bg: rgba(7, 15, 31, 0.76);
+        --club-stripe: #2d7ef0;
+        --club-stripe-opacity: 0.9;
+        --streak-opacity: 0.22;
+        --bg-glow-a: rgba(100, 186, 255, 0.24);
+        --bg-glow-b: rgba(255, 255, 255, 0.1);
+        --bg-glow-c: rgba(239, 58, 79, 0.08);
+        --paint-spot-a: rgba(73, 143, 225, 0.26);
+        --paint-spot-b: rgba(255, 255, 255, 0.1);
+        --streak-a: rgba(108, 190, 255, 0.62);
+        --streak-b: rgba(232, 67, 88, 0.28);
+        --btn-grad: linear-gradient(115deg, #84c7ff 0 24%, #3b8fff 25% 78%, #1d5fc0 79%);
+        --title-grad: linear-gradient(100deg, #ffffff 0 32%, #83c8ff 33% 84%, #ef3a4f 85%);
+      }
+
+      /* Тема 2: зелёный хаки — оливковый фон и спокойные контрасты */
+      html[data-theme="khaki"] {
+        color-scheme: dark;
+        --bg: #434c33;
+        --bg-soft: #555f40;
+        --surface: rgba(250, 255, 238, 0.11);
+        --surface-2: rgba(250, 255, 238, 0.17);
+        --line: rgba(234, 243, 208, 0.25);
+        --line-strong: rgba(234, 243, 208, 0.38);
+        --text: #f5fae8;
+        --muted: #d0dcba;
+        --ice: #c4e39a;
+        --accent: #9ab36b;
+        --accent-2: #697d45;
+        --amber: #f1cb76;
+        --green: #b0d776;
+        --red: #d36050;
+        --gold: #f5df95;
+        --silver: #d9e5ca;
+        --bronze: #e29f64;
+        --shadow-lg: 0 30px 60px -35px rgba(22, 30, 16, 0.7);
+        --shadow-sm: 0 12px 28px -20px rgba(22, 30, 16, 0.72);
+        --aurora-blend: normal;
+        --aurora-opacity: 0.3;
+        --grain-opacity: 0.025;
+        --header-bg: rgba(63, 71, 50, 0.85);
+        --club-stripe: #9ab36b;
+        --club-stripe-opacity: 0.9;
+        --streak-opacity: 0.24;
+        --bg-glow-a: rgba(188, 223, 132, 0.2);
+        --bg-glow-b: rgba(119, 146, 78, 0.18);
+        --bg-glow-c: rgba(190, 96, 69, 0.12);
+        --paint-spot-a: rgba(177, 207, 115, 0.32);
+        --paint-spot-b: rgba(132, 90, 58, 0.24);
+        --streak-a: rgba(190, 222, 129, 0.52);
+        --streak-b: rgba(211, 96, 80, 0.28);
+        --btn-grad: linear-gradient(116deg, #d6ecab 0 24%, #9ab36b 25% 78%, #697d45 79%);
+        --title-grad: linear-gradient(100deg, #f7ffe9 0 36%, #d0ecaa 37% 84%, #d36050 85%);
+      }
+
+      /* Тема 3: светлая — белый фон, тёмный текст, синий+красный акцент */
+      html[data-theme="light"] {
+        color-scheme: light;
+        --bg: #f8fbff;
+        --bg-soft: #ffffff;
+        --surface: rgba(255, 255, 255, 0.86);
+        --surface-2: rgba(255, 255, 255, 0.98);
+        --line: rgba(16, 30, 56, 0.13);
+        --line-strong: rgba(16, 30, 56, 0.25);
+        --text: #111a2d;
+        --muted: #5e6f8b;
+        --ice: #2e85d7;
+        --accent: #2f76ca;
+        --accent-2: #164f9a;
+        --amber: #b57b18;
+        --green: #258a5d;
+        --red: #ce2033;
+        --gold: #b3862a;
+        --silver: #607086;
+        --bronze: #9f5f2a;
+        --shadow-lg: 0 30px 60px -35px rgba(20, 52, 92, 0.28);
+        --shadow-sm: 0 12px 28px -20px rgba(20, 52, 92, 0.34);
+        --aurora-blend: normal;
+        --aurora-opacity: 0.28;
+        --grain-opacity: 0.02;
+        --header-bg: rgba(248, 251, 255, 0.84);
+        --club-stripe: #2f76ca;
+        --club-stripe-opacity: 0.85;
+        --streak-opacity: 0.14;
+        --bg-glow-a: rgba(96, 164, 228, 0.12);
+        --bg-glow-b: rgba(255, 255, 255, 0.4);
+        --bg-glow-c: rgba(206, 32, 51, 0.08);
+        --paint-spot-a: rgba(112, 173, 233, 0.2);
+        --paint-spot-b: rgba(206, 32, 51, 0.12);
+        --streak-a: rgba(57, 131, 210, 0.34);
+        --streak-b: rgba(206, 32, 51, 0.2);
+        --btn-grad: linear-gradient(116deg, #ffffff 0 18%, #6caee9 19% 58%, #2f76ca 59% 84%, #164f9a 85%);
+        --title-grad: linear-gradient(100deg, #134f94 0 42%, #2e85d7 43% 88%, #ce2033 89%);
       }
 
       /* ==========================================================================
@@ -113,13 +182,29 @@
       body {
         margin: 0;
         min-height: 100svh;
-        font-family: "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-family: var(--font-ui);
         font-synthesis-weight: none;
         line-height: 1.6;
         color: var(--text);
-        background: var(--bg);
+        background: radial-gradient(circle at 12% -8%, var(--bg-glow-a), transparent 42%),
+          radial-gradient(circle at 86% 110%, var(--bg-glow-b), transparent 38%),
+          radial-gradient(circle at 56% 42%, var(--bg-glow-c), transparent 45%), var(--bg);
         overflow-x: hidden;
         scrollbar-color: color-mix(in srgb, var(--ice) 45%, transparent) transparent;
+      }
+
+      /* Диагональные штрихи поверх фона в стиле матчевых постеров */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        opacity: var(--streak-opacity, 0.14);
+        background: radial-gradient(52vmax 34vmax at 14% 26%, var(--paint-spot-a), transparent 72%),
+          radial-gradient(44vmax 30vmax at 84% 72%, var(--paint-spot-b), transparent 74%),
+          linear-gradient(122deg, transparent 0 36%, var(--streak-a) 37% 39%, transparent 40% 100%),
+          linear-gradient(111deg, transparent 0 62%, var(--streak-b) 63% 65%, transparent 66% 100%);
       }
 
       /* Медленно дышащие цветовые пятна на фоне */
@@ -178,17 +263,9 @@
         }
       }
 
-      /* Разметка «катка» + лёгкое зерно поверх */
+      /* Слой клетки отключён по запросу: оставляем только зерно и световые штрихи */
       .rink-lines {
-        position: fixed;
-        inset: 0;
-        z-index: -2;
-        pointer-events: none;
-        background-image: linear-gradient(to right, var(--line) 1px, transparent 1px),
-          linear-gradient(to bottom, var(--line) 1px, transparent 1px);
-        background-size: 68px 68px;
-        mask-image: radial-gradient(ellipse 90% 65% at 50% 0%, #000 15%, transparent 78%);
-        -webkit-mask-image: radial-gradient(ellipse 90% 65% at 50% 0%, #000 15%, transparent 78%);
+        display: none;
       }
 
       body::after {
@@ -230,9 +307,11 @@
       h1,
       h2,
       h3 {
+        font-family: var(--font-display);
         line-height: 1.12;
         text-wrap: balance;
-        letter-spacing: -0.02em;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
       }
 
       p {
@@ -323,7 +402,7 @@
 
       .site-header.is-scrolled {
         border-bottom-color: var(--line);
-        box-shadow: 0 18px 40px -30px rgba(0, 0, 0, 0.9);
+        box-shadow: 0 18px 40px -30px rgba(0, 0, 0, 0.9), 0 2px 0 color-mix(in srgb, var(--accent) 64%, transparent);
       }
 
       .header-inner {
@@ -342,21 +421,22 @@
 
       .brand-mark {
         position: relative;
-        display: grid;
-        place-items: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 42px;
         height: 42px;
         border-radius: 13px;
         background: #fff;
-        box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--accent) 72%, transparent);
+        border: 1px solid var(--line);
+        box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--accent) 55%, transparent);
         overflow: hidden;
       }
 
       .brand-mark img {
-        width: 100%;
-        height: 100%;
+        width: 30px;
+        height: 30px;
         object-fit: contain;
-        padding: 3px;
       }
 
       .brand-mark::after {
@@ -494,7 +574,7 @@
         height: 18px;
       }
 
-      /* Переключатель тем: два образца палитры */
+      /* Переключатель тем: три образца палитры */
       .theme-picker {
         display: flex;
         align-items: center;
@@ -562,12 +642,16 @@
       }
 
       /* Образцы палитр не зависят от активной темы */
-      .swatch-club-light {
-        background: linear-gradient(135deg, #ffffff 0 46%, #e3dcde 46% 54%, #c8102e 54%);
+      .swatch-blue-dark {
+        background: #2f76ca;
       }
 
-      .swatch-club-dark {
-        background: linear-gradient(135deg, #131316 0 46%, #3c3c43 46% 54%, #e01b2b 54%);
+      .swatch-khaki {
+        background: #4c9b5f;
+      }
+
+      .swatch-light {
+        background: #ffffff;
       }
 
       /* Клубные темы: красная полоса под шапкой */
@@ -659,7 +743,7 @@
         position: relative;
         border: 1px solid var(--line);
         border-radius: var(--radius);
-        background: var(--surface);
+        background: linear-gradient(165deg, color-mix(in srgb, var(--surface-2) 44%, transparent), var(--surface));
         backdrop-filter: blur(14px);
         -webkit-backdrop-filter: blur(14px);
         box-shadow: var(--shadow-sm);
@@ -713,9 +797,10 @@
       }
 
       .btn-primary {
-        background: linear-gradient(120deg, var(--accent), var(--accent-2));
+        background: var(--btn-grad);
         color: #fff;
-        box-shadow: 0 18px 34px -20px color-mix(in srgb, var(--accent) 95%, transparent);
+        box-shadow: 0 18px 34px -20px color-mix(in srgb, var(--accent) 95%, transparent), 0 0 0 1px color-mix(in srgb, #fff 22%, transparent)
+          inset;
       }
 
       .btn-primary::after {
@@ -888,16 +973,72 @@
         background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 32%, transparent), transparent 72%);
       }
 
-      #goals-table .cell-player .player-name {
-        display: inline;
+      .matrix-table {
+        --matrix-cell-size: 52px;
+        --matrix-head-height: 184px;
+        min-width: 980px;
+        border-collapse: separate;
+        border-spacing: 0;
       }
 
-      #goals-table .cell-player .player-team {
-        display: none;
+      .matrix-table th,
+      .matrix-table td {
+        text-align: center;
+        border-right: 1px solid var(--line);
       }
 
-      #goals-table .cell-goals .ppg-inline {
-        display: none;
+      .matrix-table thead th:first-child {
+        left: 0;
+        z-index: 5;
+        min-width: 220px;
+        padding: 9px 10px;
+        text-align: left;
+      }
+
+      .matrix-table thead th:not(:first-child) {
+        position: relative;
+        width: var(--matrix-cell-size);
+        min-width: var(--matrix-cell-size);
+        max-width: var(--matrix-cell-size);
+        height: var(--matrix-head-height);
+        padding: 0;
+        overflow: hidden;
+      }
+
+      .matrix-head-label {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: inline-block;
+        transform: translate(-50%, -50%) rotate(-90deg);
+        transform-origin: center center;
+        line-height: 1;
+        white-space: nowrap;
+      }
+
+      .matrix-table tbody th {
+        position: sticky;
+        left: 0;
+        z-index: 3;
+        min-width: 220px;
+        padding: 9px 10px;
+        text-align: left;
+        font-weight: 600;
+        background: color-mix(in srgb, var(--bg-soft) 88%, transparent);
+      }
+
+      .matrix-table tbody td {
+        width: var(--matrix-cell-size);
+        min-width: var(--matrix-cell-size);
+        max-width: var(--matrix-cell-size);
+        height: var(--matrix-cell-size);
+        padding: 6px 4px;
+        vertical-align: middle;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .matrix-table td.self {
+        background: color-mix(in srgb, var(--text) 8%, transparent);
       }
 
       mark {
@@ -996,43 +1137,20 @@
         align-items: center;
       }
 
-      .eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 9px;
-        margin: 0 0 18px;
-        padding: 7px 14px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: var(--surface);
-        color: var(--muted);
-        font-size: 0.8rem;
-        font-weight: 600;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-      }
-
-      .eyebrow::before {
-        content: "";
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: var(--ice);
-        box-shadow: 0 0 12px var(--ice);
-      }
-
       .hero h1 {
         margin: 0;
         font-size: clamp(2.1rem, 6vw, 4rem);
         font-weight: 800;
+        text-shadow: 0 10px 28px color-mix(in srgb, var(--bg) 78%, transparent);
       }
 
       .hero h1 .grad {
         display: block;
         color: transparent;
-        background: linear-gradient(105deg, var(--ice), var(--accent) 45%, var(--accent-2));
+        background: var(--title-grad);
         -webkit-background-clip: text;
         background-clip: text;
+        filter: drop-shadow(0 7px 16px color-mix(in srgb, var(--accent) 42%, transparent));
       }
 
       .lead {
@@ -1056,33 +1174,6 @@
         margin-top: 26px;
       }
 
-      .hero-facts {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 14px;
-        margin: 32px 0 0;
-        padding: 18px 0 0;
-        border-top: 1px solid var(--line);
-      }
-
-      .hero-facts div {
-        min-width: 0;
-      }
-
-      .hero-facts dt {
-        color: var(--muted);
-        font-size: 0.78rem;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-      }
-
-      .hero-facts dd {
-        margin: 4px 0 0;
-        font-size: 1.15rem;
-        font-weight: 700;
-        font-variant-numeric: tabular-nums;
-      }
-
       .hero-visual {
         display: grid;
         gap: 18px;
@@ -1095,7 +1186,8 @@
         aspect-ratio: 16 / 10;
         border: 1px solid var(--line);
         border-radius: calc(var(--radius) + 6px);
-        background: radial-gradient(circle at 50% 25%, color-mix(in srgb, var(--ice) 16%, transparent), transparent 62%),
+        background: radial-gradient(circle at 50% 25%, color-mix(in srgb, var(--ice) 20%, transparent), transparent 62%),
+          linear-gradient(142deg, color-mix(in srgb, var(--accent) 14%, transparent), transparent 48%),
           var(--surface);
         overflow: hidden;
       }
@@ -1337,76 +1429,76 @@
         -webkit-backdrop-filter: blur(14px);
       }
 
+      .chart h3 {
+        margin: 0 0 4px;
+        font-size: 1.06rem;
+      }
+
+
       .chart-rows {
         display: grid;
-        gap: 10px;
+        gap: 11px;
       }
 
       .chart-row {
-        display: block;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 10px;
         font-size: 0.9rem;
-      }
-
-      .chart-row .label {
-        position: absolute;
-        top: 50%;
-        left: 10px;
-        z-index: 2;
-        transform: translateY(-50%);
-        max-width: calc(100% - 74px);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        color: #111;
-        font-size: 0.82rem;
-        font-weight: 600;
-        text-shadow: none;
       }
 
       .chart-row .track {
         position: relative;
-        display: block;
-        height: 24px;
-        padding-right: 46px;
+        display: flex;
+        align-items: center;
+        min-height: 28px;
+        padding: 0 12px;
         border-radius: 999px;
-        background: #fff;
-        border: 1px solid color-mix(in srgb, var(--line-strong) 76%, transparent);
-        box-shadow: inset 0 1px 0 color-mix(in srgb, var(--text) 8%, transparent);
+        background: color-mix(in srgb, var(--text) 8%, transparent);
         overflow: hidden;
+      }
+
+      .chart-row .track-label {
+        position: relative;
+        z-index: 2;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: color-mix(in srgb, var(--text) 92%, var(--muted));
+        font-weight: 600;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+      }
+
+      .chart-row.own .track-label {
+        color: #fff;
+        font-weight: 700;
+      }
+
+      .chart-row.own .track {
+        border: 1px solid color-mix(in srgb, var(--red) 75%, transparent);
       }
 
       .chart-row .fill {
         position: absolute;
         inset: 0 auto 0 0;
-        z-index: 1;
         display: block;
-        height: 100%;
         width: 0;
         border-radius: inherit;
-        background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 42%, white), var(--accent));
+        background: linear-gradient(90deg, color-mix(in srgb, var(--ice) 70%, transparent), color-mix(in srgb, var(--accent) 90%, transparent));
         transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
         transition-delay: var(--delay, 0ms);
       }
 
+      .chart-row.own .fill {
+        background: linear-gradient(90deg, color-mix(in srgb, var(--ice) 75%, transparent), color-mix(in srgb, var(--accent) 92%, transparent));
+        box-shadow: 0 0 16px -6px color-mix(in srgb, var(--red) 70%, transparent);
+      }
+
       .chart-row .value {
-        position: absolute;
-        top: 50%;
-        right: 6px;
-        z-index: 2;
-        transform: translateY(-50%);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 34px;
-        height: 18px;
-        padding: 0 8px;
-        border-radius: 999px;
-        background: color-mix(in srgb, var(--bg-soft) 92%, var(--surface-2));
-        color: #111;
-        border: 1px solid #fff;
-        text-shadow: none;
-        font-size: 0.78rem;
-        line-height: 1;
+        min-width: 3ch;
+        text-align: right;
         font-weight: 700;
         font-variant-numeric: tabular-nums;
       }
@@ -1469,20 +1561,8 @@
       }
 
       #statistics .toolbar .field input,
-      #statistics .toolbar .field select,
-      #statistics .toolbar .btn-mini {
+      #statistics .toolbar .field select {
         min-height: 44px;
-      }
-
-      #statistics .toolbar .btn-mini {
-        padding: 0 14px;
-        border-radius: 12px;
-      }
-
-      #statistics .toolbar #stats-reset {
-        width: 44px;
-        padding: 0;
-        justify-content: center;
       }
 
       .switch {
@@ -1531,232 +1611,6 @@
         transform: translateX(16px);
       }
 
-      .matches-tabs {
-        display: inline-flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin: 0 0 14px;
-        padding: 6px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: color-mix(in srgb, var(--bg-soft) 58%, transparent);
-      }
-
-      .matches-tab {
-        min-height: 38px;
-        padding: 7px 14px;
-        border: 1px solid transparent;
-        border-radius: 999px;
-        background: transparent;
-        color: var(--muted);
-        font: inherit;
-        font-size: 0.88rem;
-        font-weight: 700;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-      }
-
-      .matches-tab[aria-selected="true"] {
-        border-color: color-mix(in srgb, var(--ice) 34%, transparent);
-        background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 26%, transparent), color-mix(in srgb, var(--ice) 14%, transparent));
-        color: var(--text);
-      }
-
-      .matches-tab:focus-visible {
-        outline: 2px solid color-mix(in srgb, var(--ice) 82%, transparent);
-        outline-offset: 2px;
-      }
-
-      .standings-tabs {
-        display: inline-flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin: 0 0 14px;
-        padding: 6px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: color-mix(in srgb, var(--bg-soft) 58%, transparent);
-      }
-
-      .standings-tab {
-        min-height: 38px;
-        padding: 7px 14px;
-        border: 1px solid transparent;
-        border-radius: 999px;
-        background: transparent;
-        color: var(--muted);
-        font: inherit;
-        font-size: 0.88rem;
-        font-weight: 700;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-      }
-
-      .standings-tab[aria-selected="true"] {
-        border-color: color-mix(in srgb, var(--ice) 34%, transparent);
-        background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 26%, transparent), color-mix(in srgb, var(--ice) 14%, transparent));
-        color: var(--text);
-      }
-
-      .standings-tab:focus-visible {
-        outline: 2px solid color-mix(in srgb, var(--ice) 82%, transparent);
-        outline-offset: 2px;
-      }
-
-      .standings-panel[hidden] {
-        display: none;
-      }
-
-      .h2h-wrap {
-        --h2h-cell: 52px;
-        --h2h-header: 228px;
-      }
-
-      .h2h-matrix {
-        width: max-content;
-        min-width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        table-layout: fixed;
-        font-variant-numeric: tabular-nums;
-      }
-
-      .h2h-matrix th,
-      .h2h-matrix td {
-        border-bottom: 1px solid var(--line);
-        border-right: 1px solid var(--line);
-      }
-
-      .h2h-matrix thead th {
-        position: sticky;
-        top: 0;
-        z-index: 3;
-        background: color-mix(in srgb, var(--bg-soft) 88%, transparent);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-      }
-
-      .h2h-matrix .corner {
-        left: 0;
-        z-index: 5;
-        min-width: 176px;
-        padding: 0 12px;
-        text-align: left;
-        color: var(--muted);
-        font-size: 0.72rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .h2h-matrix .col-team {
-        position: sticky;
-        width: var(--h2h-cell);
-        min-width: var(--h2h-cell);
-        height: var(--h2h-header);
-        padding: 8px 0;
-        text-align: center;
-        vertical-align: bottom;
-        overflow: hidden;
-      }
-
-      .h2h-matrix .col-team .h2h-col-label {
-        display: block;
-        margin: 0 auto;
-        writing-mode: vertical-rl;
-        text-orientation: mixed;
-        transform: rotate(180deg);
-        white-space: nowrap;
-        font-size: 0.76rem;
-        font-weight: 700;
-        line-height: 1;
-        letter-spacing: 0.03em;
-      }
-
-      .h2h-matrix tbody th {
-        position: sticky;
-        left: 0;
-        z-index: 2;
-        min-width: 176px;
-        padding: 0 12px;
-        text-align: left;
-        background: color-mix(in srgb, var(--bg-soft) 88%, transparent);
-        color: var(--text);
-        font-size: 0.82rem;
-        font-weight: 600;
-      }
-
-      .h2h-matrix tbody td {
-        width: var(--h2h-cell);
-        min-width: var(--h2h-cell);
-        height: var(--h2h-cell);
-        padding: 0;
-        text-align: center;
-        vertical-align: middle;
-        background: transparent;
-      }
-
-      .h2h-matrix .cell {
-        display: grid;
-        place-items: center;
-        width: 100%;
-        height: 100%;
-        aspect-ratio: 1 / 1;
-        font-size: 0.78rem;
-        font-weight: 700;
-      }
-
-      .h2h-matrix .cell.self {
-        color: var(--muted);
-        background: color-mix(in srgb, var(--text) 10%, var(--bg-soft));
-      }
-
-      .h2h-matrix .cell.empty {
-        color: transparent;
-        background: transparent;
-      }
-
-      .h2h-matrix .cell.win {
-        color: var(--text);
-        background: transparent;
-      }
-
-      .h2h-matrix .cell.loss {
-        color: var(--text);
-        background: transparent;
-      }
-
-      .h2h-matrix .cell.draw {
-        color: var(--text);
-        background: transparent;
-      }
-
-      .h2h-legend {
-        margin: 0;
-        padding: 10px 12px;
-        border-top: 1px solid var(--line);
-        color: var(--muted);
-        font-size: 0.78rem;
-      }
-
-      .matches-panel[hidden] {
-        display: none;
-      }
-
-      .matches-empty {
-        margin: 0;
-        padding: 16px 18px;
-        border: 1px dashed var(--line);
-        border-radius: var(--radius-sm);
-        color: var(--muted);
-        background: color-mix(in srgb, var(--surface) 80%, transparent);
-      }
-
       .match-list {
         display: grid;
         gap: 14px;
@@ -1764,6 +1618,76 @@
         padding: 0;
         margin: 0;
         container-type: inline-size;
+      }
+
+      .matches-tabs {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: color-mix(in srgb, var(--surface-2) 66%, transparent);
+      }
+
+      .matches-tab {
+        border: 1px solid transparent;
+        border-radius: 999px;
+        padding: 8px 14px;
+        background: transparent;
+        color: var(--muted);
+        font-size: 0.86rem;
+        font-weight: 700;
+        line-height: 1;
+        cursor: pointer;
+        transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .matches-tab:hover {
+        color: var(--text);
+      }
+
+      .matches-tab.is-active {
+        color: var(--bg);
+        border-color: transparent;
+        background: linear-gradient(120deg, color-mix(in srgb, var(--ice) 86%, white 7%), var(--accent));
+      }
+
+      .tournament-tabs {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: color-mix(in srgb, var(--surface-2) 66%, transparent);
+      }
+
+      .tournament-tab {
+        border: 1px solid transparent;
+        border-radius: 999px;
+        padding: 8px 14px;
+        background: transparent;
+        color: var(--muted);
+        font-size: 0.86rem;
+        font-weight: 700;
+        line-height: 1;
+        cursor: pointer;
+        transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .tournament-tab:hover {
+        color: var(--text);
+      }
+
+      .tournament-tab.is-active {
+        color: var(--bg);
+        border-color: transparent;
+        background: linear-gradient(120deg, color-mix(in srgb, var(--ice) 86%, white 7%), var(--accent));
+      }
+
+      .tournament-panel[hidden] {
+        display: none;
       }
 
       .match {
@@ -1878,6 +1802,34 @@
         color: var(--muted);
       }
 
+      .match-score {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 74px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 0.9rem;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        font-variant-numeric: tabular-nums;
+        color: var(--text);
+        background: color-mix(in srgb, var(--surface-2) 88%, transparent);
+        border: 1px solid var(--line-strong);
+      }
+
+      .match-score.win {
+        color: color-mix(in srgb, var(--green) 84%, var(--text));
+        border-color: color-mix(in srgb, var(--green) 74%, transparent);
+        background: color-mix(in srgb, var(--green) 16%, transparent);
+      }
+
+      .match-score.loss {
+        color: color-mix(in srgb, var(--red) 84%, var(--text));
+        border-color: color-mix(in srgb, var(--red) 74%, transparent);
+        background: color-mix(in srgb, var(--red) 16%, transparent);
+      }
+
       .countdown-chip.today {
         background: var(--amber);
         border-color: transparent;
@@ -1912,78 +1864,6 @@
       /* ==========================================================================
          8. Статистика игроков
          ========================================================================== */
-      .podium {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-        gap: 14px;
-        margin-bottom: 18px;
-      }
-
-      .podium-card {
-        position: relative;
-        padding: 18px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius-sm);
-        background: var(--surface);
-        overflow: hidden;
-        isolation: isolate;
-      }
-
-      .podium-card .place {
-        margin: 0;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 0.78rem;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--muted);
-      }
-
-      .podium-card .player {
-        margin: 10px 0 2px;
-        font-size: 1.1rem;
-        font-weight: 700;
-      }
-
-      .podium-card .team {
-        margin: 0;
-        color: var(--muted);
-        font-size: 0.85rem;
-      }
-
-      .podium-card .goals {
-        margin: 12px 0 0;
-        display: flex;
-        align-items: baseline;
-        gap: 6px;
-        font-variant-numeric: tabular-nums;
-      }
-
-      .podium-card .goals b {
-        font-size: 1.7rem;
-        line-height: 1;
-      }
-
-      .podium-card .goals span {
-        color: var(--muted);
-        font-size: 0.82rem;
-      }
-
-      .podium-card.first {
-        border-color: color-mix(in srgb, var(--gold) 55%, transparent);
-        background: linear-gradient(150deg, color-mix(in srgb, var(--gold) 20%, transparent), transparent 60%), var(--surface);
-      }
-
-      .podium-card.second {
-        border-color: color-mix(in srgb, var(--silver) 45%, transparent);
-      }
-
-      .podium-card.third {
-        border-color: color-mix(in srgb, var(--bronze) 45%, transparent);
-      }
-
       .heat {
         display: block;
         margin: 6px auto 0;
@@ -2060,62 +1940,10 @@
       /* ==========================================================================
          9. Дни рождения
          ========================================================================== */
-      .bday-tabs {
-        display: inline-flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin: 0 0 14px;
-        padding: 6px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: color-mix(in srgb, var(--bg-soft) 58%, transparent);
-      }
-
-      .bday-tab {
-        min-height: 38px;
-        padding: 7px 14px;
-        border: 1px solid transparent;
-        border-radius: 999px;
-        background: transparent;
-        color: var(--muted);
-        font: inherit;
-        font-size: 0.88rem;
-        font-weight: 700;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-      }
-
-      .bday-tab[aria-selected="true"] {
-        border-color: color-mix(in srgb, var(--ice) 34%, transparent);
-        background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 26%, transparent), color-mix(in srgb, var(--ice) 14%, transparent));
-        color: var(--text);
-      }
-
-      .bday-tab:focus-visible {
-        outline: 2px solid color-mix(in srgb, var(--ice) 82%, transparent);
-        outline-offset: 2px;
-      }
-
-      .bday-tab .count {
-        margin-left: 6px;
-        padding: 1px 9px;
-        border-radius: 999px;
-        background: var(--surface-2);
-        border: 1px solid var(--line);
-        color: var(--muted);
-        font-size: 0.74rem;
-        font-weight: 700;
-      }
-
-      .bday-panels {
+      .bday-grid {
         display: grid;
-      }
-
-      .bday-panel[hidden] {
-        display: none;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 16px;
       }
 
       .bday-col {
@@ -2135,6 +1963,16 @@
         gap: 10px;
         margin: 0 0 14px;
         font-size: 1.02rem;
+      }
+
+      .bday-col h3 .count {
+        padding: 2px 9px;
+        border-radius: 999px;
+        background: var(--surface-2);
+        border: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.76rem;
+        font-weight: 700;
       }
 
       .bday-list {
@@ -2218,6 +2056,10 @@
 
       .bday-item.past {
         opacity: 0.72;
+      }
+
+      .bday-panel[hidden] {
+        display: none;
       }
 
       /* ==========================================================================
@@ -2348,27 +2190,17 @@
       }
 
       @media (max-width: 760px) {
-        .hero-facts {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
         .countdown {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
         .chart-row {
-          font-size: 0.86rem;
-        }
-
-        .chart-row .label {
-          left: 8px;
-          max-width: calc(100% - 66px);
-          font-size: 0.76rem;
+          grid-template-columns: 1fr auto;
         }
 
         .chart-row .track {
-          height: 22px;
-          padding-right: 42px;
+          min-height: 26px;
+          padding: 0 10px;
         }
 
         /* Турнирная таблица на телефоне: компактная таблица с шапкой,
@@ -2464,107 +2296,114 @@
           font-size: 0.68rem;
         }
 
-        .h2h-wrap {
-          --h2h-cell: 42px;
-          --h2h-header: 188px;
-        }
-
-        .h2h-matrix .corner,
-        .h2h-matrix tbody th {
-          min-width: 136px;
-          padding: 0 8px;
-          font-size: 0.72rem;
-        }
-
-        .h2h-matrix .col-team .h2h-col-label {
-          font-size: 0.67rem;
-        }
-
-        .h2h-matrix .cell {
-          font-size: 0.67rem;
-        }
-
-        /* Статистика игроков: плотная мобильная сетка без горизонтального скролла */
-        #goals-table.as-cards {
+        /* Статистика игроков в телефоне: компактная карточка без пустых зон */
+        #goals-table.data.as-cards {
           min-width: 0;
         }
 
-        #goals-table.as-cards thead {
+        #goals-table.data.as-cards thead {
           display: none;
         }
 
-        #goals-table.as-cards tbody tr {
+        #goals-table.data.as-cards tbody tr {
           display: grid;
-          grid-template-columns: 30px minmax(0, 1fr) minmax(34px, auto) minmax(74px, auto);
-          align-items: center;
+          grid-template-columns: auto repeat(3, minmax(0, 1fr));
           gap: 6px 10px;
-          padding: 10px 12px;
+          padding: 12px 14px;
           border-bottom: 1px solid var(--line);
+          align-items: center;
         }
 
-        #goals-table.as-cards tbody td {
-          display: block;
+        #goals-table.data.as-cards tbody td {
+          display: grid;
+          gap: 2px;
           padding: 0;
           border: 0;
           white-space: normal;
-          min-width: 0;
         }
 
-        #goals-table.as-cards tbody td::before {
+        #goals-table.data.as-cards tbody td::before {
+          content: attr(data-label);
+          color: var(--muted);
+          font-size: 0.64rem;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          line-height: 1.1;
+        }
+
+        #goals-table.data.as-cards tbody td:first-child {
+          grid-column: 1;
+          grid-row: 1;
+          align-self: start;
+          padding-top: 1px;
+        }
+
+        #goals-table.data.as-cards tbody td:first-child::before {
           display: none;
         }
 
-        #goals-table.as-cards tbody td:nth-child(1) {
-          text-align: left;
-        }
-
-        #goals-table.as-cards tbody td.cell-player {
-          text-align: left;
-          overflow: hidden;
-        }
-
-        #goals-table.as-cards tbody td.cell-player .player-name {
-          display: block;
+        #goals-table.data.as-cards tbody td:nth-child(2) {
+          grid-column: 2 / -1;
+          grid-row: 1;
+          font-size: 0.98rem;
           font-weight: 700;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
+          line-height: 1.2;
         }
 
-        #goals-table.as-cards tbody td.cell-player .player-team {
-          display: block;
-          margin-top: 2px;
-          color: var(--muted);
-          font-size: 0.74rem;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-
-        #goals-table.as-cards tbody td.cell-games,
-        #goals-table.as-cards tbody td.cell-goals {
-          text-align: right;
-          white-space: nowrap;
-          font-size: 0.86rem;
-        }
-
-        #goals-table.as-cards tbody td.cell-goals .ppg-inline {
-          display: inline;
-          color: var(--muted);
-          font-size: 0.78rem;
-        }
-
-        #goals-table.as-cards tbody td:nth-child(3),
-        #goals-table.as-cards tbody td.cell-team,
-        #goals-table.as-cards tbody td.cell-ppg {
+        #goals-table.data.as-cards tbody td:nth-child(2)::before {
           display: none;
         }
 
-        #goals-table.as-cards .rank {
+        #goals-table.data.as-cards tbody td.cell-team {
+          grid-column: 2 / -1;
+          grid-row: 2;
+          color: var(--muted);
+          font-size: 0.82rem;
+          font-weight: 600;
+          line-height: 1.2;
+        }
+
+        #goals-table.data.as-cards tbody td.cell-team::before {
+          display: none;
+        }
+
+        #goals-table.data.as-cards tbody td:nth-child(4),
+        #goals-table.data.as-cards tbody td:nth-child(5),
+        #goals-table.data.as-cards tbody td:nth-child(6) {
+          grid-row: 3;
+          text-align: center;
+          justify-items: center;
+        }
+
+        #goals-table.data.as-cards tbody td:nth-child(4) {
+          grid-column: 2;
+        }
+
+        #goals-table.data.as-cards tbody td:nth-child(5) {
+          grid-column: 3;
+        }
+
+        #goals-table.data.as-cards tbody td:nth-child(6) {
+          grid-column: 4;
+        }
+
+        #goals-table.data.as-cards tbody td:nth-child(4)::before,
+        #goals-table.data.as-cards tbody td:nth-child(5)::before,
+        #goals-table.data.as-cards tbody td:nth-child(6)::before {
+          display: block;
+        }
+
+        #goals-table.data.as-cards tbody td .rank {
           width: 24px;
           height: 24px;
-          border-radius: 7px;
-          font-size: 0.72rem;
+          border-radius: 8px;
+          font-size: 0.68rem;
+        }
+
+        #goals-table.data.as-cards tbody td.num {
+          font-size: 0.95rem;
+          font-weight: 700;
+          font-variant-numeric: tabular-nums;
         }
 
         .match-foot .tour {
@@ -2572,24 +2411,7 @@
         }
       }
 
-      @media (max-width: 400px) {
-        #goals-table.as-cards tbody tr {
-          grid-template-columns: 26px minmax(0, 1fr) minmax(30px, auto) minmax(68px, auto);
-          gap: 6px 8px;
-          padding: 9px 10px;
-        }
-
-        #goals-table.as-cards tbody td.cell-games,
-        #goals-table.as-cards tbody td.cell-goals {
-          font-size: 0.82rem;
-        }
-      }
-
       @media (max-width: 520px) {
-        .hero-facts {
-          grid-template-columns: 1fr;
-        }
-
         .card,
         .bday-col {
           padding: 16px;
@@ -2650,19 +2472,19 @@
 
     <header class="site-header" id="top">
       <div class="wrap header-inner">
-        <a class="brand" href="#top" aria-label="Центр — наверх">
+        <a class="brand" href="#top" aria-label="Сетунь — наверх">
           <span class="brand-mark" aria-hidden="true">
-            <img src="https://cdn.fhmoscow.com/club/logo/40506.png?v=1730210935" alt="" width="42" height="42" />
+            <img src="https://fs.mtgame.ru/setun.png" alt="" width="30" height="30" />
           </span>
           <span class="brand-text">
-            <strong>Центр</strong>
-            <small>Хоккей · Москва</small>
+            <strong>Сетунь</strong>
+            <small>SHL · Москва</small>
           </span>
         </a>
 
         <nav class="nav" id="primary-nav" aria-label="Основная навигация">
           <a href="#dashboard">Обзор</a>
-          <a href="#standings">Таблица</a>
+          <a href="#standings">Турнир</a>
           <a href="#matches">Матчи</a>
           <a href="#statistics">Статистика</a>
           <a href="#birthdays">Дни рождения</a>
@@ -2672,19 +2494,28 @@
           <span class="live-chip" id="live-clock" aria-label="Текущее время по Москве">--:--:-- МСК</span>
           <div class="theme-picker" role="group" aria-label="Тема оформления">
             <button
-              class="swatch swatch-club-light"
+              class="swatch swatch-blue-dark"
               type="button"
-              data-theme-value="club-light"
-              data-label="Клубная светлая"
-              aria-label="Тема: Клубная светлая"
+              data-theme-value="blue-dark"
+              data-label="Тёмно-синяя"
+              aria-label="Тема: Тёмно-синяя"
               aria-pressed="true"
             ></button>
             <button
-              class="swatch swatch-club-dark"
+              class="swatch swatch-khaki"
               type="button"
-              data-theme-value="club-dark"
-              data-label="Клубная тёмная"
-              aria-label="Тема: Клубная тёмная"
+              data-theme-value="khaki"
+              data-label="Зелёный хаки"
+              aria-label="Тема: Зелёный хаки"
+              aria-pressed="false"
+              tabindex="-1"
+            ></button>
+            <button
+              class="swatch swatch-light"
+              type="button"
+              data-theme-value="light"
+              data-label="Светлая"
+              aria-label="Тема: Светлая"
               aria-pressed="false"
               tabindex="-1"
             ></button>
@@ -2701,27 +2532,25 @@
       <section class="hero" aria-labelledby="hero-title">
         <div class="wrap hero-inner">
           <div class="hero-copy reveal">
-            <p class="eyebrow">ФХМ · Сезон 2026/2027</p>
-            <h1 id="hero-title">Хоккейная команда <span class="grad">«Центр»</span></h1>
+            <h1 id="hero-title">Хоккейная команда <span class="grad">«Сетунь»</span></h1>
             <p class="lead">
-              Команда из Москвы, выступающая в системе Федерации хоккея Москвы. Турнир 2016 г.р., формат 4×4, группа В —
-              первый этап сезона 26/27.
+              Команда из Москвы, выступающая в SHL. Разделы страницы автоматически заполняются из данных дивизиона.
             </p>
             <div class="chips">
               <span class="badge accent">Москва</span>
-              <span class="badge">2016 г.р.</span>
-              <span class="badge">Формат 4×4</span>
-              <span class="badge">Группа В</span>
+              <span class="badge">SHL</span>
+              <span class="badge">Рубин А/Рубин Б</span>
+              <span class="badge">Сезон 2026/2027</span>
             </div>
             <div class="actions">
-              <a class="btn btn-primary" href="https://fhmoscow.com/team/604?season=5" target="_blank" rel="noopener noreferrer">
+              <a class="btn btn-ghost" href="https://shlmos.ru/team/2641" target="_blank" rel="noopener noreferrer">
                 Карточка команды
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                   <path d="M7 17 17 7M9 7h8v8" />
                 </svg>
               </a>
-              <a class="btn btn-ghost" href="https://mha.mossport.ru/centr/" target="_blank" rel="noopener noreferrer">
-                Клуб «Центр»
+              <a class="btn btn-ghost" href="https://shlmos.ru/" target="_blank" rel="noopener noreferrer">
+                Сайт SHL
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                   <path d="M7 17 17 7M9 7h8v8" />
                 </svg>
@@ -2734,8 +2563,8 @@
             <div class="logo-stage">
               <span class="ring" aria-hidden="true"></span>
               <img
-                src="https://cdn.fhmoscow.com/club/logo/40506.png?v=1730210935"
-                alt="Логотип команды Центр"
+                src="https://fs.mtgame.ru/setun.png"
+                alt="Логотип команды Сетунь"
                 width="176"
                 height="176"
               />
@@ -2750,11 +2579,11 @@
                 Ближайший матч
               </p>
               <p class="teams">
-                <span>Вымпел</span>
+                <span>Команда 1</span>
                 <span class="vs">vs</span>
-                <span>Центр</span>
+                <span>Сетунь</span>
               </p>
-              <p class="meta">17 октября, 11:15 · Турнир 2016 г.р. 26/27, Группа В · в гостях</p>
+              <p class="meta">Ожидаем обновление расписания…</p>
               <div class="countdown" id="countdown" role="timer" aria-label="До ближайшего матча">
                 <div><b data-cd="days">--</b><span>дней</span></div>
                 <div><b data-cd="hours">--</b><span>часов</span></div>
@@ -2771,43 +2600,54 @@
         <div class="wrap">
           <div class="section-head reveal">
             <h2 id="dashboard-title" data-step="01">Обзор сезона</h2>
-            <p>Показатели «Центра» в первом этапе турнира 2016 г.р. (формат 4×4). Данные обновлены 10.10.2026.</p>
+            <p>Показатели «Сетуни» в дивизионе SHL.</p>
           </div>
 
           <div class="stat-tiles reveal">
             <article class="tile accent spotlight">
               <p class="tile-label">Место</p>
-              <p class="tile-value">5<span style="font-size: 0.5em; color: var(--muted)"> / 14</span></p>
-              <p class="tile-note">8 очков, столько же, сколько у «Бурана Москва»</p>
+              <p class="tile-value">0<span style="font-size: 0.5em; color: var(--muted)"> / 0</span></p>
+              <p class="tile-note">Актуальные данные дивизиона SHL</p>
             </article>
             <article class="tile spotlight">
               <p class="tile-label">Игры</p>
-              <p class="tile-value" data-count="5">5</p>
-              <p class="tile-note">4 победы, 1 поражение</p>
+              <p class="tile-value" data-count="0">0</p>
+              <p class="tile-note">Победы/поражения из текущей таблицы</p>
             </article>
             <article class="tile good spotlight">
               <p class="tile-label">Заброшено</p>
-              <p class="tile-value" data-count="116">116</p>
-              <p class="tile-note">23,2 шайбы за матч в среднем</p>
+              <p class="tile-value" data-count="0">0</p>
+              <p class="tile-note">Суммарно по данным таблицы</p>
             </article>
             <article class="tile spotlight">
               <p class="tile-label">Пропущено</p>
-              <p class="tile-value" data-count="76">76</p>
-              <p class="tile-note">15,2 шайбы за матч в среднем</p>
+              <p class="tile-value" data-count="0">0</p>
+              <p class="tile-note">Суммарно по данным таблицы</p>
             </article>
             <article class="tile good spotlight">
               <p class="tile-label">Разница шайб</p>
-              <p class="tile-value">+<span data-count="40">40</span></p>
-              <p class="tile-note">Четвёртая разница в турнире</p>
+              <p class="tile-value"><span data-count="0">0</span></p>
+              <p class="tile-note">Разница заброшенных и пропущенных</p>
             </article>
             <article class="tile warn spotlight">
               <p class="tile-label">Очков за игру</p>
-              <p class="tile-value" data-count="1.6" data-decimals="2">1,60</p>
-              <p class="tile-note">Пятый показатель в таблице</p>
+              <p class="tile-value" data-count="0" data-decimals="2">0,00</p>
+              <p class="tile-note">Рассчитывается автоматически</p>
+            </article>
+            <article class="tile good spotlight">
+              <p class="tile-label">Победы</p>
+              <p class="tile-value" id="season-wins" data-count="0">0</p>
+              <p class="tile-note">Побед в текущем турнире</p>
+            </article>
+            <article class="tile accent spotlight">
+              <p class="tile-label">Очки</p>
+              <p class="tile-value" id="season-points" data-count="0">0</p>
+              <p class="tile-note">Набрано в текущем турнире</p>
             </article>
           </div>
 
           <div class="chart reveal" id="points-chart">
+            <h3>Очки команд в турнире</h3>
             <div class="chart-rows" id="chart-rows"></div>
           </div>
         </div>
@@ -2817,37 +2657,18 @@
       <section class="section" id="standings" aria-labelledby="standings-title">
         <div class="wrap">
           <div class="section-head reveal">
-            <h2 id="standings-title" data-step="02">Турнирная таблица</h2>
+            <h2 id="standings-title" data-step="02">Турнир</h2>
+            <div class="tournament-tabs" role="tablist" aria-label="Режимы раздела Турнир">
+              <button class="tournament-tab is-active" type="button" role="tab" aria-selected="true" data-tournament-tab="standings">
+                Таблица
+              </button>
+              <button class="tournament-tab" type="button" role="tab" aria-selected="false" data-tournament-tab="matrix">Матрица</button>
+            </div>
           </div>
 
-          <div class="standings-tabs reveal" role="tablist" aria-label="Вкладки турнирной таблицы">
-            <button
-              class="standings-tab"
-              id="standings-tab-table"
-              role="tab"
-              type="button"
-              aria-selected="true"
-              aria-controls="standings-panel-table"
-              tabindex="0"
-            >
-              Таблица
-            </button>
-            <button
-              class="standings-tab"
-              id="standings-tab-matrix"
-              role="tab"
-              type="button"
-              aria-selected="false"
-              aria-controls="standings-panel-matrix"
-              tabindex="-1"
-            >
-              Матрица
-            </button>
-          </div>
-
-          <div class="standings-panels">
-            <section id="standings-panel-table" class="standings-panel" role="tabpanel" aria-labelledby="standings-tab-table">
-              <div class="table-wrap reveal">
+          <div class="reveal">
+            <div class="tournament-panel" data-tournament-panel="standings">
+              <div class="table-wrap">
                 <table class="data" id="standings-table">
                   <caption class="visually-hidden">Турнирная таблица 2016 г.р., первый этап</caption>
                   <thead>
@@ -2864,34 +2685,25 @@
                       <th scope="col" data-sort="number" title="Очков">О</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr><td class="num">1</td><td>Созвездие</td><td class="num">6</td><td class="num">5</td><td class="num">1</td><td class="num">0</td><td class="num">133</td><td class="num">67</td><td class="num">66</td><td class="num">11</td></tr>
-                    <tr><td class="num">2</td><td>Северная звезда</td><td class="num">5</td><td class="num">5</td><td class="num">0</td><td class="num">0</td><td class="num">97</td><td class="num">46</td><td class="num">51</td><td class="num">10</td></tr>
-                    <tr><td class="num">3</td><td>Марьино</td><td class="num">6</td><td class="num">4</td><td class="num">1</td><td class="num">1</td><td class="num">165</td><td class="num">88</td><td class="num">77</td><td class="num">9</td></tr>
-                    <tr><td class="num">4</td><td>Буран Москва</td><td class="num">4</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">124</td><td class="num">55</td><td class="num">69</td><td class="num">8</td></tr>
-                    <tr><td class="num">5</td><td>Центр</td><td class="num">5</td><td class="num">4</td><td class="num">0</td><td class="num">1</td><td class="num">116</td><td class="num">76</td><td class="num">40</td><td class="num">8</td></tr>
-                    <tr><td class="num">6</td><td>Метеор</td><td class="num">5</td><td class="num">3</td><td class="num">0</td><td class="num">2</td><td class="num">98</td><td class="num">72</td><td class="num">26</td><td class="num">6</td></tr>
-                    <tr><td class="num">7</td><td>Янтарь</td><td class="num">6</td><td class="num">3</td><td class="num">0</td><td class="num">3</td><td class="num">111</td><td class="num">108</td><td class="num">3</td><td class="num">6</td></tr>
-                    <tr><td class="num">8</td><td>Вымпел</td><td class="num">6</td><td class="num">3</td><td class="num">0</td><td class="num">3</td><td class="num">88</td><td class="num">91</td><td class="num">-3</td><td class="num">6</td></tr>
-                    <tr><td class="num">9</td><td>Пингвины</td><td class="num">4</td><td class="num">2</td><td class="num">1</td><td class="num">1</td><td class="num">79</td><td class="num">69</td><td class="num">10</td><td class="num">5</td></tr>
-                    <tr><td class="num">10</td><td>Сталкер</td><td class="num">6</td><td class="num">1</td><td class="num">0</td><td class="num">5</td><td class="num">90</td><td class="num">111</td><td class="num">-21</td><td class="num">2</td></tr>
-                    <tr><td class="num">11</td><td>Арктика</td><td class="num">4</td><td class="num">0</td><td class="num">1</td><td class="num">3</td><td class="num">55</td><td class="num">112</td><td class="num">-57</td><td class="num">1</td></tr>
-                    <tr><td class="num">12</td><td>Серебряные акулы</td><td class="num">5</td><td class="num">0</td><td class="num">0</td><td class="num">5</td><td class="num">66</td><td class="num">133</td><td class="num">-67</td><td class="num">0</td></tr>
-                    <tr><td class="num">13</td><td>Синяя птица</td><td class="num">5</td><td class="num">0</td><td class="num">0</td><td class="num">5</td><td class="num">62</td><td class="num">133</td><td class="num">-71</td><td class="num">0</td></tr>
-                    <tr><td class="num">14</td><td>Академия Бирюкова</td><td class="num">5</td><td class="num">0</td><td class="num">0</td><td class="num">5</td><td class="num">43</td><td class="num">166</td><td class="num">-123</td><td class="num">0</td></tr>
-                  </tbody>
+                  <tbody></tbody>
                 </table>
               </div>
-            </section>
+            </div>
 
-            <section id="standings-panel-matrix" class="standings-panel" role="tabpanel" aria-labelledby="standings-tab-matrix" hidden>
-              <div class="table-wrap h2h-wrap reveal">
-                <p id="h2h-matrix-description" class="visually-hidden">
-                  Матрица очных встреч команд: строки показывают первую команду, столбцы — соперника. В ячейке указан счет.
-                </p>
-                <div id="h2h-matrix-root"></div>
+            <div class="tournament-panel" data-tournament-panel="matrix" hidden>
+              <p id="h2h-note" style="margin: 0 0 12px; color: var(--muted)">
+                Команды по вертикали и горизонтали, в ячейках счёт сыгранных матчей.
+              </p>
+              <div class="table-wrap">
+                <table class="data matrix-table" id="h2h-table">
+                  <caption class="visually-hidden">Матрица сыгранных матчей турнира</caption>
+                  <thead>
+                    <tr id="h2h-head-row"></tr>
+                  </thead>
+                  <tbody id="h2h-body"></tbody>
+                </table>
               </div>
-            </section>
+            </div>
           </div>
         </div>
       </section>
@@ -2901,61 +2713,15 @@
         <div class="wrap">
           <div class="section-head reveal">
             <h2 id="matches-title" data-step="03">Матчи</h2>
+            <div class="matches-tabs" role="tablist" aria-label="Список матчей Сетуни">
+              <button class="matches-tab is-active" type="button" role="tab" aria-selected="true" data-match-tab="upcoming">
+                Ближайшие матчи
+              </button>
+              <button class="matches-tab" type="button" role="tab" aria-selected="false" data-match-tab="past">Прошедшие матчи</button>
+            </div>
           </div>
 
-          <div class="matches-tabs reveal" role="tablist" aria-label="Вкладки матчей">
-            <button
-              class="matches-tab"
-              id="matches-tab-upcoming"
-              role="tab"
-              type="button"
-              aria-selected="true"
-              aria-controls="matches-panel-upcoming"
-              tabindex="0"
-            >
-              Предстоящие
-            </button>
-            <button
-              class="matches-tab"
-              id="matches-tab-past"
-              role="tab"
-              type="button"
-              aria-selected="false"
-              aria-controls="matches-panel-past"
-              tabindex="-1"
-            >
-              Прошедшие
-            </button>
-          </div>
-
-          <div class="matches-panels reveal">
-            <section id="matches-panel-upcoming" class="matches-panel" role="tabpanel" aria-labelledby="matches-tab-upcoming">
-              <ul class="match-list" data-match-list="upcoming"></ul>
-              <p class="matches-empty" data-empty="upcoming" hidden>Предстоящих матчей пока нет.</p>
-            </section>
-            <section id="matches-panel-past" class="matches-panel" role="tabpanel" aria-labelledby="matches-tab-past" hidden>
-              <ul class="match-list" data-match-list="past"></ul>
-              <p class="matches-empty" data-empty="past" hidden>Прошедших матчей пока нет.</p>
-            </section>
-          </div>
-
-          <ul class="visually-hidden" id="matches-source" aria-hidden="true">
-            <li class="match" data-home="Вымпел" data-away="Центр" data-date="2026-10-17" data-time="11:15" data-venue="away" data-tour="Турнир 2016 г.р. 26/27 (формат 4х4), Группа В">
-              <strong>17 октября, 11:15</strong> · Вымпел — Центр
-            </li>
-            <li class="match" data-home="Центр" data-away="Марьино" data-date="2026-10-24" data-time="" data-venue="home" data-tour="Турнир 2016 г.р. 26/27 (формат 4х4), Группа В">
-              <strong>24 октября</strong> · Центр — Марьино
-            </li>
-            <li class="match" data-home="Созвездие" data-away="Центр" data-date="2026-10-31" data-time="" data-venue="away" data-tour="Турнир 2016 г.р. 26/27 (формат 4х4), Группа В">
-              <strong>31 октября</strong> · Созвездие — Центр
-            </li>
-            <li class="match" data-home="Центр" data-away="Буран Москва" data-date="2026-11-07" data-time="" data-venue="home" data-tour="Турнир 2016 г.р. 26/27 (формат 4х4), Группа В">
-              <strong>7 ноября</strong> · Центр — Буран Москва
-            </li>
-            <li class="match" data-home="Центр" data-away="Пингвины" data-date="2026-11-14" data-time="" data-venue="home" data-tour="Турнир 2016 г.р. 26/27 (формат 4х4), Группа В">
-              <strong>14 ноября</strong> · Центр — Пингвины
-            </li>
-          </ul>
+          <ul class="match-list reveal"></ul>
         </div>
       </section>
 
@@ -2963,16 +2729,10 @@
       <section class="section" id="statistics" aria-labelledby="stats-title">
         <div class="wrap">
           <div class="section-head reveal">
-            <h2 id="stats-title" data-step="04">Статистика игроков турнира</h2>
+            <h2 id="stats-title" data-step="04">Статистика игроков турнира (Рубин А/Рубин Б)</h2>
           </div>
 
           <div class="toolbar reveal">
-            <label class="field">
-              <span>Группа</span>
-              <select id="group-filter">
-                <option value="all">Все группы</option>
-              </select>
-            </label>
             <label class="field">
               <span>Команда</span>
               <select id="team-filter">
@@ -2992,12 +2752,6 @@
                 <option value="50">50</option>
               </select>
             </label>
-            <button class="btn-mini" id="stats-reset" type="button" aria-label="Сброс фильтров и сортировки" title="Сброс">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M21 12a9 9 0 1 1-2.64-6.36" />
-                <path d="M21 3v6h-6" />
-              </svg>
-            </button>
           </div>
 
           <div class="table-wrap reveal">
@@ -3007,7 +2761,6 @@
                 <tr>
                   <th scope="col" data-sort="number">Место</th>
                   <th scope="col" data-sort="text">Игрок</th>
-                  <th scope="col" data-sort="text">Группа</th>
                   <th scope="col" data-sort="text">Команда</th>
                   <th scope="col" data-sort="number">Игры</th>
                   <th scope="col" data-sort="number">Голы</th>
@@ -3032,88 +2785,18 @@
         <div class="wrap">
           <div class="section-head reveal">
             <h2 id="bday-title" data-step="05">Дни рождения</h2>
+            <div class="matches-tabs" role="tablist" aria-label="Список дней рождения">
+              <button class="matches-tab is-active" type="button" role="tab" aria-selected="true" data-bday-tab="upcoming">Предстоящие</button>
+              <button class="matches-tab" type="button" role="tab" aria-selected="false" data-bday-tab="past">Прошедшие</button>
+            </div>
           </div>
 
-          <div class="bday-tabs reveal" role="tablist" aria-label="Вкладки дней рождения">
-            <button
-              class="bday-tab"
-              id="bday-tab-upcoming"
-              role="tab"
-              type="button"
-              aria-selected="true"
-              aria-controls="bday-panel-upcoming"
-              tabindex="0"
-            >
-              Предстоящие <span class="count" id="bday-upcoming-count">0</span>
-            </button>
-            <button
-              class="bday-tab"
-              id="bday-tab-past"
-              role="tab"
-              type="button"
-              aria-selected="false"
-              aria-controls="bday-panel-past"
-              tabindex="-1"
-            >
-              Прошедшие <span class="count" id="bday-past-count">0</span>
-            </button>
-          </div>
-
-          <div class="bday-panels">
-            <article id="bday-panel-upcoming" class="bday-col reveal spotlight bday-panel" role="tabpanel" aria-labelledby="bday-tab-upcoming">
-              <h3>Предстоящие дни рождения</h3>
-              <ul class="bday-list" id="bday-upcoming"></ul>
-            </article>
-
-            <article
-              id="bday-panel-past"
-              class="bday-col reveal spotlight bday-panel"
-              style="--delay: 120ms"
-              role="tabpanel"
-              aria-labelledby="bday-tab-past"
-              hidden
-            >
-              <h3>Прошедшие дни рождения</h3>
-              <ul class="bday-list" id="bday-past"></ul>
+          <div class="bday-grid">
+            <article class="bday-col reveal spotlight">
+              <ul class="bday-list bday-panel" id="bday-upcoming" data-bday-panel="upcoming"></ul>
+              <ul class="bday-list bday-panel" id="bday-past" data-bday-panel="past" hidden></ul>
             </article>
           </div>
-
-          <ul class="visually-hidden" id="bday-source" aria-hidden="true">
-            <li class="bday-item upcoming" data-date="2016-10-18"><span class="who"><strong>Козлов Александр</strong></span><span class="when">18.10.2016</span></li>
-            <li class="bday-item upcoming" data-date="2016-10-28"><span class="who"><strong>Ковалев Григорий</strong></span><span class="when">28.10.2016</span></li>
-            <li class="bday-item upcoming" data-date="2016-11-14"><span class="who"><strong>Чертков Геннадий</strong></span><span class="when">14.11.2016</span></li>
-            <li class="bday-item upcoming" data-date="2016-11-17"><span class="who"><strong>Чуваткин Григорий</strong></span><span class="when">17.11.2016</span></li>
-            <li class="bday-item past" data-date="2016-01-14"><span class="who"><strong>Федоров Дорофей</strong></span><span class="when">14.01.2016</span></li>
-            <li class="bday-item past" data-date="2016-01-21"><span class="who"><strong>Кузнецов Григорий</strong></span><span class="when">21.01.2016</span></li>
-            <li class="bday-item past" data-date="2016-01-30"><span class="who"><strong>Турков Алексей</strong></span><span class="when">30.01.2016</span></li>
-            <li class="bday-item past" data-date="2016-02-02"><span class="who"><strong>Ельцов Роман</strong></span><span class="when">02.02.2016</span></li>
-            <li class="bday-item past" data-date="2016-02-24"><span class="who"><strong>Федуков Иван</strong></span><span class="when">24.02.2016</span></li>
-            <li class="bday-item past" data-date="2016-03-16"><span class="who"><strong>Мекеня Кирилл</strong></span><span class="when">16.03.2016</span></li>
-            <li class="bday-item past" data-date="2016-03-16"><span class="who"><strong>Дробязко Александр</strong></span><span class="when">16.03.2016</span></li>
-            <li class="bday-item past" data-date="2016-04-09"><span class="who"><strong>Букатов Дмитрий</strong></span><span class="when">09.04.2016</span></li>
-            <li class="bday-item past" data-date="2016-05-07"><span class="who"><strong>Кулагин Илья</strong></span><span class="when">07.05.2016</span></li>
-            <li class="bday-item past" data-date="2016-05-12"><span class="who"><strong>Шевченко Марк</strong></span><span class="when">12.05.2016</span></li>
-            <li class="bday-item past" data-date="2016-05-14"><span class="who"><strong>Власов Александр</strong></span><span class="when">14.05.2016</span></li>
-            <li class="bday-item past" data-date="2016-05-23"><span class="who"><strong>Пеикришвили Милан</strong></span><span class="when">23.05.2016</span></li>
-            <li class="bday-item past" data-date="2017-05-25"><span class="who"><strong>Крезо Павел</strong></span><span class="when">25.05.2017</span></li>
-            <li class="bday-item past" data-date="2016-06-03"><span class="who"><strong>Айнетдинов Ильяс</strong></span><span class="when">03.06.2016</span></li>
-            <li class="bday-item past" data-date="2016-06-06"><span class="who"><strong>Михейкин Андрей</strong></span><span class="when">06.06.2016</span></li>
-            <li class="bday-item past" data-date="2016-06-09"><span class="who"><strong>Давыденко Дарья</strong></span><span class="when">09.06.2016</span></li>
-            <li class="bday-item past" data-date="2016-06-10"><span class="who"><strong>Ерохин Эрнест</strong></span><span class="when">10.06.2016</span></li>
-            <li class="bday-item past" data-date="2016-06-30"><span class="who"><strong>Друев Роман</strong></span><span class="when">30.06.2016</span></li>
-            <li class="bday-item past" data-date="2016-07-03"><span class="who"><strong>Сахаров Андрей</strong></span><span class="when">03.07.2016</span></li>
-            <li class="bday-item past" data-date="2016-07-24"><span class="who"><strong>Хатеев Лев</strong></span><span class="when">24.07.2016</span></li>
-            <li class="bday-item past" data-date="2016-08-11"><span class="who"><strong>Коркин Тихон</strong></span><span class="when">11.08.2016</span></li>
-            <li class="bday-item past" data-date="2016-08-16"><span class="who"><strong>Захаров Тимофей</strong></span><span class="when">16.08.2016</span></li>
-            <li class="bday-item past" data-date="2016-08-26"><span class="who"><strong>Латыпов Федор</strong></span><span class="when">26.08.2016</span></li>
-            <li class="bday-item past" data-date="2016-08-29"><span class="who"><strong>Гастев Илья</strong></span><span class="when">29.08.2016</span></li>
-            <li class="bday-item past" data-date="2016-09-08"><span class="who"><strong>Квасов Фёдор</strong></span><span class="when">08.09.2016</span></li>
-            <li class="bday-item past" data-date="2017-09-21"><span class="who"><strong>Мещеряков Тимофей</strong></span><span class="when">21.09.2017</span></li>
-            <li class="bday-item past" data-date="2016-09-25"><span class="who"><strong>Иванцивский Александр</strong></span><span class="when">25.09.2016</span></li>
-            <li class="bday-item past" data-date="2016-09-25"><span class="who"><strong>Трухачев Арнольд</strong></span><span class="when">25.09.2016</span></li>
-            <li class="bday-item past" data-date="2016-09-26"><span class="who"><strong>Зеленский Ярослав</strong></span><span class="when">26.09.2016</span></li>
-            <li class="bday-item past" data-date="2016-10-06"><span class="who"><strong>Ваккер Лев</strong></span><span class="when">06.10.2016</span></li>
-          </ul>
         </div>
       </section>
     </main>
@@ -3121,9 +2804,10 @@
     <footer class="site-footer">
       <div class="wrap footer-inner">
         <p style="margin: 0">
-          Источник данных: Федерация хоккея Москвы —
-          <a href="https://fhmoscow.com/team/604?season=5" target="_blank" rel="noopener noreferrer">страница команды</a>.
-          Информация может обновляться по ходу сезона. Снимок данных: 10.10.2026.
+          Источник данных: SHL / MTGame API —
+          <a href="https://shlmos.ru/team/2641" target="_blank" rel="noopener noreferrer">страница команды</a>.
+          Информация обновляется автоматически каждые 6 часов.
+          <span id="footer-updated-at">Последнее обновление: —</span>
         </p>
         <div class="footer-links">
           <a href="#dashboard">Обзор</a>
@@ -3140,7 +2824,7 @@
       </svg>
     </button>
 
-    <script src="all_2016_players_season5.js"></script>
+    <script src="setun_shl_data.js"></script>
     <script>
       /* CENTR2016APPSTART */
       (() => {
@@ -3155,6 +2839,7 @@
         const fullDateFmt = new Intl.DateTimeFormat("ru-RU", { day: "2-digit", month: "2-digit", year: "numeric" });
         const dateWeekdayFmt = new Intl.DateTimeFormat("ru-RU", { weekday: "short", day: "numeric", month: "long" });
         const html = document.documentElement;
+        const appData = window.shlAppData && typeof window.shlAppData === "object" ? window.shlAppData : null;
 
         /** Русская плюрализация: plural(3, "день", "дня", "дней") → "дня". */
         function plural(count, one, few, many) {
@@ -3173,9 +2858,60 @@
           );
         }
 
+        function repairMojibake(value) {
+          const text = String(value || "");
+          if (!/[ÂÃÐÑ\uFFFD]|[\u0000-\u001F]/.test(text)) {
+            return text;
+          }
+
+          const decodeUtf8FromLatin1 = (input) => {
+            const bytes = Uint8Array.from(input, (char) => char.charCodeAt(0) & 255);
+            return new TextDecoder("utf-8").decode(bytes);
+          };
+
+          let repaired = text;
+          try {
+            for (let i = 0; i < 2; i += 1) {
+              const decoded = decodeUtf8FromLatin1(repaired);
+              if (decoded === repaired) {
+                break;
+              }
+              repaired = decoded;
+            }
+          } catch (error) {
+            /* оставляем fallback ниже */
+          }
+
+          return repaired
+            .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, "")
+            .replace(/\uFFFD/g, "")
+            .replace(/Â·/g, "·")
+            .replace(/Ñ‚ÑƒÑ€/g, "тур")
+            .replace(/\s{2,}/g, " ")
+            .trim();
+        }
+
         function fromIso(iso) {
           const [year, month, day] = iso.split("-").map(Number);
           return new Date(year, month - 1, day);
+        }
+
+        function formatUpdatedAt(iso) {
+          const value = String(iso || "").trim();
+          if (!value) return "—";
+          const dt = new Date(value);
+          if (!Number.isFinite(dt.getTime())) return "—";
+
+          const formatter = new Intl.DateTimeFormat("ru-RU", {
+            timeZone: "Europe/Moscow",
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+          });
+          return `${formatter.format(dt)} МСК`;
         }
 
         function startOfDay(date) {
@@ -3186,14 +2922,224 @@
           return Math.round((startOfDay(to) - startOfDay(from)) / 86400000);
         }
 
+        function hydrateFromAppData() {
+          if (!appData) return;
+
+          const meta = appData.meta || {};
+          const overview = appData.overview || {};
+          const standings = Array.isArray(appData.standings) ? appData.standings : [];
+          const matches = Array.isArray(appData.matches) ? appData.matches : [];
+          const hasUpcoming = Array.isArray(appData.upcomingMatches);
+          const hasPast = Array.isArray(appData.pastMatches);
+          let upcomingMatches = hasUpcoming ? appData.upcomingMatches : matches;
+          let pastMatches = hasPast ? appData.pastMatches : [];
+          if (!hasUpcoming && !hasPast && matches.length) {
+            const now = new Date();
+            upcomingMatches = matches.filter((match) => {
+              const date = String(match.date || "");
+              const time = String(match.time || "00:00");
+              return new Date(`${date}T${time}:00`) >= now;
+            });
+            pastMatches = matches
+              .filter((match) => {
+                const date = String(match.date || "");
+                const time = String(match.time || "00:00");
+                return new Date(`${date}T${time}:00`) < now;
+              })
+              .sort((a, b) => {
+                const dtA = new Date(`${String(a.date || "")}T${String(a.time || "00:00")}:00`);
+                const dtB = new Date(`${String(b.date || "")}T${String(b.time || "00:00")}:00`);
+                return dtB - dtA;
+              });
+          }
+          window.setunMatchesData = {
+            upcoming: Array.isArray(upcomingMatches) ? upcomingMatches : [],
+            past: Array.isArray(pastMatches) ? pastMatches : [],
+          };
+          const birthdays = Array.isArray(appData.birthdays) ? appData.birthdays : [];
+
+          const teamName = String(meta.teamName || "Сетунь");
+          const seasonLabel = String(meta.seasonLabel || "2026/2027");
+          const division = String(meta.division || "SHL");
+          const city = String(meta.city || "Москва");
+          const footerUpdatedAt = document.querySelector("#footer-updated-at");
+          if (footerUpdatedAt) {
+            footerUpdatedAt.textContent = `Последнее обновление: ${formatUpdatedAt(meta.updatedAt)}`;
+          }
+
+          const title = document.querySelector("title");
+          if (title) title.textContent = `${teamName} — хоккейная команда (SHL)`;
+          const description = document.querySelector('meta[name="description"]');
+          if (description) {
+            description.setAttribute(
+              "content",
+              `Хоккейная команда «${teamName}» (SHL): турнирная таблица, ближайшие матчи, статистика игроков дивизиона и дни рождения.`
+            );
+          }
+
+          const brandStrong = document.querySelector(".brand-text strong");
+          if (brandStrong) brandStrong.textContent = teamName;
+          const brandSmall = document.querySelector(".brand-text small");
+          if (brandSmall) brandSmall.textContent = `SHL · ${city}`;
+
+          const heroGrad = document.querySelector("#hero-title .grad");
+          if (heroGrad) heroGrad.textContent = `«${teamName}»`;
+          const heroLead = document.querySelector(".hero .lead");
+          if (heroLead) heroLead.textContent = `Команда из ${city}, выступающая в SHL. Дивизион: ${division}.`;
+
+          const actionLinks = document.querySelectorAll(".hero .actions a");
+          if (actionLinks[0] && meta.teamUrl) actionLinks[0].setAttribute("href", meta.teamUrl);
+          if (actionLinks[1]) actionLinks[1].setAttribute("href", "https://shlmos.ru/");
+
+          const logo = document.querySelector(".logo-stage img");
+          if (logo && meta.logoUrl) {
+            logo.setAttribute("src", meta.logoUrl);
+            logo.setAttribute("alt", `Логотип команды ${teamName}`);
+          }
+
+          const headerLogo = document.querySelector(".brand-mark img");
+          if (headerLogo && meta.logoUrl) {
+            headerLogo.setAttribute("src", meta.logoUrl);
+          }
+
+          const seasonWins = document.querySelector("#season-wins");
+          if (seasonWins) {
+            seasonWins.dataset.count = String(Number(overview.wins || 0));
+            seasonWins.textContent = String(Number(overview.wins || 0));
+          }
+          const seasonPoints = document.querySelector("#season-points");
+          if (seasonPoints) {
+            seasonPoints.dataset.count = String(Number(overview.points || 0));
+            seasonPoints.textContent = String(Number(overview.points || 0));
+          }
+
+          const tiles = document.querySelectorAll(".stat-tiles .tile");
+          if (tiles.length >= 6) {
+            const place = Number(overview.place || 0);
+            const allTeams = Number(overview.totalTeams || 0);
+            const games = Number(overview.games || 0);
+            const totalGamesForTeam = allTeams > 1 ? allTeams - 1 : 0;
+            const wins = Number(overview.wins || 0);
+            const losses = Number(overview.losses || 0);
+            const gf = Number(overview.goalsFor || 0);
+            const ga = Number(overview.goalsAgainst || 0);
+            const diff = Number(overview.goalDiff || 0);
+            const ppg = Number(overview.ppg || 0);
+
+            const placeValue = tiles[0].querySelector(".tile-value");
+            if (placeValue) placeValue.innerHTML = `${place}<span style="font-size: 0.5em; color: var(--muted)"> / ${allTeams}</span>`;
+            const gamesValue = tiles[1].querySelector(".tile-value");
+            if (gamesValue) {
+              gamesValue.removeAttribute("data-count");
+              gamesValue.innerHTML = `${games}<span style="font-size: 0.5em; color: var(--muted)"> / ${totalGamesForTeam}</span>`;
+            }
+            const gamesNote = tiles[1].querySelector(".tile-note");
+            if (gamesNote) gamesNote.textContent = `${wins} побед, ${losses} поражений`;
+
+            const gfValue = tiles[2].querySelector(".tile-value");
+            if (gfValue) {
+              gfValue.dataset.count = String(gf);
+              gfValue.textContent = String(gf);
+            }
+            const gaValue = tiles[3].querySelector(".tile-value");
+            if (gaValue) {
+              gaValue.dataset.count = String(ga);
+              gaValue.textContent = String(ga);
+            }
+            const diffValue = tiles[4].querySelector(".tile-value [data-count]") || tiles[4].querySelector(".tile-value");
+            if (diffValue) {
+              diffValue.dataset.count = String(diff);
+              diffValue.textContent = diff > 0 ? `+${diff}` : String(diff);
+            }
+            const ppgValue = tiles[5].querySelector(".tile-value");
+            if (ppgValue) {
+              ppgValue.dataset.count = String(ppg);
+              ppgValue.textContent = decimalsFmt.format(ppg);
+            }
+          }
+
+          const standingsBody = document.querySelector("#standings-table tbody");
+          if (standingsBody && standings.length) {
+            standingsBody.innerHTML = standings
+              .map(
+                (row) => `<tr>
+                <td class="num">${Number(row.place || 0)}</td>
+                <td>${escapeHtml(String(row.team || ""))}</td>
+                <td class="num">${Number(row.games || 0)}</td>
+                <td class="num">${Number(row.wins || 0)}</td>
+                <td class="num">${Number(row.draws || 0)}</td>
+                <td class="num">${Number(row.losses || 0)}</td>
+                <td class="num">${Number(row.gf || 0)}</td>
+                <td class="num">${Number(row.ga || 0)}</td>
+                <td class="num">${Number(row.diff || 0)}</td>
+                <td class="num">${Number(row.points || 0)}</td>
+              </tr>`
+              )
+              .join("");
+          }
+
+          const matchList = document.querySelector(".match-list");
+          if (matchList) {
+            matchList.innerHTML = "";
+          }
+
+          const now = new Date();
+          const nextForCard = (Array.isArray(upcomingMatches) ? upcomingMatches : [])
+            .map((match) => {
+              const date = String(match.date || "");
+              const time = String(match.time || "00:00");
+              const datetime = new Date(`${date}T${time}:00`);
+              return { ...match, datetime };
+            })
+            .filter((match) => Number.isFinite(match.datetime.getTime()) && match.datetime >= now)
+            .sort((a, b) => a.datetime - b.datetime)[0];
+
+          if (nextForCard) {
+            const first = nextForCard;
+            const nextTeams = document.querySelectorAll("#next-match .teams span");
+            if (nextTeams[0]) nextTeams[0].textContent = String(first.home || "");
+            if (nextTeams[2]) nextTeams[2].textContent = String(first.away || "");
+            const nextMeta = document.querySelector("#next-match .meta");
+            if (nextMeta) {
+              const localDate = fromIso(String(first.date || "1970-01-01"));
+              const dtText = `${dateWeekdayFmt.format(localDate)}${first.time ? `, ${first.time}` : ""}`;
+              const venueText = first.venue === "home" ? "дома" : "в гостях";
+              const tour = repairMojibake(String(first.tour || "SHL"));
+              nextMeta.textContent = `${dtText} · ${tour} · ${venueText}`;
+            }
+          } else {
+            const nextTeams = document.querySelectorAll("#next-match .teams span");
+            if (nextTeams[0]) nextTeams[0].textContent = "Матч";
+            if (nextTeams[2]) nextTeams[2].textContent = "не назначен";
+            const nextMeta = document.querySelector("#next-match .meta");
+            if (nextMeta) nextMeta.textContent = "Ожидаем публикацию следующего матча в расписании";
+          }
+
+          const upcomingList = document.querySelector("#bday-upcoming");
+          const pastList = document.querySelector("#bday-past");
+          if (upcomingList) {
+            upcomingList.innerHTML = birthdays
+              .map(
+                (b) => `<li class="bday-item upcoming" data-date="${escapeHtml(String(b.date || ""))}"><span class="who"><strong>${escapeHtml(
+                  String(b.name || "")
+                )}</strong></span><span class="when">${escapeHtml(fullDateFmt.format(fromIso(String(b.date || "2000-01-01"))))}</span></li>`
+              )
+              .join("");
+          }
+          if (pastList) pastList.innerHTML = "";
+        }
+
+        hydrateFromAppData();
+
         /* ====================================================================
-            Тема оформления: клубная светлая (по умолчанию) и клубная тёмная
+           Тема оформления: тёмно-синяя (по умолчанию), зелёный хаки и светлая
            ==================================================================== */
-        const THEME_KEY = "centr2016:theme";
-        const DEFAULT_THEME = "club-light";
+        const THEME_KEY = "setun-shl:theme";
+        const DEFAULT_THEME = "blue-dark";
         const THEMES = {
-          "club-light": { label: "Клубная светлая", color: "#f6f4f5" },
-          "club-dark": { label: "Клубная тёмная", color: "#0a0a0c" },
+          "blue-dark": { label: "Тёмно-синяя", color: "#070f1f" },
+          khaki: { label: "Зелёный хаки", color: "#545d44" },
+          light: { label: "Светлая", color: "#f8fbff" },
         };
         const themeButtons = $$(".theme-picker .swatch");
         const themeColor = document.querySelector('meta[name="theme-color"]');
@@ -3395,17 +3341,11 @@
           );
         }
 
-        const TEAM_YEAR_SUFFIX = /\s*2016$/;
-
-        function normalizeTeamName(name) {
-          return String(name ?? "").replace(TEAM_YEAR_SUFFIX, "").trim();
-        }
-
         /* ====================================================================
            Турнирная таблица: сортировка, поиск, полосы очков, график
            ==================================================================== */
         const standingsTable = $("#standings-table");
-        const OWN_TEAM = "Центр";
+        const OWN_TEAM = String((appData && appData.meta && appData.meta.teamName) || "Сетунь");
 
         if (standingsTable) {
           const headCells = $$("thead th", standingsTable);
@@ -3413,17 +3353,24 @@
           const tbody = $("tbody", standingsTable);
           const teams = [];
 
-          function teamCellHtml(name, query) {
-            const base = normalizeTeamName(name);
+          // «2016» есть в названии каждой команды турнира: на телефоне этот хвост
+          // скрывается (см. медиазапрос), чтобы длинные названия помещались целиком
+          const TEAM_YEAR = /\s*2016$/;
 
-            if (!query) return escapeHtml(base);
+          function teamCellHtml(name, query) {
+            const text = String(name);
+            const year = text.match(TEAM_YEAR);
+            const base = year ? text.slice(0, year.index) : text;
+            const suffix = year ? `<span class="team-year">${escapeHtml(year[0])}</span>` : "";
+
+            if (!query) return escapeHtml(base) + suffix;
 
             const at = base.toLocaleLowerCase("ru").indexOf(query);
-            if (at === -1) return escapeHtml(base);
+            if (at === -1) return escapeHtml(base) + suffix;
 
             return `${escapeHtml(base.slice(0, at))}<mark>${escapeHtml(
               base.slice(at, at + query.length)
-            )}</mark>${escapeHtml(base.slice(at + query.length))}`;
+            )}</mark>${escapeHtml(base.slice(at + query.length))}${suffix}`;
           }
 
           $$("tbody tr", standingsTable).forEach((row, rowIndex) => {
@@ -3433,9 +3380,9 @@
               row,
               index: rowIndex,
               place: Number(cells[0].textContent),
-              team: normalizeTeamName(cells[1].textContent.trim()),
+              team: cells[1].textContent.trim(),
               values: numeric,
-              own: normalizeTeamName(cells[1].textContent.trim()) === OWN_TEAM,
+              own: cells[1].textContent.trim() === OWN_TEAM,
             };
             record.points = numeric[7];
             record.diff = numeric[6];
@@ -3470,12 +3417,12 @@
               .map((team, index) => {
                 const step = index * 50;
                 const row = `
-                <div class="chart-row" style="--delay: ${step}ms">
+                <div class="chart-row${team.own ? " own" : ""}" style="--delay: ${step}ms">
                   <span class="track">
                     <span class="fill" style="--w: ${(team.points / max) * 100}%; --delay: ${step}ms"></span>
-                    <span class="label">${escapeHtml(team.team)}</span>
-                    <span class="value">${team.points}</span>
+                    <span class="track-label">${escapeHtml(team.team)}</span>
                   </span>
+                  <span class="value">${team.points}</span>
                 </div>`;
                 return row;
               })
@@ -3545,233 +3492,205 @@
               }
             });
           });
-
-          const standingsTabsWrap = $("#standings .standings-tabs");
-          const standingsTabs = standingsTabsWrap ? $$("[role='tab']", standingsTabsWrap) : [];
-
-          const h2hMatrixRoot = $("#h2h-matrix-root");
-          const H2H_RESULTS = [
-            { homeTeam: "Центр", awayTeam: "Метеор", homeGoals: 21, awayGoals: 13, date: "2026-09-03" },
-            { homeTeam: "Центр", awayTeam: "Вымпел", homeGoals: 16, awayGoals: 14, date: "2026-09-10" },
-            { homeTeam: "Центр", awayTeam: "Арктика", homeGoals: 24, awayGoals: 9, date: "2026-09-17" },
-            { homeTeam: "Центр", awayTeam: "Сталкер", homeGoals: 31, awayGoals: 18, date: "2026-09-24" },
-            { homeTeam: "Буран Москва", awayTeam: "Центр", homeGoals: 22, awayGoals: 18, date: "2026-10-01" },
-            { homeTeam: "Созвездие", awayTeam: "Северная звезда", homeGoals: 15, awayGoals: 15, date: "2026-09-05" },
-            { homeTeam: "Марьино", awayTeam: "Янтарь", homeGoals: 29, awayGoals: 17, date: "2026-09-09" },
-            { homeTeam: "Пингвины", awayTeam: "Сталкер", homeGoals: 19, awayGoals: 16, date: "2026-09-12" },
-            { homeTeam: "Серебряные акулы", awayTeam: "Синяя птица", homeGoals: 14, awayGoals: 20, date: "2026-09-16" },
-            { homeTeam: "Академия Бирюкова", awayTeam: "Арктика", homeGoals: 11, awayGoals: 13, date: "2026-09-19" },
-          ];
-
-          function shortTeamName(name) {
-            return normalizeTeamName(name);
-          }
-
-          function buildH2hLookup(teamNames) {
-            const knownTeams = new Set(teamNames);
-            const lookup = new Map();
-
-            H2H_RESULTS.forEach((match) => {
-              const home = normalizeTeamName(match.homeTeam || "");
-              const away = normalizeTeamName(match.awayTeam || "");
-              const homeGoals = Number(match.homeGoals);
-              const awayGoals = Number(match.awayGoals);
-              if (!knownTeams.has(home) || !knownTeams.has(away)) return;
-              if (!Number.isFinite(homeGoals) || !Number.isFinite(awayGoals)) return;
-
-              lookup.set(`${home}::${away}`, {
-                home,
-                away,
-                homeGoals,
-                awayGoals,
-                date: String(match.date || ""),
-              });
-            });
-
-            return lookup;
-          }
-
-          function cellState(goalsFor, goalsAgainst) {
-            if (goalsFor > goalsAgainst) return "win";
-            if (goalsFor < goalsAgainst) return "loss";
-            return "draw";
-          }
-
-          function renderH2hMatrix() {
-            if (!h2hMatrixRoot) return;
-            const orderedTeams = teams.map((team) => team.team);
-            if (!orderedTeams.length) {
-              h2hMatrixRoot.innerHTML = "";
-              return;
-            }
-
-            const lookup = buildH2hLookup(orderedTeams);
-            const head = orderedTeams
-              .map(
-                (team) =>
-                  `<th scope=\"col\" class=\"col-team\"><span class=\"h2h-col-label\">${escapeHtml(shortTeamName(team))}</span></th>`
-              )
-              .join("");
-
-            const body = orderedTeams
-              .map((rowTeam) => {
-                const cells = orderedTeams
-                  .map((colTeam) => {
-                    if (rowTeam === colTeam) {
-                      return `<td><span class=\"cell self\" aria-label=\"${escapeHtml(rowTeam)}: та же команда\"></span></td>`;
-                    }
-
-                    const direct = lookup.get(`${rowTeam}::${colTeam}`);
-                    const reverse = lookup.get(`${colTeam}::${rowTeam}`);
-
-                    if (!direct && !reverse) {
-                      return `<td><span class=\"cell empty\" aria-label=\"${escapeHtml(rowTeam)} против ${escapeHtml(
-                        colTeam
-                      )}: матч не сыгран\"></span></td>`;
-                    }
-
-                    const goalsFor = direct ? direct.homeGoals : reverse.awayGoals;
-                    const goalsAgainst = direct ? direct.awayGoals : reverse.homeGoals;
-                    const score = `${goalsFor}:${goalsAgainst}`;
-                    const state = cellState(goalsFor, goalsAgainst);
-                    const resultMark = state === "win" ? "В" : state === "loss" ? "П" : "Н";
-
-                    return `<td><span class=\"cell ${state}\" title=\"${escapeHtml(
-                      rowTeam
-                    )} — ${escapeHtml(colTeam)}: ${score}\" aria-label=\"${escapeHtml(
-                      rowTeam
-                    )} против ${escapeHtml(colTeam)}: счет ${score}, ${resultMark}\">${score}</span></td>`;
-                  })
-                  .join("");
-
-                return `<tr><th scope=\"row\">${escapeHtml(rowTeam)}</th>${cells}</tr>`;
-              })
-              .join("");
-
-            h2hMatrixRoot.innerHTML = `
-              <table class="h2h-matrix" aria-describedby="h2h-matrix-description">
-                <caption class="visually-hidden">Матрица очных встреч команд турнира 2016 года</caption>
-                <thead>
-                  <tr>
-                    <th class="corner" scope="col">Команда</th>
-                    ${head}
-                  </tr>
-                </thead>
-                <tbody>
-                  ${body}
-                </tbody>
-              </table>`;
-          }
-
-          const activateStandingsTab = (index, { moveFocus = false } = {}) => {
-            const nextTab = standingsTabs[index];
-            if (!nextTab) return;
-
-            standingsTabs.forEach((tab, tabIndex) => {
-              const selected = tabIndex === index;
-              tab.setAttribute("aria-selected", String(selected));
-              tab.tabIndex = selected ? 0 : -1;
-              const panel = $(`#${tab.getAttribute("aria-controls")}`);
-              if (panel) panel.hidden = !selected;
-            });
-
-            if (moveFocus) nextTab.focus();
-          };
-
-          if (standingsTabs.length) {
-            standingsTabs.forEach((tab, index) => {
-              tab.addEventListener("click", () => activateStandingsTab(index));
-              tab.addEventListener("keydown", (event) => {
-                const key = event.key;
-                if (!["ArrowLeft", "ArrowRight", "Home", "End", "Enter", " "].includes(key)) return;
-                event.preventDefault();
-
-                if (key === "Enter" || key === " ") {
-                  activateStandingsTab(index);
-                  return;
-                }
-
-                let nextIndex = index;
-                if (key === "Home") nextIndex = 0;
-                if (key === "End") nextIndex = standingsTabs.length - 1;
-                if (key === "ArrowRight") nextIndex = (index + 1) % standingsTabs.length;
-                if (key === "ArrowLeft") nextIndex = (index - 1 + standingsTabs.length) % standingsTabs.length;
-                activateStandingsTab(nextIndex, { moveFocus: true });
-              });
-            });
-            activateStandingsTab(0);
-          }
-
-          renderH2hMatrix();
         }
 
         /* ====================================================================
-           Матчи: состояния, отсчёт, добавление в календарь (.ics)
+           Матрица встреч: команды по осям и счет на пересечениях
            ==================================================================== */
-        const matches = $$("#matches-source .match").map((element) => {
-          const date = element.dataset.date;
-          const time = element.dataset.time || "";
-          return {
-            element,
-            home: normalizeTeamName(element.dataset.home || ""),
-            away: normalizeTeamName(element.dataset.away || ""),
-            tour: element.dataset.tour || "",
-            venue: element.dataset.venue === "home" ? "home" : "away",
-            date,
-            time,
-            datetime: new Date(`${date}T${time || "00:00"}:00`),
-            hasTime: Boolean(time),
-          };
-        });
+        const h2hHeadRow = $("#h2h-head-row");
+        const h2hBody = $("#h2h-body");
+        const h2hNote = $("#h2h-note");
 
-        const todayStart = new Date();
-        todayStart.setHours(0, 0, 0, 0);
-        const upcomingList = $('[data-match-list="upcoming"]');
-        const pastList = $('[data-match-list="past"]');
-        const upcomingEmpty = $('[data-empty="upcoming"]');
-        const pastEmpty = $('[data-empty="past"]');
+        function teamPairKey(teamA, teamB) {
+          return teamA.localeCompare(teamB, "ru") <= 0 ? `${teamA}||${teamB}` : `${teamB}||${teamA}`;
+        }
 
-        const matchTabs = $$('[role="tab"]', $("#matches"));
+        function matchUniqueKey(match) {
+          if (match && Number.isFinite(Number(match.gameId))) {
+            return `id:${Number(match.gameId)}`;
+          }
+          const home = String((match && match.home) || "").trim();
+          const away = String((match && match.away) || "").trim();
+          const date = String((match && match.date) || "").trim();
+          const time = String((match && match.time) || "").trim();
+          return `${home}|${away}|${date}|${time}`;
+        }
 
-        const activateMatchTab = (index, { moveFocus = false } = {}) => {
-          const nextTab = matchTabs[index];
-          if (!nextTab) return;
+        function syncMatrixHeaderHeight() {
+          if (!h2hHeadRow) return;
+          const matrixTable = h2hHeadRow.closest("table");
+          if (!matrixTable) return;
 
-          matchTabs.forEach((tab, tabIndex) => {
-            const selected = tabIndex === index;
+          const labels = $$(".matrix-head-label", h2hHeadRow);
+          if (!labels.length) {
+            matrixTable.style.removeProperty("--matrix-head-height");
+            return;
+          }
+
+          const maxLabelWidth = labels.reduce((max, label) => {
+            const width = Math.ceil(label.scrollWidth || 0);
+            return width > max ? width : max;
+          }, 0);
+
+          const minHeight = 184;
+          const padding = 36;
+          matrixTable.style.setProperty("--matrix-head-height", `${Math.max(minHeight, maxLabelWidth + padding)}px`);
+        }
+
+        function renderHeadToHeadMatrix() {
+          if (!h2hHeadRow || !h2hBody) return;
+
+          const standings = Array.isArray(appData && appData.standings) ? appData.standings : [];
+          const past = Array.isArray(appData && appData.allPastMatches)
+            ? appData.allPastMatches
+            : Array.isArray(window.setunMatchesData && window.setunMatchesData.past)
+            ? window.setunMatchesData.past
+            : [];
+          const upcomingAll = Array.isArray(appData && appData.allUpcomingMatches) ? appData.allUpcomingMatches : [];
+          const teams = standings.map((row) => String(row.team || "").trim()).filter(Boolean);
+
+          if (!teams.length) {
+            h2hHeadRow.innerHTML = '<th scope="col">Команда</th>';
+            h2hBody.innerHTML =
+              '<tr><td colspan="2" class="empty-row">Недостаточно данных для построения матрицы встреч.</td></tr>';
+            return;
+          }
+
+          const scoresByPair = new Map();
+          let scoredGames = 0;
+
+          past.forEach((match) => {
+            const home = String(match.home || "").trim();
+            const away = String(match.away || "").trim();
+            const homeScore = Number(match.homeScore);
+            const awayScore = Number(match.awayScore);
+            if (!home || !away || !Number.isFinite(homeScore) || !Number.isFinite(awayScore)) return;
+
+            const key = teamPairKey(home, away);
+            if (!scoresByPair.has(key)) scoresByPair.set(key, []);
+            scoresByPair.get(key).push({ home, away, homeScore, awayScore });
+            scoredGames += 1;
+          });
+
+          const knownMatches = [...past, ...upcomingAll];
+          const totalByCalendar = new Set(knownMatches.map(matchUniqueKey)).size;
+          const totalByRoundRobin = teams.length > 1 ? (teams.length * (teams.length - 1)) / 2 : 0;
+          const totalGames = Math.max(totalByCalendar, totalByRoundRobin, scoredGames);
+
+          h2hHeadRow.innerHTML = `<th scope="col">Команда</th>${teams
+            .map((team) => `<th scope="col"><span class="matrix-head-label">${escapeHtml(team)}</span></th>`)
+            .join("")}`;
+
+          h2hBody.innerHTML = teams
+            .map((rowTeam) => {
+              const cells = teams
+                .map((colTeam) => {
+                  if (rowTeam === colTeam) {
+                    return '<td class="self" aria-label="Та же команда"></td>';
+                  }
+
+                  const games = scoresByPair.get(teamPairKey(rowTeam, colTeam)) || [];
+                  if (!games.length) return "<td></td>";
+
+                  const scoreText = games
+                    .map((game) => {
+                      const rowGoals = game.home === rowTeam ? game.homeScore : game.awayScore;
+                      const colGoals = game.home === rowTeam ? game.awayScore : game.homeScore;
+                      return `${rowGoals}:${colGoals}`;
+                    })
+                    .join(", ");
+
+                  return `<td>${escapeHtml(scoreText)}</td>`;
+                })
+                .join("");
+
+              return `<tr><th scope="row">${escapeHtml(rowTeam)}</th>${cells}</tr>`;
+            })
+            .join("");
+
+          if (h2hNote) {
+            h2hNote.textContent = `Команды по вертикали и горизонтали, в ячейках счёт сыгранных матчей. Заполнено матчей: ${scoredGames} из ${totalGames}.`;
+          }
+
+          syncMatrixHeaderHeight();
+        }
+
+        renderHeadToHeadMatrix();
+        window.addEventListener("resize", syncMatrixHeaderHeight);
+
+        const tournamentTabs = $$('[data-tournament-tab]');
+        const tournamentPanels = $$('[data-tournament-panel]');
+
+        function renderTournamentPanel(name) {
+          const active = name === "matrix" ? "matrix" : "standings";
+          tournamentTabs.forEach((tab) => {
+            const selected = tab.dataset.tournamentTab === active;
+            tab.classList.toggle("is-active", selected);
             tab.setAttribute("aria-selected", String(selected));
-            tab.tabIndex = selected ? 0 : -1;
-            const panel = $(`#${tab.getAttribute("aria-controls")}`);
-            if (panel) panel.hidden = !selected;
           });
+          tournamentPanels.forEach((panel) => {
+            panel.hidden = panel.dataset.tournamentPanel !== active;
+          });
+        }
 
-          if (moveFocus) nextTab.focus();
-        };
-
-        matchTabs.forEach((tab, index) => {
-          tab.addEventListener("click", () => activateMatchTab(index));
-          tab.addEventListener("keydown", (event) => {
-            const key = event.key;
-            if (!["ArrowLeft", "ArrowRight", "Home", "End", "Enter", " "].includes(key)) return;
-            event.preventDefault();
-
-            if (key === "Enter" || key === " ") {
-              activateMatchTab(index);
-              return;
-            }
-
-            let nextIndex = index;
-            if (key === "Home") nextIndex = 0;
-            if (key === "End") nextIndex = matchTabs.length - 1;
-            if (key === "ArrowRight") nextIndex = (index + 1) % matchTabs.length;
-            if (key === "ArrowLeft") nextIndex = (index - 1 + matchTabs.length) % matchTabs.length;
-            activateMatchTab(nextIndex, { moveFocus: true });
+        tournamentTabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            renderTournamentPanel(tab.dataset.tournamentTab || "standings");
           });
         });
 
-        activateMatchTab(0);
+        renderTournamentPanel("standings");
 
-        const nextMatch = matches.find((match) => match.datetime >= new Date()) || null;
+        /* ====================================================================
+           Матчи: вкладки, состояния, календарь и медиа
+           ==================================================================== */
+        const matchesData = window.setunMatchesData || { upcoming: [], past: [] };
+        const matchList = $(".match-list");
+        const matchTabs = $$('[data-match-tab]');
+
+        const upcomingMatches = (Array.isArray(matchesData.upcoming) ? matchesData.upcoming : [])
+          .map((match) => {
+            const date = String(match.date || "");
+            const time = String(match.time || "");
+            return {
+              gameId: Number(match.gameId || 0),
+              home: String(match.home || ""),
+              away: String(match.away || ""),
+              tour: repairMojibake(String(match.tour || "")),
+              venue: match.venue === "home" ? "home" : "away",
+              date,
+              time,
+              datetime: new Date(`${date}T${time || "00:00"}:00`),
+              hasTime: Boolean(time),
+            };
+          })
+          .sort((a, b) => a.datetime - b.datetime);
+
+        const pastMatches = (Array.isArray(matchesData.past) ? matchesData.past : [])
+          .map((match) => {
+            const gameId = Number(match.gameId || 0);
+            const date = String(match.date || "");
+            const time = String(match.time || "");
+            return {
+              gameId,
+              home: String(match.home || ""),
+              away: String(match.away || ""),
+              tour: repairMojibake(String(match.tour || "")),
+              venue: match.venue === "home" ? "home" : "away",
+              date,
+              time,
+              datetime: new Date(`${date}T${time || "00:00"}:00`),
+              hasTime: Boolean(time),
+              homeScore: Number.isFinite(Number(match.homeScore)) ? Number(match.homeScore) : null,
+              awayScore: Number.isFinite(Number(match.awayScore)) ? Number(match.awayScore) : null,
+              mediaUrl: String(match.mediaUrl || "").trim(),
+              statisticUrl: String(match.statisticUrl || (gameId > 0 ? `https://shlmos.ru/game/${gameId}/statistic` : "")).trim(),
+              mediaPageUrl: String(match.mediaPageUrl || (gameId > 0 ? `https://shlmos.ru/game/${gameId}/media` : "")).trim(),
+            };
+          })
+          .sort((a, b) => b.datetime - a.datetime);
+
+        const nextMatch = upcomingMatches.find((match) => match.datetime >= new Date()) || null;
 
         function countdownLabel(match) {
           const days = daysBetween(new Date(), match.datetime);
@@ -3795,10 +3714,10 @@
           return [
             "BEGIN:VCALENDAR",
             "VERSION:2.0",
-            "PRODID:-//Centr 2016//Onepager//RU",
+            "PRODID:-//Setun SHL//Onepager//RU",
             "CALSCALE:GREGORIAN",
             "BEGIN:VEVENT",
-            `UID:centr2016-${match.date.replace(/-/g, "")}@demo`,
+            `UID:setun-shl-${match.date.replace(/-/g, "")}@demo`,
             `DTSTAMP:${utcStamp(new Date())}`,
             `DTSTART:${localStamp(match.datetime)}`,
             `DTEND:${localStamp(end)}`,
@@ -3821,63 +3740,112 @@
           setTimeout(() => URL.revokeObjectURL(url), 4000);
         }
 
-        matches.forEach((match) => {
-          const state = countdownLabel(match);
-          const isNext = nextMatch === match;
-          match.element.classList.add(match.venue === "home" ? "is-home" : "is-away");
-          match.element.classList.toggle("is-next", isNext);
-          match.element.classList.toggle("is-past", state.state === "past");
-          match.element.dataset.state = state.state;
+        let activeMatchTab = "upcoming";
 
-          const when = match.hasTime
-            ? `${dateWeekdayFmt.format(match.datetime)}, ${match.time}`
-            : `${dateWeekdayFmt.format(match.datetime)}, время уточняется`;
+        function tabLabel(kind, count) {
+          return kind === "upcoming" ? `Ближайшие матчи (${count})` : `Прошедшие матчи (${count})`;
+        }
 
-          match.element.innerHTML = `
-            <div class="match-top">
-              <span class="badge${match.venue === "home" ? " accent" : ""}">${
-            match.venue === "home" ? "дома" : "в гостях"
-          }</span>
-              <span class="when">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-                  <rect x="3" y="5" width="18" height="16" rx="3" />
-                  <path d="M8 3v4M16 3v4M3 10h18" />
-                </svg>
-                ${escapeHtml(when)}
-              </span>
-              ${isNext ? '<span class="badge accent">следующий</span>' : ""}
-            </div>
-            <div class="match-teams">
-              <span>${escapeHtml(match.home)}</span>
-              <span class="vs">vs</span>
-              <span>${escapeHtml(match.away)}</span>
-            </div>
-            <div class="match-foot">
-              <span class="countdown-chip ${state.state === "past" ? "past" : state.state === "today" ? "today" : ""}">${escapeHtml(
-            state.text
-          )}</span>
-              <span class="spacer"></span>
-              <button class="btn-mini" type="button" data-ics>В календарь</button>
-            </div>`;
+        function renderMatches(tabName) {
+          if (!matchList) return;
 
-          $("[data-ics]", match.element)?.addEventListener("click", (event) => {
-            const button = event.currentTarget;
-            downloadFile(`centr-2016-${match.date}.ics`, buildIcs(match), "text/calendar;charset=utf-8");
-            button.textContent = "Файл готов";
-            setTimeout(() => {
-              button.textContent = "В календарь";
-            }, 2000);
+          const isPastTab = tabName === "past";
+          const source = isPastTab ? pastMatches : upcomingMatches;
+          const tabCount = source.length;
+
+          activeMatchTab = isPastTab ? "past" : "upcoming";
+          matchTabs.forEach((tab) => {
+            const selected = tab.dataset.matchTab === activeMatchTab;
+            tab.classList.toggle("is-active", selected);
+            tab.setAttribute("aria-selected", String(selected));
           });
 
-          if (match.datetime >= todayStart) {
-            upcomingList?.append(match.element);
-          } else {
-            pastList?.append(match.element);
+          if (!tabCount) {
+            matchList.innerHTML = `<li class="match"><div class="match-top"><span class="badge">${isPastTab ? "прошедшие" : "ближайшие"}</span></div><div class="match-teams"><span>Нет матчей для отображения</span></div></li>`;
+            return;
           }
+
+          matchList.innerHTML = source
+            .map((match, index) => {
+              const state = countdownLabel(match);
+              const isNext = !isPastTab && nextMatch === match;
+              const when = match.hasTime
+                ? `${dateWeekdayFmt.format(match.datetime)}, ${match.time}`
+                : `${dateWeekdayFmt.format(match.datetime)}, время уточняется`;
+              const scoreKnown = Number.isFinite(match.homeScore) && Number.isFinite(match.awayScore);
+              const scoreText = scoreKnown ? `${match.homeScore}:${match.awayScore}` : "счет не указан";
+              const setunScore = scoreKnown ? (match.venue === "home" ? match.homeScore : match.awayScore) : null;
+              const opponentScore = scoreKnown ? (match.venue === "home" ? match.awayScore : match.homeScore) : null;
+              const resultClass =
+                scoreKnown && setunScore !== opponentScore ? (setunScore > opponentScore ? " win" : " loss") : "";
+              const statisticAction = match.statisticUrl
+                ? `<a class="btn-mini" href="${escapeHtml(match.statisticUrl)}" target="_blank" rel="noopener noreferrer">Статистика</a>`
+                : `<span class="btn-mini" aria-disabled="true">Статистика</span>`;
+              const mediaHref = match.mediaUrl || match.mediaPageUrl;
+              const mediaAction = mediaHref
+                ? `<a class="btn-mini" href="${escapeHtml(mediaHref)}" target="_blank" rel="noopener noreferrer">Медиа</a>`
+                : `<span class="btn-mini" aria-disabled="true">Нет медиа</span>`;
+
+              return `<li class="match ${match.venue === "home" ? "is-home" : "is-away"}${
+                isNext ? " is-next" : ""
+              }${isPastTab ? " is-past" : state.state === "past" ? " is-past" : ""}" data-state="${escapeHtml(state.state)}">
+                <div class="match-top">
+                  <span class="badge${match.venue === "home" ? " accent" : ""}">${match.venue === "home" ? "дома" : "в гостях"}</span>
+                  <span class="when">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                      <rect x="3" y="5" width="18" height="16" rx="3" />
+                      <path d="M8 3v4M16 3v4M3 10h18" />
+                    </svg>
+                    ${escapeHtml(when)}
+                  </span>
+                  ${isNext ? '<span class="badge accent">следующий</span>' : ""}
+                </div>
+                <div class="match-teams">
+                  <span>${escapeHtml(match.home)}</span>
+                  <span class="vs">vs</span>
+                  <span>${escapeHtml(match.away)}</span>
+                  ${isPastTab ? `<span class="match-score${resultClass}">${escapeHtml(scoreText)}</span>` : ""}
+                </div>
+                <div class="match-foot">
+                  <span class="tour">${escapeHtml(match.tour)}</span>
+                  ${
+                    isPastTab
+                      ? ""
+                      : `<span class="countdown-chip ${state.state === "past" ? "past" : state.state === "today" ? "today" : ""}">${escapeHtml(
+                          state.text
+                        )}</span>`
+                  }
+                  <span class="spacer"></span>
+                  ${isPastTab ? `${statisticAction}${mediaAction}` : `<button class="btn-mini" type="button" data-ics-index="${index}">В календарь</button>`}
+                </div>
+              </li>`;
+            })
+            .join("");
+
+          if (!isPastTab) {
+            $$('[data-ics-index]', matchList).forEach((button) => {
+              button.addEventListener("click", (event) => {
+                const index = Number(event.currentTarget.dataset.icsIndex || -1);
+                const match = source[index];
+                if (!match) return;
+                downloadFile(`setun-shl-${match.date}.ics`, buildIcs(match), "text/calendar;charset=utf-8");
+                event.currentTarget.textContent = "Файл готов";
+                setTimeout(() => {
+                  event.currentTarget.textContent = "В календарь";
+                }, 2000);
+              });
+            });
+          }
+        }
+
+        matchTabs.forEach((tab) => {
+          const key = tab.dataset.matchTab === "past" ? "past" : "upcoming";
+          const count = key === "past" ? pastMatches.length : upcomingMatches.length;
+          tab.textContent = tabLabel(key, count);
+          tab.addEventListener("click", () => renderMatches(key));
         });
 
-        if (upcomingEmpty) upcomingEmpty.hidden = Boolean(upcomingList?.children.length);
-        if (pastEmpty) pastEmpty.hidden = Boolean(pastList?.children.length);
+        renderMatches("upcoming");
 
         const countdownFields = {
           days: $('[data-cd="days"]'),
@@ -3916,18 +3884,20 @@
 
           renderCountdown();
           if (target - new Date() > 0) timer = setInterval(renderCountdown, 1000);
+        } else if (countdownFields.days) {
+          Object.values(countdownFields).forEach((field) => {
+            if (field) field.textContent = "--";
+          });
         }
 
         /* ====================================================================
            Статистика игроков
            ==================================================================== */
-        const rawPlayers = Array.isArray(window.playerGoalsData)
-          ? window.playerGoalsData.map((item) => ({
-              ...item,
-              team: normalizeTeamName(item?.team),
-            }))
+        const rawPlayers = Array.isArray(appData && appData.players)
+          ? appData.players
+          : Array.isArray(window.playerGoalsData)
+          ? window.playerGoalsData
           : [];
-        const groupFilter = $("#group-filter");
         const teamFilter = $("#team-filter");
         const playerSearch = $("#player-search");
         const pageSizeSelect = $("#page-size");
@@ -3937,7 +3907,6 @@
         const pagesContainer = $("#stats-pages");
         const statsStatus = $("#stats-status");
 
-        const maxGoals = rawPlayers.reduce((max, item) => Math.max(max, Number(item.goals) || 0), 1);
         const rankedPlayers = [...rawPlayers]
           .sort((a, b) => b.goals - a.goals || b.games - a.games || String(a.player).localeCompare(String(b.player), "ru"))
           .map((item, index) => {
@@ -3969,18 +3938,16 @@
         }
 
         function getFilteredPlayers() {
-          const group = groupFilter?.value || "all";
           const team = teamFilter?.value || "all";
           const query = (playerSearch?.value || "").trim().toLocaleLowerCase("ru");
 
           const filtered = rankedPlayers
-            .filter((item) => (group === "all" ? true : item.group === group))
             .filter((item) => (team === "all" ? true : item.team === team))
             .filter((item) => (query ? String(item.player).toLocaleLowerCase("ru").includes(query) : true));
 
           const direction = statsSort.direction;
           return filtered.sort((a, b) => {
-            if (statsSort.key === "player" || statsSort.key === "group" || statsSort.key === "team") {
+            if (statsSort.key === "player" || statsSort.key === "team") {
               return String(a[statsSort.key]).localeCompare(String(b[statsSort.key]), "ru") * direction;
             }
             return ((a[statsSort.key] || 0) - (b[statsSort.key] || 0)) * direction;
@@ -4021,7 +3988,7 @@
 
           if (!filtered.length) {
             tableBody.innerHTML =
-              '<tr class="empty-row"><td colspan="7">По выбранным фильтрам игроков не найдено. Попробуйте изменить запрос.</td></tr>';
+              '<tr class="empty-row"><td colspan="6">По выбранным фильтрам игроков не найдено. Попробуйте изменить запрос.</td></tr>';
             statsStatus.textContent = "Найдено: 0";
             prevPageButton.disabled = true;
             nextPageButton.disabled = true;
@@ -4030,7 +3997,7 @@
           }
 
           const startIndex = (currentPage - 1) * pageSize;
-          const labels = ["Место", "Игрок", "Группа", "Команда", "Игры", "Голы", "PPG"];
+          const labels = ["Место", "Игрок", "Команда", "Игры", "Голы", "PPG"];
 
           tableBody.innerHTML = filtered
             .slice(startIndex, startIndex + pageSize)
@@ -4038,18 +4005,11 @@
               (item) => `
               <tr>
                 <td class="num" data-label="${labels[0]}"><span class="rank">${item.position}</span></td>
-                <td class="cell-player" data-label="${labels[1]}">
-                  <span class="player-name">${highlightName(item.player, query)}</span>
-                  <span class="player-team">${escapeHtml(item.team)}</span>
-                </td>
-                <td data-label="${labels[2]}">${escapeHtml(item.group)}</td>
-                <td class="cell-team" data-label="${labels[3]}">${escapeHtml(item.team)}</td>
-                <td class="num cell-games" data-label="${labels[4]}">${numberFmt.format(item.games)}</td>
-                <td class="num cell-goals" data-label="${labels[5]}">${numberFmt.format(item.goals)}<span class="ppg-inline"> / ${decimalsFmt.format(
-                  item.ppg
-                )}</span>
-                </td>
-                <td class="num cell-ppg" data-label="${labels[6]}">${decimalsFmt.format(item.ppg)}</td>
+                <td data-label="${labels[1]}">${highlightName(item.player, query)}</td>
+                <td class="cell-team" data-label="${labels[2]}">${escapeHtml(item.team)}</td>
+                <td class="num" data-label="${labels[3]}">${numberFmt.format(item.games)}</td>
+                <td class="num" data-label="${labels[4]}">${numberFmt.format(item.goals)}</td>
+                <td class="num" data-label="${labels[5]}">${decimalsFmt.format(item.ppg)}</td>
               </tr>`
             )
             .join("");
@@ -4069,11 +4029,9 @@
           renderGoalsTable();
         }
 
-        if (rawPlayers.length && groupFilter && teamFilter) {
-          fillFilterOptions(groupFilter, [...new Set(rankedPlayers.map((item) => item.group))]);
+        if (rawPlayers.length && teamFilter) {
           fillFilterOptions(teamFilter, [...new Set(rankedPlayers.map((item) => item.team))]);
 
-          groupFilter.addEventListener("change", resetPaginationAndRender);
           teamFilter.addEventListener("change", resetPaginationAndRender);
 
           pageSizeSelect?.addEventListener("change", () => {
@@ -4108,19 +4066,9 @@
             renderGoalsTable();
           });
 
-          $("#stats-reset")?.addEventListener("click", () => {
-            groupFilter.value = "all";
-            teamFilter.value = "all";
-            if (playerSearch) playerSearch.value = "";
-            statsSort = { key: "position", direction: 1 };
-            updateStatsSortAria();
-            resetPaginationAndRender();
-          });
-
           const keyByLabel = {
             Место: "position",
             Игрок: "player",
-            Группа: "group",
             Команда: "team",
             Игры: "games",
             Голы: "goals",
@@ -4168,14 +4116,16 @@
           renderGoalsTable();
         } else if (tableBody) {
           tableBody.innerHTML =
-            '<tr class="empty-row"><td colspan="7">Не удалось загрузить данные статистики (файл all_2016_players_season5.js).</td></tr>';
+            '<tr class="empty-row"><td colspan="6">Не удалось загрузить данные статистики (файл setun_shl_data.js).</td></tr>';
           if (statsStatus) statsStatus.textContent = "Данные недоступны";
         }
 
         /* ====================================================================
            Дни рождения: ближайшая дата, «через N дней», возраст
            ==================================================================== */
-        const birthdaySource = $$("#bday-source .bday-item");
+        const birthdaySource = $$(".bday-item");
+        const birthdayTabs = $$('[data-bday-tab]');
+        const birthdayPanels = $$('[data-bday-panel]');
 
         if (birthdaySource.length) {
           const today = startOfDay(new Date());
@@ -4243,50 +4193,30 @@
           }
           if (pastList) pastList.innerHTML = pastEntries.map(buildBirthdayItem).join("");
 
-          const upcomingCount = $("#bday-upcoming-count");
-          const pastCount = $("#bday-past-count");
-          if (upcomingCount) upcomingCount.textContent = String(upcomingEntries.length);
-          if (pastCount) pastCount.textContent = String(pastEntries.length);
+          function bdayTabLabel(kind, count) {
+            return kind === "upcoming" ? `Предстоящие (${count})` : `Прошедшие (${count})`;
+          }
 
-          const bdayTabs = $$("[role=\"tab\"]", $("#birthdays"));
-
-          const activateBdayTab = (index, { moveFocus = false } = {}) => {
-            const nextTab = bdayTabs[index];
-            if (!nextTab) return;
-
-            bdayTabs.forEach((tab, tabIndex) => {
-              const selected = tabIndex === index;
+          function renderBirthdayTab(tabName) {
+            const active = tabName === "past" ? "past" : "upcoming";
+            birthdayTabs.forEach((tab) => {
+              const selected = tab.dataset.bdayTab === active;
+              tab.classList.toggle("is-active", selected);
               tab.setAttribute("aria-selected", String(selected));
-              tab.tabIndex = selected ? 0 : -1;
-              const panel = $(`#${tab.getAttribute("aria-controls")}`);
-              if (panel) panel.hidden = !selected;
             });
-
-            if (moveFocus) nextTab.focus();
-          };
-
-          bdayTabs.forEach((tab, index) => {
-            tab.addEventListener("click", () => activateBdayTab(index));
-            tab.addEventListener("keydown", (event) => {
-              const key = event.key;
-              if (!["ArrowLeft", "ArrowRight", "Home", "End", "Enter", " "].includes(key)) return;
-              event.preventDefault();
-
-              if (key === "Enter" || key === " ") {
-                activateBdayTab(index);
-                return;
-              }
-
-              let nextIndex = index;
-              if (key === "Home") nextIndex = 0;
-              if (key === "End") nextIndex = bdayTabs.length - 1;
-              if (key === "ArrowRight") nextIndex = (index + 1) % bdayTabs.length;
-              if (key === "ArrowLeft") nextIndex = (index - 1 + bdayTabs.length) % bdayTabs.length;
-              activateBdayTab(nextIndex, { moveFocus: true });
+            birthdayPanels.forEach((panel) => {
+              panel.hidden = panel.dataset.bdayPanel !== active;
             });
+          }
+
+          birthdayTabs.forEach((tab) => {
+            const key = tab.dataset.bdayTab === "past" ? "past" : "upcoming";
+            const count = key === "past" ? pastEntries.length : upcomingEntries.length;
+            tab.textContent = bdayTabLabel(key, count);
+            tab.addEventListener("click", () => renderBirthdayTab(key));
           });
 
-          activateBdayTab(0);
+          renderBirthdayTab("upcoming");
         }
       })();
     </script>
