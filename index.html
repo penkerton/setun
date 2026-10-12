@@ -1442,35 +1442,48 @@
 
       .chart-row {
         display: grid;
-        grid-template-columns: minmax(120px, 190px) 1fr auto;
+        grid-template-columns: minmax(0, 1fr) auto;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
         font-size: 0.9rem;
       }
 
-      .chart-row .name {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        color: var(--muted);
-      }
-
-      .chart-row.own .name {
-        color: var(--text);
-        font-weight: 700;
-      }
-
       .chart-row .track {
-        display: block;
-        height: 10px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        min-height: 28px;
+        padding: 0 12px;
         border-radius: 999px;
         background: color-mix(in srgb, var(--text) 8%, transparent);
         overflow: hidden;
       }
 
+      .chart-row .track-label {
+        position: relative;
+        z-index: 2;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: color-mix(in srgb, var(--text) 92%, var(--muted));
+        font-weight: 600;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+      }
+
+      .chart-row.own .track-label {
+        color: #fff;
+        font-weight: 700;
+      }
+
+      .chart-row.own .track {
+        border: 1px solid color-mix(in srgb, var(--red) 75%, transparent);
+      }
+
       .chart-row .fill {
+        position: absolute;
+        inset: 0 auto 0 0;
         display: block;
-        height: 100%;
         width: 0;
         border-radius: inherit;
         background: linear-gradient(90deg, color-mix(in srgb, var(--ice) 70%, transparent), color-mix(in srgb, var(--accent) 90%, transparent));
@@ -1479,11 +1492,13 @@
       }
 
       .chart-row.own .fill {
-        background: linear-gradient(90deg, var(--amber), var(--accent-2));
-        box-shadow: 0 0 20px -4px color-mix(in srgb, var(--amber) 80%, transparent);
+        background: linear-gradient(90deg, color-mix(in srgb, var(--ice) 75%, transparent), color-mix(in srgb, var(--accent) 92%, transparent));
+        box-shadow: 0 0 16px -6px color-mix(in srgb, var(--red) 70%, transparent);
       }
 
       .chart-row .value {
+        min-width: 3ch;
+        text-align: right;
         font-weight: 700;
         font-variant-numeric: tabular-nums;
       }
@@ -1546,20 +1561,8 @@
       }
 
       #statistics .toolbar .field input,
-      #statistics .toolbar .field select,
-      #statistics .toolbar .btn-mini {
+      #statistics .toolbar .field select {
         min-height: 44px;
-      }
-
-      #statistics .toolbar .btn-mini {
-        padding: 0 14px;
-        border-radius: 12px;
-      }
-
-      #statistics .toolbar #stats-reset {
-        width: 44px;
-        padding: 0;
-        justify-content: center;
       }
 
       .switch {
@@ -2196,7 +2199,8 @@
         }
 
         .chart-row .track {
-          grid-column: 1 / -1;
+          min-height: 26px;
+          padding: 0 10px;
         }
 
         /* Турнирная таблица на телефоне: компактная таблица с шапкой,
@@ -2748,12 +2752,6 @@
                 <option value="50">50</option>
               </select>
             </label>
-            <button class="btn-mini" id="stats-reset" type="button" aria-label="Сброс фильтров и сортировки" title="Сброс">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M21 12a9 9 0 1 1-2.64-6.36" />
-                <path d="M21 3v6h-6" />
-              </svg>
-            </button>
           </div>
 
           <div class="table-wrap reveal">
@@ -3420,8 +3418,10 @@
                 const step = index * 50;
                 const row = `
                 <div class="chart-row${team.own ? " own" : ""}" style="--delay: ${step}ms">
-                  <span class="name">${escapeHtml(team.team)}</span>
-                  <span class="track"><span class="fill" style="--w: ${(team.points / max) * 100}%; --delay: ${step}ms"></span></span>
+                  <span class="track">
+                    <span class="fill" style="--w: ${(team.points / max) * 100}%; --delay: ${step}ms"></span>
+                    <span class="track-label">${escapeHtml(team.team)}</span>
+                  </span>
                   <span class="value">${team.points}</span>
                 </div>`;
                 return row;
@@ -4064,14 +4064,6 @@
             if (!button) return;
             currentPage = Number(button.dataset.page);
             renderGoalsTable();
-          });
-
-          $("#stats-reset")?.addEventListener("click", () => {
-            teamFilter.value = "all";
-            if (playerSearch) playerSearch.value = "";
-            statsSort = { key: "position", direction: 1 };
-            updateStatsSortAria();
-            resetPaginationAndRender();
           });
 
           const keyByLabel = {
