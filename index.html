@@ -1771,6 +1771,34 @@
         color: var(--muted);
       }
 
+      .match-score {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 74px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 0.9rem;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        font-variant-numeric: tabular-nums;
+        color: var(--text);
+        background: color-mix(in srgb, var(--surface-2) 88%, transparent);
+        border: 1px solid var(--line-strong);
+      }
+
+      .match-score.win {
+        color: color-mix(in srgb, var(--green) 84%, var(--text));
+        border-color: color-mix(in srgb, var(--green) 74%, transparent);
+        background: color-mix(in srgb, var(--green) 16%, transparent);
+      }
+
+      .match-score.loss {
+        color: color-mix(in srgb, var(--red) 84%, var(--text));
+        border-color: color-mix(in srgb, var(--red) 74%, transparent);
+        background: color-mix(in srgb, var(--red) 16%, transparent);
+      }
+
       .countdown-chip.today {
         background: var(--amber);
         border-color: transparent;
@@ -1805,78 +1833,6 @@
       /* ==========================================================================
          8. Статистика игроков
          ========================================================================== */
-      .podium {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-        gap: 14px;
-        margin-bottom: 18px;
-      }
-
-      .podium-card {
-        position: relative;
-        padding: 18px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius-sm);
-        background: var(--surface);
-        overflow: hidden;
-        isolation: isolate;
-      }
-
-      .podium-card .place {
-        margin: 0;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 0.78rem;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--muted);
-      }
-
-      .podium-card .player {
-        margin: 10px 0 2px;
-        font-size: 1.1rem;
-        font-weight: 700;
-      }
-
-      .podium-card .team {
-        margin: 0;
-        color: var(--muted);
-        font-size: 0.85rem;
-      }
-
-      .podium-card .goals {
-        margin: 12px 0 0;
-        display: flex;
-        align-items: baseline;
-        gap: 6px;
-        font-variant-numeric: tabular-nums;
-      }
-
-      .podium-card .goals b {
-        font-size: 1.7rem;
-        line-height: 1;
-      }
-
-      .podium-card .goals span {
-        color: var(--muted);
-        font-size: 0.82rem;
-      }
-
-      .podium-card.first {
-        border-color: color-mix(in srgb, var(--gold) 55%, transparent);
-        background: linear-gradient(150deg, color-mix(in srgb, var(--gold) 20%, transparent), transparent 60%), var(--surface);
-      }
-
-      .podium-card.second {
-        border-color: color-mix(in srgb, var(--silver) 45%, transparent);
-      }
-
-      .podium-card.third {
-        border-color: color-mix(in srgb, var(--bronze) 45%, transparent);
-      }
-
       .heat {
         display: block;
         margin: 6px auto 0;
@@ -2529,7 +2485,7 @@
               <span class="badge">Сезон 2026/2027</span>
             </div>
             <div class="actions">
-              <a class="btn btn-primary" href="https://shlmos.ru/team/2641" target="_blank" rel="noopener noreferrer">
+              <a class="btn btn-ghost" href="https://shlmos.ru/team/2641" target="_blank" rel="noopener noreferrer">
                 Карточка команды
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                   <path d="M7 17 17 7M9 7h8v8" />
@@ -2615,7 +2571,7 @@
         <div class="wrap">
           <div class="section-head reveal">
             <h2 id="dashboard-title" data-step="01">Обзор сезона</h2>
-            <p>Показатели «Сетуни» в дивизионе SHL. Данные обновляются автоматически при запуске скрипта.</p>
+            <p>Показатели «Сетуни» в дивизионе SHL.</p>
           </div>
 
           <div class="stat-tiles reveal">
@@ -2709,18 +2665,10 @@
       <section class="section" id="statistics" aria-labelledby="stats-title">
         <div class="wrap">
           <div class="section-head reveal">
-            <h2 id="stats-title" data-step="04">Статистика игроков турнира</h2>
+            <h2 id="stats-title" data-step="04">Статистика игроков турнира (Рубин А/Рубин Б)</h2>
           </div>
 
-          <div class="podium reveal" id="podium"></div>
-
           <div class="toolbar reveal">
-            <label class="field">
-              <span>Группа</span>
-              <select id="group-filter">
-                <option value="all">Все группы</option>
-              </select>
-            </label>
             <label class="field">
               <span>Команда</span>
               <select id="team-filter">
@@ -2746,12 +2694,6 @@
                 <path d="M21 3v6h-6" />
               </svg>
             </button>
-            <button class="btn-mini" id="stats-export" type="button">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <path d="M12 3v12M7 10l5 5 5-5M5 20h14" />
-              </svg>
-              CSV
-            </button>
           </div>
 
           <div class="table-wrap reveal">
@@ -2759,9 +2701,8 @@
               <caption class="visually-hidden">Бомбардиры турнира 2016 г.р., сезон 2026/2027</caption>
               <thead>
                 <tr>
-                  <th scope="col" data-sort="number">Позиция</th>
+                  <th scope="col" data-sort="number">Место</th>
                   <th scope="col" data-sort="text">Игрок</th>
-                  <th scope="col" data-sort="text">Группа</th>
                   <th scope="col" data-sort="text">Команда</th>
                   <th scope="col" data-sort="number">Игры</th>
                   <th scope="col" data-sort="number">Голы</th>
@@ -2808,7 +2749,8 @@
         <p style="margin: 0">
           Источник данных: SHL / MTGame API —
           <a href="https://shlmos.ru/team/2641" target="_blank" rel="noopener noreferrer">страница команды</a>.
-          Информация обновляется скриптом по ходу сезона.
+          Информация обновляется автоматически каждые 6 часов.
+          <span id="footer-updated-at">Последнее обновление: —</span>
         </p>
         <div class="footer-links">
           <a href="#dashboard">Обзор</a>
@@ -2897,6 +2839,24 @@
           return new Date(year, month - 1, day);
         }
 
+        function formatUpdatedAt(iso) {
+          const value = String(iso || "").trim();
+          if (!value) return "—";
+          const dt = new Date(value);
+          if (!Number.isFinite(dt.getTime())) return "—";
+
+          const formatter = new Intl.DateTimeFormat("ru-RU", {
+            timeZone: "Europe/Moscow",
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+          });
+          return `${formatter.format(dt)} МСК`;
+        }
+
         function startOfDay(date) {
           return new Date(date.getFullYear(), date.getMonth(), date.getDate());
         }
@@ -2945,6 +2905,10 @@
           const seasonLabel = String(meta.seasonLabel || "2026/2027");
           const division = String(meta.division || "SHL");
           const city = String(meta.city || "Москва");
+          const footerUpdatedAt = document.querySelector("#footer-updated-at");
+          if (footerUpdatedAt) {
+            footerUpdatedAt.textContent = `Последнее обновление: ${formatUpdatedAt(meta.updatedAt)}`;
+          }
 
           const title = document.querySelector("title");
           if (title) title.textContent = `${teamName} — хоккейная команда (SHL)`;
@@ -3403,13 +3367,10 @@
           // Турнирная таблица на телефоне остаётся таблицей с шапкой
           // (компактный вид задаётся в медиазапросе), карточки не включаем
 
-          const maxPoints = Math.max(...teams.map((team) => team.points), 1);
           teams.forEach((team) => {
             const pointsCell = $$("td", team.row)[9];
             pointsCell.classList.add("num");
-            pointsCell.innerHTML = `${team.points}<span class="bar${team.own ? " own" : ""}" style="margin-top: 5px"><i style="--w: ${
-              (team.points / maxPoints) * 100
-            }%; --delay: ${team.index * 45}ms"></i></span>`;
+            pointsCell.textContent = String(team.points);
           });
 
           const chartRows = $("#chart-rows");
@@ -3523,10 +3484,11 @@
 
         const pastMatches = (Array.isArray(matchesData.past) ? matchesData.past : [])
           .map((match) => {
+            const gameId = Number(match.gameId || 0);
             const date = String(match.date || "");
             const time = String(match.time || "");
             return {
-              gameId: Number(match.gameId || 0),
+              gameId,
               home: String(match.home || ""),
               away: String(match.away || ""),
               tour: repairMojibake(String(match.tour || "")),
@@ -3538,6 +3500,8 @@
               homeScore: Number.isFinite(Number(match.homeScore)) ? Number(match.homeScore) : null,
               awayScore: Number.isFinite(Number(match.awayScore)) ? Number(match.awayScore) : null,
               mediaUrl: String(match.mediaUrl || "").trim(),
+              statisticUrl: String(match.statisticUrl || (gameId > 0 ? `https://shlmos.ru/game/${gameId}/statistic` : "")).trim(),
+              mediaPageUrl: String(match.mediaPageUrl || (gameId > 0 ? `https://shlmos.ru/game/${gameId}/media` : "")).trim(),
             };
           })
           .sort((a, b) => b.datetime - a.datetime);
@@ -3626,8 +3590,16 @@
                 : `${dateWeekdayFmt.format(match.datetime)}, время уточняется`;
               const scoreKnown = Number.isFinite(match.homeScore) && Number.isFinite(match.awayScore);
               const scoreText = scoreKnown ? `${match.homeScore}:${match.awayScore}` : "счет не указан";
-              const mediaAction = match.mediaUrl
-                ? `<a class="btn-mini" href="${escapeHtml(match.mediaUrl)}" target="_blank" rel="noopener noreferrer">Медиа</a>`
+              const setunScore = scoreKnown ? (match.venue === "home" ? match.homeScore : match.awayScore) : null;
+              const opponentScore = scoreKnown ? (match.venue === "home" ? match.awayScore : match.homeScore) : null;
+              const resultClass =
+                scoreKnown && setunScore !== opponentScore ? (setunScore > opponentScore ? " win" : " loss") : "";
+              const statisticAction = match.statisticUrl
+                ? `<a class="btn-mini" href="${escapeHtml(match.statisticUrl)}" target="_blank" rel="noopener noreferrer">Статистика</a>`
+                : `<span class="btn-mini" aria-disabled="true">Статистика</span>`;
+              const mediaHref = match.mediaUrl || match.mediaPageUrl;
+              const mediaAction = mediaHref
+                ? `<a class="btn-mini" href="${escapeHtml(mediaHref)}" target="_blank" rel="noopener noreferrer">Медиа</a>`
                 : `<span class="btn-mini" aria-disabled="true">Нет медиа</span>`;
 
               return `<li class="match ${match.venue === "home" ? "is-home" : "is-away"}${
@@ -3648,18 +3620,19 @@
                   <span>${escapeHtml(match.home)}</span>
                   <span class="vs">vs</span>
                   <span>${escapeHtml(match.away)}</span>
+                  ${isPastTab ? `<span class="match-score${resultClass}">${escapeHtml(scoreText)}</span>` : ""}
                 </div>
                 <div class="match-foot">
                   <span class="tour">${escapeHtml(match.tour)}</span>
                   ${
                     isPastTab
-                      ? `<span class="countdown-chip past">счет ${escapeHtml(scoreText)}</span>`
+                      ? ""
                       : `<span class="countdown-chip ${state.state === "past" ? "past" : state.state === "today" ? "today" : ""}">${escapeHtml(
                           state.text
                         )}</span>`
                   }
                   <span class="spacer"></span>
-                  ${isPastTab ? mediaAction : `<button class="btn-mini" type="button" data-ics-index="${index}">В календарь</button>`}
+                  ${isPastTab ? `${statisticAction}${mediaAction}` : `<button class="btn-mini" type="button" data-ics-index="${index}">В календарь</button>`}
                 </div>
               </li>`;
             })
@@ -3741,7 +3714,6 @@
           : Array.isArray(window.playerGoalsData)
           ? window.playerGoalsData
           : [];
-        const groupFilter = $("#group-filter");
         const teamFilter = $("#team-filter");
         const playerSearch = $("#player-search");
         const pageSizeSelect = $("#page-size");
@@ -3751,7 +3723,6 @@
         const pagesContainer = $("#stats-pages");
         const statsStatus = $("#stats-status");
 
-        const maxGoals = rawPlayers.reduce((max, item) => Math.max(max, Number(item.goals) || 0), 1);
         const rankedPlayers = [...rawPlayers]
           .sort((a, b) => b.goals - a.goals || b.games - a.games || String(a.player).localeCompare(String(b.player), "ru"))
           .map((item, index) => {
@@ -3783,18 +3754,16 @@
         }
 
         function getFilteredPlayers() {
-          const group = groupFilter?.value || "all";
           const team = teamFilter?.value || "all";
           const query = (playerSearch?.value || "").trim().toLocaleLowerCase("ru");
 
           const filtered = rankedPlayers
-            .filter((item) => (group === "all" ? true : item.group === group))
             .filter((item) => (team === "all" ? true : item.team === team))
             .filter((item) => (query ? String(item.player).toLocaleLowerCase("ru").includes(query) : true));
 
           const direction = statsSort.direction;
           return filtered.sort((a, b) => {
-            if (statsSort.key === "player" || statsSort.key === "group" || statsSort.key === "team") {
+            if (statsSort.key === "player" || statsSort.key === "team") {
               return String(a[statsSort.key]).localeCompare(String(b[statsSort.key]), "ru") * direction;
             }
             return ((a[statsSort.key] || 0) - (b[statsSort.key] || 0)) * direction;
@@ -3809,30 +3778,6 @@
           return `${escapeHtml(text.slice(0, index))}<mark>${escapeHtml(text.slice(index, index + query.length))}</mark>${escapeHtml(
             text.slice(index + query.length)
           )}`;
-        }
-
-        function renderPodium(players) {
-          const podium = $("#podium");
-          if (!podium) return;
-          const classes = ["first", "second", "third"];
-          const places = ["1-е место", "2-е место", "3-е место"];
-          podium.innerHTML = players
-            .slice(0, 3)
-            .map(
-              (player, index) => `
-              <article class="podium-card ${classes[index]} spotlight">
-                <p class="place">${places[index]}</p>
-                <p class="player">${escapeHtml(player.player)}</p>
-                <p class="team">${escapeHtml(player.team)} · ${escapeHtml(player.group)}</p>
-                <p class="goals"><b>${numberFmt.format(player.goals)}</b><span>${plural(
-                player.goals,
-                "гол",
-                "гола",
-                "голов"
-              )} за ${numberFmt.format(player.games)} ${plural(player.games, "игру", "игры", "игр")}</span></p>
-              </article>`
-            )
-            .join("");
         }
 
         function renderPageButtons(totalPages) {
@@ -3859,17 +3804,16 @@
 
           if (!filtered.length) {
             tableBody.innerHTML =
-              '<tr class="empty-row"><td colspan="7">По выбранным фильтрам игроков не найдено. Попробуйте изменить запрос.</td></tr>';
+              '<tr class="empty-row"><td colspan="6">По выбранным фильтрам игроков не найдено. Попробуйте изменить запрос.</td></tr>';
             statsStatus.textContent = "Найдено: 0";
             prevPageButton.disabled = true;
             nextPageButton.disabled = true;
             if (pagesContainer) pagesContainer.innerHTML = "";
-            renderPodium([]);
             return;
           }
 
           const startIndex = (currentPage - 1) * pageSize;
-          const labels = ["Позиция", "Игрок", "Группа", "Команда", "Игры", "Голы", "PPG"];
+          const labels = ["Место", "Игрок", "Команда", "Игры", "Голы", "PPG"];
 
           tableBody.innerHTML = filtered
             .slice(startIndex, startIndex + pageSize)
@@ -3878,19 +3822,15 @@
               <tr>
                 <td class="num" data-label="${labels[0]}"><span class="rank">${item.position}</span></td>
                 <td data-label="${labels[1]}">${highlightName(item.player, query)}</td>
-                <td data-label="${labels[2]}">${escapeHtml(item.group)}</td>
-                <td class="cell-team" data-label="${labels[3]}">${escapeHtml(item.team)}</td>
-                <td class="num" data-label="${labels[4]}">${numberFmt.format(item.games)}</td>
-                <td class="num" data-label="${labels[5]}">${numberFmt.format(item.goals)}
-                  <span class="heat"><i style="--w: ${(item.goals / maxGoals) * 100}%"></i></span>
-                </td>
-                <td class="num" data-label="${labels[6]}">${decimalsFmt.format(item.ppg)}</td>
+                <td class="cell-team" data-label="${labels[2]}">${escapeHtml(item.team)}</td>
+                <td class="num" data-label="${labels[3]}">${numberFmt.format(item.games)}</td>
+                <td class="num" data-label="${labels[4]}">${numberFmt.format(item.goals)}</td>
+                <td class="num" data-label="${labels[5]}">${decimalsFmt.format(item.ppg)}</td>
               </tr>`
             )
             .join("");
 
           $("#goals-table")?.classList.add("as-cards");
-          renderPodium(filtered);
 
           const from = startIndex + 1;
           const to = Math.min(startIndex + pageSize, filtered.length);
@@ -3905,11 +3845,9 @@
           renderGoalsTable();
         }
 
-        if (rawPlayers.length && groupFilter && teamFilter) {
-          fillFilterOptions(groupFilter, [...new Set(rankedPlayers.map((item) => item.group))]);
+        if (rawPlayers.length && teamFilter) {
           fillFilterOptions(teamFilter, [...new Set(rankedPlayers.map((item) => item.team))]);
 
-          groupFilter.addEventListener("change", resetPaginationAndRender);
           teamFilter.addEventListener("change", resetPaginationAndRender);
 
           pageSizeSelect?.addEventListener("change", () => {
@@ -3945,7 +3883,6 @@
           });
 
           $("#stats-reset")?.addEventListener("click", () => {
-            groupFilter.value = "all";
             teamFilter.value = "all";
             if (playerSearch) playerSearch.value = "";
             statsSort = { key: "position", direction: 1 };
@@ -3953,21 +3890,9 @@
             resetPaginationAndRender();
           });
 
-          $("#stats-export")?.addEventListener("click", () => {
-            const rows = [["Позиция", "Игрок", "Группа", "Команда", "Игры", "Голы", "PPG"]];
-            getFilteredPlayers().forEach((item) => {
-              rows.push([item.position, item.player, item.group, item.team, item.games, item.goals, item.ppg.toFixed(2)]);
-            });
-            const csv = rows
-              .map((row) => row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(";"))
-              .join("\r\n");
-            downloadFile("setun-shl-stats.csv", `\uFEFF${csv}`, "text/csv;charset=utf-8");
-          });
-
           const keyByLabel = {
-            Позиция: "position",
+            Место: "position",
             Игрок: "player",
-            Группа: "group",
             Команда: "team",
             Игры: "games",
             Голы: "goals",
@@ -4015,7 +3940,7 @@
           renderGoalsTable();
         } else if (tableBody) {
           tableBody.innerHTML =
-            '<tr class="empty-row"><td colspan="7">Не удалось загрузить данные статистики (файл setun_shl_data.js).</td></tr>';
+            '<tr class="empty-row"><td colspan="6">Не удалось загрузить данные статистики (файл setun_shl_data.js).</td></tr>';
           if (statsStatus) statsStatus.textContent = "Данные недоступны";
         }
 

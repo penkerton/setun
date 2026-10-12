@@ -2,36 +2,82 @@
 
 Проект использует файл `setun_shl_data.js` как источник данных для страницы.
 
-Скрипт `update_shl_setun_stats.ps1` автоматически:
+Скрипт `update_shl_setun_stats.mjs` автоматически:
 - получает команды и текущую таблицу турнира SHL,
 - получает матчи турнира и формирует блок ближайших матчей Сетуни,
 - агрегирует статистику игроков по дивизиону,
 - получает дни рождения из заявки команды Сетунь,
 - обновляет файлы `setun_shl_data.json` и `setun_shl_data.js`.
 
+Скрипт используется и локально, и в CI (GitHub Actions).
+
 ## Быстрый запуск
 
-```powershell
-Set-ExecutionPolicy -Scope Process Bypass
-.\update_shl_setun_stats.ps1
+```bash
+node ./update_shl_setun_stats.mjs
 ```
 
 ## Параметры
 
-- `SeasonId` — ID сезона (по умолчанию `230`)
-- `TournamentId` — ID турнира (по умолчанию `4223`)
-- `TeamId` — ID команды (по умолчанию `2641`, Сетунь)
-- `DivisionName` — название дивизиона (опционально; если не задано, берётся из API)
-- `DelayMs` — задержка между запросами
-- `MatchLimit` — сколько матчей выводить в блоке ближайших
-- `OutputJson` — путь к JSON файлу
-- `OutputJs` — путь к JS файлу
+- `--seasonId` — ID сезона (по умолчанию `230`)
+- `--tournamentId` — ID турнира (по умолчанию `4223`)
+- `--teamId` — ID команды (по умолчанию `2641`, Сетунь)
+- `--divisionName` — название дивизиона (опционально; если не задано, берётся из API)
+- `--delayMs` — задержка между запросами
+- `--matchLimit` — сколько матчей выводить в блоке ближайших
+- `--outputJson` — путь к JSON файлу
+- `--outputJs` — путь к JS файлу
 
 Пример:
 
-```powershell
-.\update_shl_setun_stats.ps1 -SeasonId 230 -TournamentId 4223 -TeamId 2641 -MatchLimit 5
+```bash
+node ./update_shl_setun_stats.mjs --seasonId 230 --tournamentId 4223 --teamId 2641 --matchLimit 5
 ```
+
+## Как вручную обновлять данные
+
+1. Запустите обновление:
+
+```bash
+node ./update_shl_setun_stats.mjs
+```
+
+2. Проверьте, что обновились файлы:
+- `setun_shl_data.json`
+- `setun_shl_data.js`
+
+3. Проверьте изменения в git:
+
+```bash
+git status
+```
+
+4. Закоммитьте и отправьте изменения:
+
+```bash
+git add setun_shl_data.json setun_shl_data.js
+git commit -m "chore: manual data update"
+git push
+```
+
+После push GitHub Pages автоматически опубликует обновлённую версию.
+
+## Автоматическое обновление на GitHub
+
+Workflow `.github/workflows/update-data.yml` запускается по cron каждые 6 часов:
+- выполняет `node update_shl_setun_stats.mjs`,
+- коммитит обновлённые data-файлы,
+- пушит изменения в ветку `main`.
+
+После этого workflow деплоя GitHub Pages публикует новую версию сайта.
+
+## Защита от пустых/битых ответов API
+
+В `update_shl_setun_stats.mjs` добавлен fallback:
+- если API вернул ошибку, пустой или некорректный набор данных,
+- скрипт автоматически сохраняет предыдущую валидную версию `setun_shl_data.json`/`setun_shl_data.js`.
+
+Это защищает сайт от публикации пустых таблиц и обнулённых блоков при временных проблемах API.
 
 ## Что проверять после запуска
 
@@ -59,6 +105,6 @@ Set-ExecutionPolicy -Scope Process Bypass
 - Запустите скрипт повторно через 1–2 минуты.
 - Увеличьте задержку между запросами:
 
-```powershell
-.\update_shl_setun_stats.ps1 -DelayMs 150
+```bash
+node ./update_shl_setun_stats.mjs --delayMs 150
 ```
