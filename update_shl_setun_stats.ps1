@@ -15,6 +15,8 @@ Add-Type -AssemblyName System.Net.Http
 $apiBase = "https://mtgame.ru/api/v1"
 $teamPageUrl = "https://shlmos.ru/team/{0}" -f $TeamId
 $seasonLabel = "2026/2027"
+$tourSeparator = [char]0x00B7
+$tourWord = ([char]0x0442).ToString() + ([char]0x0443) + ([char]0x0440)
 
 $httpHandler = New-Object System.Net.Http.HttpClientHandler
 $httpClient = New-Object System.Net.Http.HttpClient($httpHandler)
@@ -95,6 +97,17 @@ function To-Int {
   $n = 0
   if ([int]::TryParse($text, [ref]$n)) { return $n }
   return 0
+}
+
+function To-NullableInt {
+  param($Value)
+
+  if ($null -eq $Value) { return $null }
+  $text = [string]$Value
+  if ([string]::IsNullOrWhiteSpace($text)) { return $null }
+  $n = 0
+  if ([int]::TryParse($text, [ref]$n)) { return $n }
+  return $null
 }
 
 function Get-PlayerNameFromUser {
@@ -240,27 +253,89 @@ $setunGames = $games |
   Sort-Object { [datetimeoffset]::Parse([string]$_.datetime) }
 
 $upcomingSetunGames = $setunGames | Where-Object { [datetimeoffset]::Parse([string]$_.datetime) -ge $nowUtc }
-if ($upcomingSetunGames.Count -eq 0) {
-  $upcomingSetunGames = $setunGames | Sort-Object { [datetimeoffset]::Parse([string]$_.datetime) } -Descending | Select-Object -First $MatchLimit
-}
-else {
+if ($upcomingSetunGames.Count -gt 0) {
   $upcomingSetunGames = $upcomingSetunGames | Select-Object -First $MatchLimit
 }
 
-$matches = @()
+$upcomingMatches = @()
 foreach ($game in $upcomingSetunGames) {
   $local = To-MoscowDateTime -IsoDateTime ([string]$game.datetime)
   $homeName = if ($game.team -and $game.team.name) { [string]$game.team.name } else { [string]$game.team_name }
   $awayName = if ($game.competitor_team -and $game.competitor_team.name) { [string]$game.competitor_team.name } else { [string]$game.competitor_team_name }
   $isHome = ((To-Int $game.team_id) -eq $TeamId)
 
-  $matches += [pscustomobject]@{
+  $upcomingMatches += [pscustomobject]@{
+    gameId = To-Int $game.id
     home = $homeName
     away = $awayName
     date = $local.ToString("yyyy-MM-dd")
     time = $local.ToString("HH:mm")
     venue = if ($isHome) { "home" } else { "away" }
-    tour = if ($null -ne $game.tournament_tour) { "SHL {0} · {1} тур" -f $divisionLabel, (To-Int $game.tournament_tour) } else { "SHL {0}" -f $divisionLabel }
+    status = [string]$game.status
+    tour = if ($null -ne $game.tournament_tour) { "SHL {0} {1} {2} {3}" -f $divisionLabel, $tourSeparator, (To-Int $game.tournament_tour), $tourWord } else { "SHL {0}" -f $divisionLabel }
+  }
+}
+
+$pastSetunGames = $setunGames |
+  Where-Object { [datetimeoffset]::Parse([string]$_.datetime) -lt $nowUtc } |
+  Sort-Object { [datetimeoffset]::Parse([string]$_.datetime) } -Descending
+
+$pastMatches = @()
+foreach ($game in $pastSetunGames) {
+  $local = To-MoscowDateTime -IsoDateTime ([string]$game.datetime)
+  $homeName = if ($game.team -and $game.team.name) { [string]$game.team.name } else { [string]$game.team_name }
+  $awayName = if ($game.competitor_team -and $game.competitor_team.name) { [string]$game.competitor_team.name } else { [string]$game.competitor_team_name }
+  $isHome = ((To-Int $game.team_id) -eq $TeamId)
+  $mediaUrl = $null
+
+  try {
+    $mediaItems = ConvertTo-Array (Invoke-JsonGet -Uri (Build-Uri -Path ("/tournament_game/{0}/media/" -f (To-Int $game.id))))
+    if ($mediaItems.Count -gt 0) {
+      $videoItem = $mediaItems | Where-Object { -not [string]::IsNullOrWhiteSpace([string]$_.video_url) } | Select-Object -First 1
+      if ($videoItem) {
+        $mediaUrl = [string]$videoItem.video_url
+      }
+      else {
+        $photoItem = $mediaItems | Where-Object {
+          ($_.detail_photo -and -not [string]::IsNullOrWhiteSpace([string]$_.detail_photo.path)) -or
+          ($_.original_photo -and -not [string]::IsNullOrWhiteSpace([string]$_.original_photo.path)) -or
+          ($_.list_photo -and -not [string]::IsNullOrWhiteSpace([string]$_.list_photo.path))
+        } | Select-Object -First 1
+
+        if ($photoItem) {
+          if ($photoItem.detail_photo -and -not [string]::IsNullOrWhiteSpace([string]$photoItem.detail_photo.path)) {
+            $mediaUrl = [string]$photoItem.detail_photo.path
+          }
+          elseif ($photoItem.original_photo -and -not [string]::IsNullOrWhiteSpace([string]$photoItem.original_photo.path)) {
+            $mediaUrl = [string]$photoItem.original_photo.path
+          }
+          elseif ($photoItem.list_photo -and -not [string]::IsNullOrWhiteSpace([string]$photoItem.list_photo.path)) {
+            $mediaUrl = [string]$photoItem.list_photo.path
+          }
+        }
+      }
+    }
+  }
+  catch {
+    $mediaUrl = $null
+  }
+
+  $pastMatches += [pscustomobject]@{
+    gameId = To-Int $game.id
+    home = $homeName
+    away = $awayName
+    date = $local.ToString("yyyy-MM-dd")
+    time = $local.ToString("HH:mm")
+    venue = if ($isHome) { "home" } else { "away" }
+    status = [string]$game.status
+    tour = if ($null -ne $game.tournament_tour) { "SHL {0} {1} {2} {3}" -f $divisionLabel, $tourSeparator, (To-Int $game.tournament_tour), $tourWord } else { "SHL {0}" -f $divisionLabel }
+    homeScore = To-NullableInt $game.team_score
+    awayScore = To-NullableInt $game.competitor_team_score
+    mediaUrl = $mediaUrl
+  }
+
+  if ($DelayMs -gt 0) {
+    Start-Sleep -Milliseconds $DelayMs
   }
 }
 
@@ -421,7 +496,9 @@ $appData = [pscustomobject]@{
     ppg = if ($setunStanding -and $setunStanding.games -gt 0) { [Math]::Round(($setunStanding.points / $setunStanding.games), 2) } else { 0 }
   }
   standings = $standings
-  matches = $matches
+  matches = $upcomingMatches
+  upcomingMatches = $upcomingMatches
+  pastMatches = $pastMatches
   players = $players
   birthdays = $birthdays
 }
@@ -439,7 +516,8 @@ Write-Host ""
 Write-Host ("Tournament: {0} ({1})" -f $TournamentId, $tournament.name)
 Write-Host ("Team: {0} (teamId={1}, tournamentTeamId={2})" -f $ownTeamName, $TeamId, $ownTournamentTeamId)
 Write-Host ("Standings rows: {0}" -f $standings.Count)
-Write-Host ("Matches exported: {0}" -f $matches.Count)
+Write-Host ("Upcoming matches exported: {0}" -f $upcomingMatches.Count)
+Write-Host ("Past matches exported: {0}" -f $pastMatches.Count)
 Write-Host ("Players exported: {0}" -f $players.Count)
 Write-Host ("Birthdays exported: {0}" -f $birthdays.Count)
 Write-Host ("JSON: {0}" -f (Resolve-Path $OutputJson))

@@ -636,15 +636,15 @@
 
       /* Образцы палитр не зависят от активной темы */
       .swatch-blue-dark {
-        background: linear-gradient(135deg, #0d1628 0 42%, #1f4d7f 42% 56%, #dc2437 56%);
+        background: #2f76ca;
       }
 
       .swatch-khaki {
-        background: linear-gradient(135deg, #4b553a 0 44%, #c0e194 44% 56%, #ef3146 56%);
+        background: #4c9b5f;
       }
 
       .swatch-light {
-        background: linear-gradient(135deg, #ffffff 0 44%, #7ba5cf 44% 56%, #ce2033 56%);
+        background: #ffffff;
       }
 
       /* Клубные темы: красная полоса под шапкой */
@@ -1624,6 +1624,39 @@
         padding: 0;
         margin: 0;
         container-type: inline-size;
+      }
+
+      .matches-tabs {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: color-mix(in srgb, var(--surface-2) 66%, transparent);
+      }
+
+      .matches-tab {
+        border: 1px solid transparent;
+        border-radius: 999px;
+        padding: 8px 14px;
+        background: transparent;
+        color: var(--muted);
+        font-size: 0.86rem;
+        font-weight: 700;
+        line-height: 1;
+        cursor: pointer;
+        transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .matches-tab:hover {
+        color: var(--text);
+      }
+
+      .matches-tab.is-active {
+        color: var(--bg);
+        border-color: transparent;
+        background: linear-gradient(120deg, color-mix(in srgb, var(--ice) 86%, white 7%), var(--accent));
       }
 
       .match {
@@ -2659,7 +2692,13 @@
       <section class="section" id="matches" aria-labelledby="matches-title">
         <div class="wrap">
           <div class="section-head reveal">
-            <h2 id="matches-title" data-step="03">Ближайшие матчи</h2>
+            <h2 id="matches-title" data-step="03">Матчи</h2>
+            <div class="matches-tabs" role="tablist" aria-label="Список матчей Сетуни">
+              <button class="matches-tab is-active" type="button" role="tab" aria-selected="true" data-match-tab="upcoming">
+                Ближайшие матчи
+              </button>
+              <button class="matches-tab" type="button" role="tab" aria-selected="false" data-match-tab="past">Прошедшие матчи</button>
+            </div>
           </div>
 
           <ul class="match-list reveal"></ul>
@@ -2822,21 +2861,35 @@
 
         function repairMojibake(value) {
           const text = String(value || "");
-          if (!/[ÂÃÐÑ]/.test(text)) {
+          if (!/[ÂÃÐÑ\uFFFD]|[\u0000-\u001F]/.test(text)) {
             return text;
           }
 
+          const decodeUtf8FromLatin1 = (input) => {
+            const bytes = Uint8Array.from(input, (char) => char.charCodeAt(0) & 255);
+            return new TextDecoder("utf-8").decode(bytes);
+          };
+
+          let repaired = text;
           try {
-            const bytes = Uint8Array.from(text, (char) => char.charCodeAt(0) & 255);
-            const decoded = new TextDecoder("utf-8").decode(bytes);
-            if (/[\u0400-\u04FF]/.test(decoded) || decoded.includes("·")) {
-              return decoded;
+            for (let i = 0; i < 2; i += 1) {
+              const decoded = decodeUtf8FromLatin1(repaired);
+              if (decoded === repaired) {
+                break;
+              }
+              repaired = decoded;
             }
           } catch (error) {
             /* оставляем fallback ниже */
           }
 
-          return text.replace(/Â·/g, "·").replace(/Ñ‚ÑƒÑ€/g, "тур");
+          return repaired
+            .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, "")
+            .replace(/\uFFFD/g, "")
+            .replace(/Â·/g, "·")
+            .replace(/Ñ‚ÑƒÑ€/g, "тур")
+            .replace(/\s{2,}/g, " ")
+            .trim();
         }
 
         function fromIso(iso) {
@@ -2859,6 +2912,33 @@
           const overview = appData.overview || {};
           const standings = Array.isArray(appData.standings) ? appData.standings : [];
           const matches = Array.isArray(appData.matches) ? appData.matches : [];
+          const hasUpcoming = Array.isArray(appData.upcomingMatches);
+          const hasPast = Array.isArray(appData.pastMatches);
+          let upcomingMatches = hasUpcoming ? appData.upcomingMatches : matches;
+          let pastMatches = hasPast ? appData.pastMatches : [];
+          if (!hasUpcoming && !hasPast && matches.length) {
+            const now = new Date();
+            upcomingMatches = matches.filter((match) => {
+              const date = String(match.date || "");
+              const time = String(match.time || "00:00");
+              return new Date(`${date}T${time}:00`) >= now;
+            });
+            pastMatches = matches
+              .filter((match) => {
+                const date = String(match.date || "");
+                const time = String(match.time || "00:00");
+                return new Date(`${date}T${time}:00`) < now;
+              })
+              .sort((a, b) => {
+                const dtA = new Date(`${String(a.date || "")}T${String(a.time || "00:00")}:00`);
+                const dtB = new Date(`${String(b.date || "")}T${String(b.time || "00:00")}:00`);
+                return dtB - dtA;
+              });
+          }
+          window.setunMatchesData = {
+            upcoming: Array.isArray(upcomingMatches) ? upcomingMatches : [],
+            past: Array.isArray(pastMatches) ? pastMatches : [],
+          };
           const birthdays = Array.isArray(appData.birthdays) ? appData.birthdays : [];
 
           const teamName = String(meta.teamName || "Сетунь");
@@ -3000,27 +3080,23 @@
           }
 
           const matchList = document.querySelector(".match-list");
-          if (matchList && matches.length) {
-            matchList.innerHTML = matches
-              .map((m) => {
-                const date = String(m.date || "");
-                const time = String(m.time || "");
-                const home = String(m.home || "");
-                const away = String(m.away || "");
-                const venue = String(m.venue || "away");
-                const tour = repairMojibake(String(m.tour || ""));
-                const label = time ? `${dateWeekdayFmt.format(fromIso(date))}, ${time}` : dateWeekdayFmt.format(fromIso(date));
-                return `<li class="match" data-home="${escapeHtml(home)}" data-away="${escapeHtml(away)}" data-date="${escapeHtml(
-                  date
-                )}" data-time="${escapeHtml(time)}" data-venue="${escapeHtml(venue)}" data-tour="${escapeHtml(tour)}"><strong>${escapeHtml(
-                  label
-                )}</strong> · ${escapeHtml(home)} — ${escapeHtml(away)}</li>`;
-              })
-              .join("");
+          if (matchList) {
+            matchList.innerHTML = "";
           }
 
-          if (matches.length) {
-            const first = matches[0];
+          const now = new Date();
+          const nextForCard = (Array.isArray(upcomingMatches) ? upcomingMatches : [])
+            .map((match) => {
+              const date = String(match.date || "");
+              const time = String(match.time || "00:00");
+              const datetime = new Date(`${date}T${time}:00`);
+              return { ...match, datetime };
+            })
+            .filter((match) => Number.isFinite(match.datetime.getTime()) && match.datetime >= now)
+            .sort((a, b) => a.datetime - b.datetime)[0];
+
+          if (nextForCard) {
+            const first = nextForCard;
             const nextTeams = document.querySelectorAll("#next-match .teams span");
             if (nextTeams[0]) nextTeams[0].textContent = String(first.home || "");
             if (nextTeams[2]) nextTeams[2].textContent = String(first.away || "");
@@ -3032,6 +3108,12 @@
               const tour = repairMojibake(String(first.tour || "SHL"));
               nextMeta.textContent = `${dtText} · ${tour} · ${venueText}`;
             }
+          } else {
+            const nextTeams = document.querySelectorAll("#next-match .teams span");
+            if (nextTeams[0]) nextTeams[0].textContent = "Матч";
+            if (nextTeams[2]) nextTeams[2].textContent = "не назначен";
+            const nextMeta = document.querySelector("#next-match .meta");
+            if (nextMeta) nextMeta.textContent = "Ожидаем публикацию следующего матча в расписании";
           }
 
           const upcomingList = document.querySelector("#bday-upcoming");
@@ -3415,25 +3497,52 @@
         }
 
         /* ====================================================================
-           Матчи: состояния, отсчёт, добавление в календарь (.ics)
+           Матчи: вкладки, состояния, календарь и медиа
            ==================================================================== */
-        const matches = $$(".match").map((element) => {
-          const date = element.dataset.date;
-          const time = element.dataset.time || "";
-          return {
-            element,
-            home: element.dataset.home,
-            away: element.dataset.away,
-            tour: element.dataset.tour || "",
-            venue: element.dataset.venue === "home" ? "home" : "away",
-            date,
-            time,
-            datetime: new Date(`${date}T${time || "00:00"}:00`),
-            hasTime: Boolean(time),
-          };
-        });
+        const matchesData = window.setunMatchesData || { upcoming: [], past: [] };
+        const matchList = $(".match-list");
+        const matchTabs = $$('[data-match-tab]');
 
-        const nextMatch = matches.find((match) => match.datetime >= new Date()) || null;
+        const upcomingMatches = (Array.isArray(matchesData.upcoming) ? matchesData.upcoming : [])
+          .map((match) => {
+            const date = String(match.date || "");
+            const time = String(match.time || "");
+            return {
+              gameId: Number(match.gameId || 0),
+              home: String(match.home || ""),
+              away: String(match.away || ""),
+              tour: repairMojibake(String(match.tour || "")),
+              venue: match.venue === "home" ? "home" : "away",
+              date,
+              time,
+              datetime: new Date(`${date}T${time || "00:00"}:00`),
+              hasTime: Boolean(time),
+            };
+          })
+          .sort((a, b) => a.datetime - b.datetime);
+
+        const pastMatches = (Array.isArray(matchesData.past) ? matchesData.past : [])
+          .map((match) => {
+            const date = String(match.date || "");
+            const time = String(match.time || "");
+            return {
+              gameId: Number(match.gameId || 0),
+              home: String(match.home || ""),
+              away: String(match.away || ""),
+              tour: repairMojibake(String(match.tour || "")),
+              venue: match.venue === "home" ? "home" : "away",
+              date,
+              time,
+              datetime: new Date(`${date}T${time || "00:00"}:00`),
+              hasTime: Boolean(time),
+              homeScore: Number.isFinite(Number(match.homeScore)) ? Number(match.homeScore) : null,
+              awayScore: Number.isFinite(Number(match.awayScore)) ? Number(match.awayScore) : null,
+              mediaUrl: String(match.mediaUrl || "").trim(),
+            };
+          })
+          .sort((a, b) => b.datetime - a.datetime);
+
+        const nextMatch = upcomingMatches.find((match) => match.datetime >= new Date()) || null;
 
         function countdownLabel(match) {
           const days = daysBetween(new Date(), match.datetime);
@@ -3483,55 +3592,103 @@
           setTimeout(() => URL.revokeObjectURL(url), 4000);
         }
 
-        matches.forEach((match) => {
-          const state = countdownLabel(match);
-          const isNext = nextMatch === match;
-          match.element.classList.add(match.venue === "home" ? "is-home" : "is-away");
-          match.element.classList.toggle("is-next", isNext);
-          match.element.classList.toggle("is-past", state.state === "past");
-          match.element.dataset.state = state.state;
+        let activeMatchTab = "upcoming";
 
-          const when = match.hasTime
-            ? `${dateWeekdayFmt.format(match.datetime)}, ${match.time}`
-            : `${dateWeekdayFmt.format(match.datetime)}, время уточняется`;
+        function tabLabel(kind, count) {
+          return kind === "upcoming" ? `Ближайшие матчи (${count})` : `Прошедшие матчи (${count})`;
+        }
 
-          match.element.innerHTML = `
-            <div class="match-top">
-              <span class="badge${match.venue === "home" ? " accent" : ""}">${
-            match.venue === "home" ? "дома" : "в гостях"
-          }</span>
-              <span class="when">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-                  <rect x="3" y="5" width="18" height="16" rx="3" />
-                  <path d="M8 3v4M16 3v4M3 10h18" />
-                </svg>
-                ${escapeHtml(when)}
-              </span>
-              ${isNext ? '<span class="badge accent">следующий</span>' : ""}
-            </div>
-            <div class="match-teams">
-              <span>${escapeHtml(match.home)}</span>
-              <span class="vs">vs</span>
-              <span>${escapeHtml(match.away)}</span>
-            </div>
-            <div class="match-foot">
-              <span class="tour">${escapeHtml(match.tour)}</span>
-              <span class="countdown-chip ${state.state === "past" ? "past" : state.state === "today" ? "today" : ""}">${escapeHtml(
-            state.text
-          )}</span>
-              <span class="spacer"></span>
-              <button class="btn-mini" type="button" data-ics>В календарь</button>
-            </div>`;
+        function renderMatches(tabName) {
+          if (!matchList) return;
 
-          $("[data-ics]", match.element)?.addEventListener("click", (event) => {
-            const button = event.currentTarget;
-            downloadFile(`setun-shl-${match.date}.ics`, buildIcs(match), "text/calendar;charset=utf-8");
-            button.textContent = "Файл готов";
-            setTimeout(() => {
-              button.textContent = "В календарь";
-            }, 2000);
+          const isPastTab = tabName === "past";
+          const source = isPastTab ? pastMatches : upcomingMatches;
+          const tabCount = source.length;
+
+          activeMatchTab = isPastTab ? "past" : "upcoming";
+          matchTabs.forEach((tab) => {
+            const selected = tab.dataset.matchTab === activeMatchTab;
+            tab.classList.toggle("is-active", selected);
+            tab.setAttribute("aria-selected", String(selected));
           });
+
+          if (!tabCount) {
+            matchList.innerHTML = `<li class="match"><div class="match-top"><span class="badge">${isPastTab ? "прошедшие" : "ближайшие"}</span></div><div class="match-teams"><span>Нет матчей для отображения</span></div></li>`;
+            return;
+          }
+
+          matchList.innerHTML = source
+            .map((match, index) => {
+              const state = countdownLabel(match);
+              const isNext = !isPastTab && nextMatch === match;
+              const when = match.hasTime
+                ? `${dateWeekdayFmt.format(match.datetime)}, ${match.time}`
+                : `${dateWeekdayFmt.format(match.datetime)}, время уточняется`;
+              const scoreKnown = Number.isFinite(match.homeScore) && Number.isFinite(match.awayScore);
+              const scoreText = scoreKnown ? `${match.homeScore}:${match.awayScore}` : "счет не указан";
+              const mediaAction = match.mediaUrl
+                ? `<a class="btn-mini" href="${escapeHtml(match.mediaUrl)}" target="_blank" rel="noopener noreferrer">Медиа</a>`
+                : `<span class="btn-mini" aria-disabled="true">Нет медиа</span>`;
+
+              return `<li class="match ${match.venue === "home" ? "is-home" : "is-away"}${
+                isNext ? " is-next" : ""
+              }${isPastTab ? " is-past" : state.state === "past" ? " is-past" : ""}" data-state="${escapeHtml(state.state)}">
+                <div class="match-top">
+                  <span class="badge${match.venue === "home" ? " accent" : ""}">${match.venue === "home" ? "дома" : "в гостях"}</span>
+                  <span class="when">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                      <rect x="3" y="5" width="18" height="16" rx="3" />
+                      <path d="M8 3v4M16 3v4M3 10h18" />
+                    </svg>
+                    ${escapeHtml(when)}
+                  </span>
+                  ${isNext ? '<span class="badge accent">следующий</span>' : ""}
+                </div>
+                <div class="match-teams">
+                  <span>${escapeHtml(match.home)}</span>
+                  <span class="vs">vs</span>
+                  <span>${escapeHtml(match.away)}</span>
+                </div>
+                <div class="match-foot">
+                  <span class="tour">${escapeHtml(match.tour)}</span>
+                  ${
+                    isPastTab
+                      ? `<span class="countdown-chip past">счет ${escapeHtml(scoreText)}</span>`
+                      : `<span class="countdown-chip ${state.state === "past" ? "past" : state.state === "today" ? "today" : ""}">${escapeHtml(
+                          state.text
+                        )}</span>`
+                  }
+                  <span class="spacer"></span>
+                  ${isPastTab ? mediaAction : `<button class="btn-mini" type="button" data-ics-index="${index}">В календарь</button>`}
+                </div>
+              </li>`;
+            })
+            .join("");
+
+          if (!isPastTab) {
+            $$('[data-ics-index]', matchList).forEach((button) => {
+              button.addEventListener("click", (event) => {
+                const index = Number(event.currentTarget.dataset.icsIndex || -1);
+                const match = source[index];
+                if (!match) return;
+                downloadFile(`setun-shl-${match.date}.ics`, buildIcs(match), "text/calendar;charset=utf-8");
+                event.currentTarget.textContent = "Файл готов";
+                setTimeout(() => {
+                  event.currentTarget.textContent = "В календарь";
+                }, 2000);
+              });
+            });
+          }
+        }
+
+        matchTabs.forEach((tab) => {
+          const key = tab.dataset.matchTab === "past" ? "past" : "upcoming";
+          const count = key === "past" ? pastMatches.length : upcomingMatches.length;
+          tab.textContent = tabLabel(key, count);
+          tab.addEventListener("click", () => renderMatches(key));
         });
+
+        renderMatches("upcoming");
 
         const countdownFields = {
           days: $('[data-cd="days"]'),
@@ -3570,6 +3727,10 @@
 
           renderCountdown();
           if (target - new Date() > 0) timer = setInterval(renderCountdown, 1000);
+        } else if (countdownFields.days) {
+          Object.values(countdownFields).forEach((field) => {
+            if (field) field.textContent = "--";
+          });
         }
 
         /* ====================================================================
