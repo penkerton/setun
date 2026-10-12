@@ -206,6 +206,27 @@ function byDateDesc(left, right) {
   return new Date(String(right.datetime || "")).getTime() - new Date(String(left.datetime || "")).getTime();
 }
 
+function gameToPublicModel(game, divisionLabel) {
+  const gameId = toInt(game?.id);
+  const datetimeRaw = String(game?.datetime || "");
+  const datetime = new Date(datetimeRaw);
+  const local = moscowDateTimeParts(datetimeRaw);
+  return {
+    gameId,
+    home: String(game?.team?.name || game?.team_name || ""),
+    away: String(game?.competitor_team?.name || game?.competitor_team_name || ""),
+    homeTeamId: toInt(game?.team_id),
+    awayTeamId: toInt(game?.competitor_team_id),
+    date: local.date,
+    time: local.time,
+    status: String(game?.status || ""),
+    tour: makeTourLabel(divisionLabel, game?.tournament_tour),
+    homeScore: toNullableInt(game?.team_score),
+    awayScore: toNullableInt(game?.competitor_team_score),
+    datetime,
+  };
+}
+
 function isoNowNoMillis() {
   return new Date().toISOString().replace(/\.\d{3}Z$/, "Z");
 }
@@ -387,43 +408,73 @@ async function main() {
     }
 
     const now = new Date();
-    const setunGames = games
-      .filter((game) => toInt(game?.team_id) === options.teamId || toInt(game?.competitor_team_id) === options.teamId)
-      .sort(byDateAsc);
+    const allGames = games
+      .map((game) => gameToPublicModel(game, divisionLabel))
+      .filter((game) => Number.isFinite(game.datetime.getTime()));
 
-    let upcomingSetunGames = setunGames.filter((game) => new Date(String(game?.datetime || "")).getTime() >= now.getTime());
+    const allUpcomingMatches = allGames
+      .filter((game) => game.datetime.getTime() >= now.getTime())
+      .sort((left, right) => left.datetime - right.datetime)
+      .map((game) => ({
+        gameId: game.gameId,
+        home: game.home,
+        away: game.away,
+        homeTeamId: game.homeTeamId,
+        awayTeamId: game.awayTeamId,
+        date: game.date,
+        time: game.time,
+        status: game.status,
+        tour: game.tour,
+      }));
+
+    const allPastMatches = allGames
+      .filter((game) => game.datetime.getTime() < now.getTime())
+      .sort((left, right) => right.datetime - left.datetime)
+      .map((game) => ({
+        gameId: game.gameId,
+        home: game.home,
+        away: game.away,
+        homeTeamId: game.homeTeamId,
+        awayTeamId: game.awayTeamId,
+        date: game.date,
+        time: game.time,
+        status: game.status,
+        tour: game.tour,
+        homeScore: game.homeScore,
+        awayScore: game.awayScore,
+      }));
+
+    const setunGames = allGames
+      .filter((game) => game.homeTeamId === options.teamId || game.awayTeamId === options.teamId)
+      .sort((left, right) => left.datetime - right.datetime);
+
+    let upcomingSetunGames = setunGames.filter((game) => game.datetime.getTime() >= now.getTime());
     if (upcomingSetunGames.length > options.matchLimit) {
       upcomingSetunGames = upcomingSetunGames.slice(0, options.matchLimit);
     }
 
     const upcomingMatches = upcomingSetunGames.map((game) => {
-    const local = moscowDateTimeParts(String(game?.datetime || ""));
-    const homeName = String(game?.team?.name || game?.team_name || "");
-    const awayName = String(game?.competitor_team?.name || game?.competitor_team_name || "");
-    const isHome = toInt(game?.team_id) === options.teamId;
+    const isHome = game.homeTeamId === options.teamId;
     return {
-      gameId: toInt(game?.id),
-      home: homeName,
-      away: awayName,
-      date: local.date,
-      time: local.time,
+      gameId: game.gameId,
+      home: game.home,
+      away: game.away,
+      date: game.date,
+      time: game.time,
       venue: isHome ? "home" : "away",
-      status: String(game?.status || ""),
-      tour: makeTourLabel(divisionLabel, game?.tournament_tour),
+      status: game.status,
+      tour: game.tour,
     };
   });
 
     const pastSetunGames = setunGames
-      .filter((game) => new Date(String(game?.datetime || "")).getTime() < now.getTime())
-      .sort(byDateDesc);
+      .filter((game) => game.datetime.getTime() < now.getTime())
+      .sort((left, right) => right.datetime - left.datetime);
 
     const pastMatches = [];
     for (const game of pastSetunGames) {
-    const gameId = toInt(game?.id);
-    const local = moscowDateTimeParts(String(game?.datetime || ""));
-    const homeName = String(game?.team?.name || game?.team_name || "");
-    const awayName = String(game?.competitor_team?.name || game?.competitor_team_name || "");
-    const isHome = toInt(game?.team_id) === options.teamId;
+    const gameId = game.gameId;
+    const isHome = game.homeTeamId === options.teamId;
     const statisticUrl = gameId > 0 ? `https://shlmos.ru/game/${gameId}/statistic` : null;
     const mediaPageUrl = gameId > 0 ? `https://shlmos.ru/game/${gameId}/media` : null;
 
@@ -447,15 +498,15 @@ async function main() {
 
     pastMatches.push({
       gameId,
-      home: homeName,
-      away: awayName,
-      date: local.date,
-      time: local.time,
+      home: game.home,
+      away: game.away,
+      date: game.date,
+      time: game.time,
       venue: isHome ? "home" : "away",
-      status: String(game?.status || ""),
-      tour: makeTourLabel(divisionLabel, game?.tournament_tour),
-      homeScore: toNullableInt(game?.team_score),
-      awayScore: toNullableInt(game?.competitor_team_score),
+      status: game.status,
+      tour: game.tour,
+      homeScore: game.homeScore,
+      awayScore: game.awayScore,
       statisticUrl,
       mediaPageUrl,
       mediaUrl: mediaUrl || mediaPageUrl,
@@ -617,6 +668,8 @@ async function main() {
       matches: upcomingMatches,
       upcomingMatches,
       pastMatches,
+      allUpcomingMatches,
+      allPastMatches,
       players,
       birthdays,
     };
@@ -631,8 +684,11 @@ async function main() {
     console.log(`Tournament: ${options.tournamentId} (${String(tournament?.name || "")})`);
     console.log(`Team: ${ownTeamName} (teamId=${options.teamId}, tournamentTeamId=${ownTournamentTeamId})`);
     console.log(`Standings rows: ${standings.length}`);
-    console.log(`Upcoming matches exported: ${upcomingMatches.length}`);
-    console.log(`Past matches exported: ${pastMatches.length}`);
+    console.log(`All tournament games loaded: ${allGames.length}`);
+    console.log(`All upcoming matches exported: ${allUpcomingMatches.length}`);
+    console.log(`All past matches exported: ${allPastMatches.length}`);
+    console.log(`Setun upcoming matches exported: ${upcomingMatches.length}`);
+    console.log(`Setun past matches exported: ${pastMatches.length}`);
     console.log(`Players exported: ${players.length}`);
     console.log(`Birthdays exported: ${birthdays.length}`);
     console.log(`JSON: ${options.outputJson}`);

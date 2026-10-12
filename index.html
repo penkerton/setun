@@ -421,15 +421,22 @@
 
       .brand-mark {
         position: relative;
-        display: grid;
-        place-items: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 42px;
         height: 42px;
         border-radius: 13px;
-        color: #fff;
-        background: linear-gradient(140deg, var(--ice), var(--accent) 55%, var(--accent-2));
-        box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--accent) 90%, transparent);
+        background: #fff;
+        border: 1px solid var(--line);
+        box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--accent) 55%, transparent);
         overflow: hidden;
+      }
+
+      .brand-mark img {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
       }
 
       .brand-mark::after {
@@ -966,6 +973,74 @@
         background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 32%, transparent), transparent 72%);
       }
 
+      .matrix-table {
+        --matrix-cell-size: 52px;
+        --matrix-head-height: 184px;
+        min-width: 980px;
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+
+      .matrix-table th,
+      .matrix-table td {
+        text-align: center;
+        border-right: 1px solid var(--line);
+      }
+
+      .matrix-table thead th:first-child {
+        left: 0;
+        z-index: 5;
+        min-width: 220px;
+        padding: 9px 10px;
+        text-align: left;
+      }
+
+      .matrix-table thead th:not(:first-child) {
+        position: relative;
+        width: var(--matrix-cell-size);
+        min-width: var(--matrix-cell-size);
+        max-width: var(--matrix-cell-size);
+        height: var(--matrix-head-height);
+        padding: 0;
+        overflow: hidden;
+      }
+
+      .matrix-head-label {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: inline-block;
+        transform: translate(-50%, -50%) rotate(-90deg);
+        transform-origin: center center;
+        line-height: 1;
+        white-space: nowrap;
+      }
+
+      .matrix-table tbody th {
+        position: sticky;
+        left: 0;
+        z-index: 3;
+        min-width: 220px;
+        padding: 9px 10px;
+        text-align: left;
+        font-weight: 600;
+        background: color-mix(in srgb, var(--bg-soft) 88%, transparent);
+      }
+
+      .matrix-table tbody td {
+        width: var(--matrix-cell-size);
+        min-width: var(--matrix-cell-size);
+        max-width: var(--matrix-cell-size);
+        height: var(--matrix-cell-size);
+        padding: 6px 4px;
+        vertical-align: middle;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .matrix-table td.self {
+        background: color-mix(in srgb, var(--text) 8%, transparent);
+      }
+
       mark {
         background: color-mix(in srgb, var(--amber) 55%, transparent);
         color: inherit;
@@ -1062,31 +1137,6 @@
         align-items: center;
       }
 
-      .eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 9px;
-        margin: 0 0 18px;
-        padding: 7px 14px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: var(--surface);
-        color: var(--muted);
-        font-size: 0.8rem;
-        font-weight: 600;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-      }
-
-      .eyebrow::before {
-        content: "";
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: var(--ice);
-        box-shadow: 0 0 12px var(--ice);
-      }
-
       .hero h1 {
         margin: 0;
         font-size: clamp(2.1rem, 6vw, 4rem);
@@ -1122,65 +1172,6 @@
         flex-wrap: wrap;
         gap: 12px;
         margin-top: 26px;
-      }
-
-      .season-kpis {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 10px;
-        margin-top: 20px;
-      }
-
-      .season-kpi {
-        padding: 12px 14px;
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        background: linear-gradient(180deg, color-mix(in srgb, var(--surface-2) 72%, transparent), var(--surface));
-      }
-
-      .season-kpi strong {
-        display: block;
-        font-size: clamp(1.45rem, 3.2vw, 2rem);
-        font-weight: 800;
-        color: var(--ice);
-        font-variant-numeric: tabular-nums;
-        line-height: 1.05;
-      }
-
-      .season-kpi span {
-        display: block;
-        margin-top: 4px;
-        color: var(--muted);
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        font-size: 0.72rem;
-      }
-
-      .hero-facts {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 14px;
-        margin: 32px 0 0;
-        padding: 18px 0 0;
-        border-top: 1px solid var(--line);
-      }
-
-      .hero-facts div {
-        min-width: 0;
-      }
-
-      .hero-facts dt {
-        color: var(--muted);
-        font-size: 0.78rem;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-      }
-
-      .hero-facts dd {
-        margin: 4px 0 0;
-        font-size: 1.15rem;
-        font-weight: 700;
-        font-variant-numeric: tabular-nums;
       }
 
       .hero-visual {
@@ -1659,6 +1650,43 @@
         background: linear-gradient(120deg, color-mix(in srgb, var(--ice) 86%, white 7%), var(--accent));
       }
 
+      .tournament-tabs {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: color-mix(in srgb, var(--surface-2) 66%, transparent);
+      }
+
+      .tournament-tab {
+        border: 1px solid transparent;
+        border-radius: 999px;
+        padding: 8px 14px;
+        background: transparent;
+        color: var(--muted);
+        font-size: 0.86rem;
+        font-weight: 700;
+        line-height: 1;
+        cursor: pointer;
+        transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .tournament-tab:hover {
+        color: var(--text);
+      }
+
+      .tournament-tab.is-active {
+        color: var(--bg);
+        border-color: transparent;
+        background: linear-gradient(120deg, color-mix(in srgb, var(--ice) 86%, white 7%), var(--accent));
+      }
+
+      .tournament-panel[hidden] {
+        display: none;
+      }
+
       .match {
         position: relative;
         display: grid;
@@ -2027,6 +2055,10 @@
         opacity: 0.72;
       }
 
+      .bday-panel[hidden] {
+        display: none;
+      }
+
       /* ==========================================================================
          10. Подвал и служебное
          ========================================================================== */
@@ -2155,28 +2187,6 @@
       }
 
       @media (max-width: 760px) {
-        .season-kpis {
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 8px;
-        }
-
-        .season-kpi {
-          padding: 10px 10px;
-        }
-
-        .season-kpi strong {
-          font-size: 1.3rem;
-        }
-
-        .season-kpi span {
-          font-size: 0.66rem;
-          letter-spacing: 0.06em;
-        }
-
-        .hero-facts {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
         .countdown {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
@@ -2341,14 +2351,6 @@
       }
 
       @media (max-width: 520px) {
-        .season-kpis {
-          grid-template-columns: 1fr;
-        }
-
-        .hero-facts {
-          grid-template-columns: 1fr;
-        }
-
         .card,
         .bday-col {
           padding: 16px;
@@ -2411,11 +2413,7 @@
       <div class="wrap header-inner">
         <a class="brand" href="#top" aria-label="Сетунь — наверх">
           <span class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
-              <ellipse cx="12" cy="7" rx="8" ry="3.2" />
-              <path d="M4 7v8.2c0 1.8 3.6 3.2 8 3.2s8-1.4 8-3.2V7" />
-              <path d="M4 11.2c0 1.8 3.6 3.2 8 3.2s8-1.4 8-3.2" />
-            </svg>
+            <img src="https://fs.mtgame.ru/setun.png" alt="" width="30" height="30" />
           </span>
           <span class="brand-text">
             <strong>Сетунь</strong>
@@ -2425,7 +2423,7 @@
 
         <nav class="nav" id="primary-nav" aria-label="Основная навигация">
           <a href="#dashboard">Обзор</a>
-          <a href="#standings">Таблица</a>
+          <a href="#standings">Турнир</a>
           <a href="#matches">Матчи</a>
           <a href="#statistics">Статистика</a>
           <a href="#birthdays">Дни рождения</a>
@@ -2473,7 +2471,6 @@
       <section class="hero" aria-labelledby="hero-title">
         <div class="wrap hero-inner">
           <div class="hero-copy reveal">
-            <p class="eyebrow">SHL · Сезон 2026/2027</p>
             <h1 id="hero-title">Хоккейная команда <span class="grad">«Сетунь»</span></h1>
             <p class="lead">
               Команда из Москвы, выступающая в SHL. Разделы страницы автоматически заполняются из данных дивизиона.
@@ -2499,35 +2496,6 @@
               </a>
             </div>
 
-            <div class="season-kpis reveal" style="--delay: 120ms" aria-label="KPI дивизиона">
-              <div class="season-kpi">
-                <strong id="season-games" data-count="0">0</strong>
-                <span>Матчи</span>
-              </div>
-              <div class="season-kpi">
-                <strong id="season-wins" data-count="0">0</strong>
-                <span>Победы</span>
-              </div>
-              <div class="season-kpi">
-                <strong id="season-points" data-count="0">0</strong>
-                <span>Очки</span>
-              </div>
-            </div>
-
-            <dl class="hero-facts">
-              <div>
-                <dt>Место в таблице</dt>
-                <dd><span data-count="0">0</span>-е из <span id="hero-total-teams">0</span></dd>
-              </div>
-              <div>
-                <dt>Очков за игру</dt>
-                <dd><span data-count="0" data-decimals="2">0,00</span></dd>
-              </div>
-              <div>
-                <dt>Разница шайб</dt>
-                <dd><span id="hero-goal-diff">0</span></dd>
-              </div>
-            </dl>
           </div>
 
           <div class="hero-visual reveal" style="--delay: 140ms">
@@ -2605,6 +2573,16 @@
               <p class="tile-value" data-count="0" data-decimals="2">0,00</p>
               <p class="tile-note">Рассчитывается автоматически</p>
             </article>
+            <article class="tile good spotlight">
+              <p class="tile-label">Победы</p>
+              <p class="tile-value" id="season-wins" data-count="0">0</p>
+              <p class="tile-note">Побед в текущем турнире</p>
+            </article>
+            <article class="tile accent spotlight">
+              <p class="tile-label">Очки</p>
+              <p class="tile-value" id="season-points" data-count="0">0</p>
+              <p class="tile-note">Набрано в текущем турнире</p>
+            </article>
           </div>
 
           <div class="chart reveal" id="points-chart">
@@ -2618,28 +2596,53 @@
       <section class="section" id="standings" aria-labelledby="standings-title">
         <div class="wrap">
           <div class="section-head reveal">
-            <h2 id="standings-title" data-step="02">Турнирная таблица</h2>
+            <h2 id="standings-title" data-step="02">Турнир</h2>
+            <div class="tournament-tabs" role="tablist" aria-label="Режимы раздела Турнир">
+              <button class="tournament-tab is-active" type="button" role="tab" aria-selected="true" data-tournament-tab="standings">
+                Таблица
+              </button>
+              <button class="tournament-tab" type="button" role="tab" aria-selected="false" data-tournament-tab="matrix">Матрица</button>
+            </div>
           </div>
 
-          <div class="table-wrap reveal">
-            <table class="data" id="standings-table">
-              <caption class="visually-hidden">Турнирная таблица 2016 г.р., первый этап</caption>
-              <thead>
-                <tr>
-                  <th scope="col" data-sort="number">Место</th>
-                  <th scope="col">Команда</th>
-                  <th scope="col" data-sort="number" title="Сыграно игр">И</th>
-                  <th scope="col" data-sort="number" title="Выиграно игр">В</th>
-                  <th scope="col" data-sort="number" title="Игр в ничью">Н</th>
-                  <th scope="col" data-sort="number" title="Поражений">П</th>
-                  <th scope="col" data-sort="number" title="Шайб заброшено">ШЗ</th>
-                  <th scope="col" data-sort="number" title="Шайб пропущено">ШП</th>
-                  <th scope="col" data-sort="number" title="Разница шайб">РШ</th>
-                  <th scope="col" data-sort="number" title="Очков">О</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
+          <div class="reveal">
+            <div class="tournament-panel" data-tournament-panel="standings">
+              <div class="table-wrap">
+                <table class="data" id="standings-table">
+                  <caption class="visually-hidden">Турнирная таблица 2016 г.р., первый этап</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col" data-sort="number">Место</th>
+                      <th scope="col">Команда</th>
+                      <th scope="col" data-sort="number" title="Сыграно игр">И</th>
+                      <th scope="col" data-sort="number" title="Выиграно игр">В</th>
+                      <th scope="col" data-sort="number" title="Игр в ничью">Н</th>
+                      <th scope="col" data-sort="number" title="Поражений">П</th>
+                      <th scope="col" data-sort="number" title="Шайб заброшено">ШЗ</th>
+                      <th scope="col" data-sort="number" title="Шайб пропущено">ШП</th>
+                      <th scope="col" data-sort="number" title="Разница шайб">РШ</th>
+                      <th scope="col" data-sort="number" title="Очков">О</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="tournament-panel" data-tournament-panel="matrix" hidden>
+              <p id="h2h-note" style="margin: 0 0 12px; color: var(--muted)">
+                Команды по вертикали и горизонтали, в ячейках счёт сыгранных матчей.
+              </p>
+              <div class="table-wrap">
+                <table class="data matrix-table" id="h2h-table">
+                  <caption class="visually-hidden">Матрица сыгранных матчей турнира</caption>
+                  <thead>
+                    <tr id="h2h-head-row"></tr>
+                  </thead>
+                  <tbody id="h2h-body"></tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -2727,17 +2730,16 @@
         <div class="wrap">
           <div class="section-head reveal">
             <h2 id="bday-title" data-step="05">Дни рождения</h2>
+            <div class="matches-tabs" role="tablist" aria-label="Список дней рождения">
+              <button class="matches-tab is-active" type="button" role="tab" aria-selected="true" data-bday-tab="upcoming">Предстоящие</button>
+              <button class="matches-tab" type="button" role="tab" aria-selected="false" data-bday-tab="past">Прошедшие</button>
+            </div>
           </div>
 
           <div class="bday-grid">
             <article class="bday-col reveal spotlight">
-              <h3>Предстоящие <span class="count" id="bday-upcoming-count">0</span></h3>
-              <ul class="bday-list" id="bday-upcoming"></ul>
-            </article>
-
-            <article class="bday-col reveal spotlight" style="--delay: 120ms">
-              <h3>Прошедшие <span class="count" id="bday-past-count">0</span></h3>
-              <ul class="bday-list" id="bday-past"></ul>
+              <ul class="bday-list bday-panel" id="bday-upcoming" data-bday-panel="upcoming"></ul>
+              <ul class="bday-list bday-panel" id="bday-past" data-bday-panel="past" hidden></ul>
             </article>
           </div>
         </div>
@@ -2925,8 +2927,6 @@
           const brandSmall = document.querySelector(".brand-text small");
           if (brandSmall) brandSmall.textContent = `SHL · ${city}`;
 
-          const eyebrow = document.querySelector(".hero .eyebrow");
-          if (eyebrow) eyebrow.textContent = `SHL · Сезон ${seasonLabel}`;
           const heroGrad = document.querySelector("#hero-title .grad");
           if (heroGrad) heroGrad.textContent = `«${teamName}»`;
           const heroLead = document.querySelector(".hero .lead");
@@ -2942,32 +2942,11 @@
             logo.setAttribute("alt", `Логотип команды ${teamName}`);
           }
 
-          const placeCount = document.querySelector(".hero-facts [data-count]");
-          if (placeCount && Number.isFinite(Number(overview.place))) {
-            placeCount.dataset.count = String(Number(overview.place));
-            placeCount.textContent = String(Number(overview.place));
-          }
-          const totalTeams = document.querySelector("#hero-total-teams");
-          if (totalTeams && Number.isFinite(Number(overview.totalTeams))) {
-            totalTeams.textContent = String(Number(overview.totalTeams));
+          const headerLogo = document.querySelector(".brand-mark img");
+          if (headerLogo && meta.logoUrl) {
+            headerLogo.setAttribute("src", meta.logoUrl);
           }
 
-          const heroStats = document.querySelectorAll(".hero-facts [data-count]");
-          if (heroStats[1]) {
-            heroStats[1].dataset.count = String(Number(overview.ppg || 0));
-            heroStats[1].textContent = decimalsFmt.format(Number(overview.ppg || 0));
-          }
-          const heroDiff = document.querySelector("#hero-goal-diff");
-          if (heroDiff) {
-            const diff = Number(overview.goalDiff || 0);
-            heroDiff.textContent = diff > 0 ? `+${diff}` : String(diff);
-          }
-
-          const seasonGames = document.querySelector("#season-games");
-          if (seasonGames) {
-            seasonGames.dataset.count = String(Number(overview.games || 0));
-            seasonGames.textContent = String(Number(overview.games || 0));
-          }
           const seasonWins = document.querySelector("#season-wins");
           if (seasonWins) {
             seasonWins.dataset.count = String(Number(overview.wins || 0));
@@ -2984,6 +2963,7 @@
             const place = Number(overview.place || 0);
             const allTeams = Number(overview.totalTeams || 0);
             const games = Number(overview.games || 0);
+            const totalGamesForTeam = allTeams > 1 ? allTeams - 1 : 0;
             const wins = Number(overview.wins || 0);
             const losses = Number(overview.losses || 0);
             const gf = Number(overview.goalsFor || 0);
@@ -2995,8 +2975,8 @@
             if (placeValue) placeValue.innerHTML = `${place}<span style="font-size: 0.5em; color: var(--muted)"> / ${allTeams}</span>`;
             const gamesValue = tiles[1].querySelector(".tile-value");
             if (gamesValue) {
-              gamesValue.dataset.count = String(games);
-              gamesValue.textContent = String(games);
+              gamesValue.removeAttribute("data-count");
+              gamesValue.innerHTML = `${games}<span style="font-size: 0.5em; color: var(--muted)"> / ${totalGamesForTeam}</span>`;
             }
             const gamesNote = tiles[1].querySelector(".tile-note");
             if (gamesNote) gamesNote.textContent = `${wins} побед, ${losses} поражений`;
@@ -3456,6 +3436,153 @@
             });
           });
         }
+
+        /* ====================================================================
+           Матрица встреч: команды по осям и счет на пересечениях
+           ==================================================================== */
+        const h2hHeadRow = $("#h2h-head-row");
+        const h2hBody = $("#h2h-body");
+        const h2hNote = $("#h2h-note");
+
+        function teamPairKey(teamA, teamB) {
+          return teamA.localeCompare(teamB, "ru") <= 0 ? `${teamA}||${teamB}` : `${teamB}||${teamA}`;
+        }
+
+        function matchUniqueKey(match) {
+          if (match && Number.isFinite(Number(match.gameId))) {
+            return `id:${Number(match.gameId)}`;
+          }
+          const home = String((match && match.home) || "").trim();
+          const away = String((match && match.away) || "").trim();
+          const date = String((match && match.date) || "").trim();
+          const time = String((match && match.time) || "").trim();
+          return `${home}|${away}|${date}|${time}`;
+        }
+
+        function syncMatrixHeaderHeight() {
+          if (!h2hHeadRow) return;
+          const matrixTable = h2hHeadRow.closest("table");
+          if (!matrixTable) return;
+
+          const labels = $$(".matrix-head-label", h2hHeadRow);
+          if (!labels.length) {
+            matrixTable.style.removeProperty("--matrix-head-height");
+            return;
+          }
+
+          const maxLabelWidth = labels.reduce((max, label) => {
+            const width = Math.ceil(label.scrollWidth || 0);
+            return width > max ? width : max;
+          }, 0);
+
+          const minHeight = 184;
+          const padding = 36;
+          matrixTable.style.setProperty("--matrix-head-height", `${Math.max(minHeight, maxLabelWidth + padding)}px`);
+        }
+
+        function renderHeadToHeadMatrix() {
+          if (!h2hHeadRow || !h2hBody) return;
+
+          const standings = Array.isArray(appData && appData.standings) ? appData.standings : [];
+          const past = Array.isArray(appData && appData.allPastMatches)
+            ? appData.allPastMatches
+            : Array.isArray(window.setunMatchesData && window.setunMatchesData.past)
+            ? window.setunMatchesData.past
+            : [];
+          const upcomingAll = Array.isArray(appData && appData.allUpcomingMatches) ? appData.allUpcomingMatches : [];
+          const teams = standings.map((row) => String(row.team || "").trim()).filter(Boolean);
+
+          if (!teams.length) {
+            h2hHeadRow.innerHTML = '<th scope="col">Команда</th>';
+            h2hBody.innerHTML =
+              '<tr><td colspan="2" class="empty-row">Недостаточно данных для построения матрицы встреч.</td></tr>';
+            return;
+          }
+
+          const scoresByPair = new Map();
+          let scoredGames = 0;
+
+          past.forEach((match) => {
+            const home = String(match.home || "").trim();
+            const away = String(match.away || "").trim();
+            const homeScore = Number(match.homeScore);
+            const awayScore = Number(match.awayScore);
+            if (!home || !away || !Number.isFinite(homeScore) || !Number.isFinite(awayScore)) return;
+
+            const key = teamPairKey(home, away);
+            if (!scoresByPair.has(key)) scoresByPair.set(key, []);
+            scoresByPair.get(key).push({ home, away, homeScore, awayScore });
+            scoredGames += 1;
+          });
+
+          const knownMatches = [...past, ...upcomingAll];
+          const totalByCalendar = new Set(knownMatches.map(matchUniqueKey)).size;
+          const totalByRoundRobin = teams.length > 1 ? (teams.length * (teams.length - 1)) / 2 : 0;
+          const totalGames = Math.max(totalByCalendar, totalByRoundRobin, scoredGames);
+
+          h2hHeadRow.innerHTML = `<th scope="col">Команда</th>${teams
+            .map((team) => `<th scope="col"><span class="matrix-head-label">${escapeHtml(team)}</span></th>`)
+            .join("")}`;
+
+          h2hBody.innerHTML = teams
+            .map((rowTeam) => {
+              const cells = teams
+                .map((colTeam) => {
+                  if (rowTeam === colTeam) {
+                    return '<td class="self" aria-label="Та же команда"></td>';
+                  }
+
+                  const games = scoresByPair.get(teamPairKey(rowTeam, colTeam)) || [];
+                  if (!games.length) return "<td></td>";
+
+                  const scoreText = games
+                    .map((game) => {
+                      const rowGoals = game.home === rowTeam ? game.homeScore : game.awayScore;
+                      const colGoals = game.home === rowTeam ? game.awayScore : game.homeScore;
+                      return `${rowGoals}:${colGoals}`;
+                    })
+                    .join(", ");
+
+                  return `<td>${escapeHtml(scoreText)}</td>`;
+                })
+                .join("");
+
+              return `<tr><th scope="row">${escapeHtml(rowTeam)}</th>${cells}</tr>`;
+            })
+            .join("");
+
+          if (h2hNote) {
+            h2hNote.textContent = `Команды по вертикали и горизонтали, в ячейках счёт сыгранных матчей. Заполнено матчей: ${scoredGames} из ${totalGames}.`;
+          }
+
+          syncMatrixHeaderHeight();
+        }
+
+        renderHeadToHeadMatrix();
+        window.addEventListener("resize", syncMatrixHeaderHeight);
+
+        const tournamentTabs = $$('[data-tournament-tab]');
+        const tournamentPanels = $$('[data-tournament-panel]');
+
+        function renderTournamentPanel(name) {
+          const active = name === "matrix" ? "matrix" : "standings";
+          tournamentTabs.forEach((tab) => {
+            const selected = tab.dataset.tournamentTab === active;
+            tab.classList.toggle("is-active", selected);
+            tab.setAttribute("aria-selected", String(selected));
+          });
+          tournamentPanels.forEach((panel) => {
+            panel.hidden = panel.dataset.tournamentPanel !== active;
+          });
+        }
+
+        tournamentTabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            renderTournamentPanel(tab.dataset.tournamentTab || "standings");
+          });
+        });
+
+        renderTournamentPanel("standings");
 
         /* ====================================================================
            Матчи: вкладки, состояния, календарь и медиа
@@ -3948,6 +4075,8 @@
            Дни рождения: ближайшая дата, «через N дней», возраст
            ==================================================================== */
         const birthdaySource = $$(".bday-item");
+        const birthdayTabs = $$('[data-bday-tab]');
+        const birthdayPanels = $$('[data-bday-panel]');
 
         if (birthdaySource.length) {
           const today = startOfDay(new Date());
@@ -4015,10 +4144,30 @@
           }
           if (pastList) pastList.innerHTML = pastEntries.map(buildBirthdayItem).join("");
 
-          const upcomingCount = $("#bday-upcoming-count");
-          const pastCount = $("#bday-past-count");
-          if (upcomingCount) upcomingCount.textContent = String(upcomingEntries.length);
-          if (pastCount) pastCount.textContent = String(pastEntries.length);
+          function bdayTabLabel(kind, count) {
+            return kind === "upcoming" ? `Предстоящие (${count})` : `Прошедшие (${count})`;
+          }
+
+          function renderBirthdayTab(tabName) {
+            const active = tabName === "past" ? "past" : "upcoming";
+            birthdayTabs.forEach((tab) => {
+              const selected = tab.dataset.bdayTab === active;
+              tab.classList.toggle("is-active", selected);
+              tab.setAttribute("aria-selected", String(selected));
+            });
+            birthdayPanels.forEach((panel) => {
+              panel.hidden = panel.dataset.bdayPanel !== active;
+            });
+          }
+
+          birthdayTabs.forEach((tab) => {
+            const key = tab.dataset.bdayTab === "past" ? "past" : "upcoming";
+            const count = key === "past" ? pastEntries.length : upcomingEntries.length;
+            tab.textContent = bdayTabLabel(key, count);
+            tab.addEventListener("click", () => renderBirthdayTab(key));
+          });
+
+          renderBirthdayTab("upcoming");
         }
       })();
     </script>
