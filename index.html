@@ -2292,57 +2292,114 @@
           font-size: 0.68rem;
         }
 
-        /* Статистика игроков остаётся в виде карточек */
-        /* Таблицы превращаются в карточки, если JS добавил подписи колонок */
-        table.data.as-cards {
+        /* Статистика игроков в телефоне: компактная карточка без пустых зон */
+        #goals-table.data.as-cards {
           min-width: 0;
         }
 
-        table.data.as-cards thead {
+        #goals-table.data.as-cards thead {
           display: none;
         }
 
-        table.data.as-cards tbody tr {
+        #goals-table.data.as-cards tbody tr {
           display: grid;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 8px 12px;
-          padding: 14px 16px;
+          grid-template-columns: auto repeat(3, minmax(0, 1fr));
+          gap: 6px 10px;
+          padding: 12px 14px;
           border-bottom: 1px solid var(--line);
+          align-items: center;
         }
 
-        table.data.as-cards tbody td {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 10px;
+        #goals-table.data.as-cards tbody td {
+          display: grid;
+          gap: 2px;
           padding: 0;
           border: 0;
           white-space: normal;
-          text-align: right;
         }
 
-        table.data.as-cards tbody td::before {
+        #goals-table.data.as-cards tbody td::before {
           content: attr(data-label);
           color: var(--muted);
-          font-size: 0.72rem;
+          font-size: 0.64rem;
           text-transform: uppercase;
-          letter-spacing: 0.06em;
+          letter-spacing: 0.05em;
+          line-height: 1.1;
         }
 
-        table.data.as-cards tbody td:first-child {
-          grid-column: 1 / -1;
-          justify-content: flex-start;
+        #goals-table.data.as-cards tbody td:first-child {
+          grid-column: 1;
+          grid-row: 1;
+          align-self: start;
+          padding-top: 1px;
         }
 
-        table.data.as-cards tbody td:first-child::before {
+        #goals-table.data.as-cards tbody td:first-child::before {
           display: none;
         }
 
-        table.data.as-cards tbody td.cell-team {
-          grid-column: 1 / -1;
-          justify-content: flex-start;
-          font-size: 1.05rem;
+        #goals-table.data.as-cards tbody td:nth-child(2) {
+          grid-column: 2 / -1;
+          grid-row: 1;
+          font-size: 0.98rem;
           font-weight: 700;
+          line-height: 1.2;
+        }
+
+        #goals-table.data.as-cards tbody td:nth-child(2)::before {
+          display: none;
+        }
+
+        #goals-table.data.as-cards tbody td.cell-team {
+          grid-column: 2 / -1;
+          grid-row: 2;
+          color: var(--muted);
+          font-size: 0.82rem;
+          font-weight: 600;
+          line-height: 1.2;
+        }
+
+        #goals-table.data.as-cards tbody td.cell-team::before {
+          display: none;
+        }
+
+        #goals-table.data.as-cards tbody td:nth-child(4),
+        #goals-table.data.as-cards tbody td:nth-child(5),
+        #goals-table.data.as-cards tbody td:nth-child(6) {
+          grid-row: 3;
+          text-align: center;
+          justify-items: center;
+        }
+
+        #goals-table.data.as-cards tbody td:nth-child(4) {
+          grid-column: 2;
+        }
+
+        #goals-table.data.as-cards tbody td:nth-child(5) {
+          grid-column: 3;
+        }
+
+        #goals-table.data.as-cards tbody td:nth-child(6) {
+          grid-column: 4;
+        }
+
+        #goals-table.data.as-cards tbody td:nth-child(4)::before,
+        #goals-table.data.as-cards tbody td:nth-child(5)::before,
+        #goals-table.data.as-cards tbody td:nth-child(6)::before {
+          display: block;
+        }
+
+        #goals-table.data.as-cards tbody td .rank {
+          width: 24px;
+          height: 24px;
+          border-radius: 8px;
+          font-size: 0.68rem;
+        }
+
+        #goals-table.data.as-cards tbody td.num {
+          font-size: 0.95rem;
+          font-weight: 700;
+          font-variant-numeric: tabular-nums;
         }
 
         .match-foot .tour {
