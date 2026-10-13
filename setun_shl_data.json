@@ -11,7 +11,7 @@
     "teamUrl": "https://shlmos.ru/team/2641",
     "sourceHost": "mtgame.ru",
     "sourceSite": "shlmos.ru",
-    "updatedAt": "2026-10-13T04:50:56Z"
+    "updatedAt": "2026-10-13T13:17:26Z"
   },
   "overview": {
     "place": 11,
@@ -184,8 +184,30 @@
       "isOwn": false
     }
   ],
-  "matches": [],
-  "upcomingMatches": [],
+  "matches": [
+    {
+      "gameId": 163995,
+      "home": "Ракета",
+      "away": "Сетунь",
+      "date": "2026-10-17",
+      "time": "15:00",
+      "venue": "away",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 5 тур"
+    }
+  ],
+  "upcomingMatches": [
+    {
+      "gameId": 163995,
+      "home": "Ракета",
+      "away": "Сетунь",
+      "date": "2026-10-17",
+      "time": "15:00",
+      "venue": "away",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 5 тур"
+    }
+  ],
   "pastMatches": [
     {
       "gameId": 163047,
@@ -248,7 +270,63 @@
       "mediaUrl": "https://rutube.ru/play/embed/98e0ba8213c74fe0e138692174a23bf5"
     }
   ],
-  "allUpcomingMatches": [],
+  "allUpcomingMatches": [
+    {
+      "gameId": 163995,
+      "home": "Ракета",
+      "away": "Сетунь",
+      "homeTeamId": 2566,
+      "awayTeamId": 2641,
+      "date": "2026-10-17",
+      "time": "15:00",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 5 тур"
+    },
+    {
+      "gameId": 163992,
+      "home": "СОКОЛ",
+      "away": "Хоккей Эдишн 1.0",
+      "homeTeamId": 18600,
+      "awayTeamId": 11252,
+      "date": "2026-10-17",
+      "time": "15:00",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 5 тур"
+    },
+    {
+      "gameId": 163994,
+      "home": "Прорыв",
+      "away": "Фламмен",
+      "homeTeamId": 11630,
+      "awayTeamId": 19088,
+      "date": "2026-10-17",
+      "time": "15:00",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 5 тур"
+    },
+    {
+      "gameId": 163993,
+      "home": "Одинцовские Русичи",
+      "away": "Варяг",
+      "homeTeamId": 2507,
+      "awayTeamId": 5096,
+      "date": "2026-10-18",
+      "time": "13:15",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 5 тур"
+    },
+    {
+      "gameId": 163991,
+      "home": "МКБ",
+      "away": "Скорпион",
+      "homeTeamId": 5518,
+      "awayTeamId": 2701,
+      "date": "2026-10-18",
+      "time": "17:00",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 5 тур"
+    }
+  ],
   "allPastMatches": [
     {
       "gameId": 163043,
