@@ -11,7 +11,7 @@ window.shlAppData = {
     "teamUrl": "https://shlmos.ru/team/2641",
     "sourceHost": "mtgame.ru",
     "sourceSite": "shlmos.ru",
-    "updatedAt": "2026-10-23T02:48:52Z"
+    "updatedAt": "2026-10-23T10:48:37Z"
   },
   "overview": {
     "place": 11,
@@ -2450,7 +2450,7 @@ window.shlAppData = {
       "goals": 0
     },
     {
-      "player": "Ихсанов Руслан",
+      "player": "Ихсанов Руслан Ришатович",
       "group": "Рубин А/Рубин Б",
       "team": "Варяг",
       "games": 1,
