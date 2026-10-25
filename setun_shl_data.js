@@ -11,20 +11,20 @@ window.shlAppData = {
     "teamUrl": "https://shlmos.ru/team/2641",
     "sourceHost": "mtgame.ru",
     "sourceSite": "shlmos.ru",
-    "updatedAt": "2026-10-25T15:21:38Z"
+    "updatedAt": "2026-10-25T20:14:01Z"
   },
   "overview": {
-    "place": 11,
+    "place": 9,
     "totalTeams": 12,
-    "games": 5,
-    "wins": 1,
+    "games": 6,
+    "wins": 2,
     "losses": 4,
     "draws": 0,
-    "goalsFor": 12,
-    "goalsAgainst": 18,
-    "goalDiff": -6,
-    "points": 2,
-    "ppg": 0.4
+    "goalsFor": 15,
+    "goalsAgainst": 20,
+    "goalDiff": -5,
+    "points": 4,
+    "ppg": 0.67
   },
   "standings": [
     {
@@ -95,13 +95,13 @@ window.shlAppData = {
     {
       "place": 6,
       "team": "МКБ",
-      "games": 4,
+      "games": 5,
       "wins": 2,
       "draws": 1,
-      "losses": 1,
-      "gf": 7,
-      "ga": 6,
-      "diff": 1,
+      "losses": 2,
+      "gf": 9,
+      "ga": 9,
+      "diff": 0,
       "points": 5,
       "isOwn": false
     },
@@ -133,6 +133,19 @@ window.shlAppData = {
     },
     {
       "place": 9,
+      "team": "Сетунь",
+      "games": 6,
+      "wins": 2,
+      "draws": 0,
+      "losses": 4,
+      "gf": 15,
+      "ga": 20,
+      "diff": -5,
+      "points": 4,
+      "isOwn": true
+    },
+    {
+      "place": 10,
       "team": "Скорпион",
       "games": 6,
       "wins": 1,
@@ -145,7 +158,7 @@ window.shlAppData = {
       "isOwn": false
     },
     {
-      "place": 10,
+      "place": 11,
       "team": "Магистраль",
       "games": 5,
       "wins": 1,
@@ -156,19 +169,6 @@ window.shlAppData = {
       "diff": -6,
       "points": 2,
       "isOwn": false
-    },
-    {
-      "place": 11,
-      "team": "Сетунь",
-      "games": 5,
-      "wins": 1,
-      "draws": 0,
-      "losses": 4,
-      "gf": 12,
-      "ga": 18,
-      "diff": -6,
-      "points": 2,
-      "isOwn": true
     },
     {
       "place": 12,
@@ -194,9 +194,9 @@ window.shlAppData = {
       "date": "2026-10-25",
       "time": "17:30",
       "venue": "home",
-      "status": "in_progress",
+      "status": "closed",
       "tour": "SHL Рубин А/Рубин Б · 6 тур",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 2,
       "statisticUrl": "https://shlmos.ru/game/165020/statistic",
       "mediaPageUrl": "https://shlmos.ru/game/165020/media",
@@ -278,7 +278,8 @@ window.shlAppData = {
       "mediaUrl": "https://rutube.ru/play/embed/98e0ba8213c74fe0e138692174a23bf5"
     }
   ],
-  "allUpcomingMatches": [
+  "allUpcomingMatches": [],
+  "allPastMatches": [
     {
       "gameId": 165023,
       "home": "Варяг",
@@ -287,11 +288,11 @@ window.shlAppData = {
       "awayTeamId": 11252,
       "date": "2026-10-25",
       "time": "21:45",
-      "status": "open",
-      "tour": "SHL Рубин А/Рубин Б · 6 тур"
-    }
-  ],
-  "allPastMatches": [
+      "status": "in_progress",
+      "tour": "SHL Рубин А/Рубин Б · 6 тур",
+      "homeScore": 2,
+      "awayScore": 6
+    },
     {
       "gameId": 165020,
       "home": "Сетунь",
@@ -300,9 +301,9 @@ window.shlAppData = {
       "awayTeamId": 5518,
       "date": "2026-10-25",
       "time": "17:30",
-      "status": "in_progress",
+      "status": "closed",
       "tour": "SHL Рубин А/Рубин Б · 6 тур",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 2
     },
     {
@@ -752,6 +753,13 @@ window.shlAppData = {
       "goals": 4
     },
     {
+      "player": "Радостев Евгений Владимирович",
+      "group": "Рубин А/Рубин Б",
+      "team": "Хоккей Эдишн 1.0",
+      "games": 5,
+      "goals": 4
+    },
+    {
       "player": "Тютюник Станислав Юрьевич",
       "group": "Рубин А/Рубин Б",
       "team": "Ракета",
@@ -787,6 +795,13 @@ window.shlAppData = {
       "goals": 4
     },
     {
+      "player": "Брянский Иван Сергеевич",
+      "group": "Рубин А/Рубин Б",
+      "team": "Сетунь",
+      "games": 6,
+      "goals": 3
+    },
+    {
       "player": "Попов Владимир Юрьевич",
       "group": "Рубин А/Рубин Б",
       "team": "Одинцовские Русичи",
@@ -808,6 +823,20 @@ window.shlAppData = {
       "goals": 3
     },
     {
+      "player": "Васькин Евгений Владимирович",
+      "group": "Рубин А/Рубин Б",
+      "team": "Хоккей Эдишн 1.0",
+      "games": 4,
+      "goals": 3
+    },
+    {
+      "player": "Глыбин Николай Николаевич",
+      "group": "Рубин А/Рубин Б",
+      "team": "Хоккей Эдишн 1.0",
+      "games": 4,
+      "goals": 3
+    },
+    {
       "player": "Зиновьев Антон Сергеевич",
       "group": "Рубин А/Рубин Б",
       "team": "Магистраль",
@@ -822,10 +851,10 @@ window.shlAppData = {
       "goals": 3
     },
     {
-      "player": "Радостев Евгений Владимирович",
+      "player": "Вагин Никита Андреевич",
       "group": "Рубин А/Рубин Б",
       "team": "Хоккей Эдишн 1.0",
-      "games": 4,
+      "games": 3,
       "goals": 3
     },
     {
@@ -864,13 +893,6 @@ window.shlAppData = {
       "goals": 3
     },
     {
-      "player": "Брянский Иван Сергеевич",
-      "group": "Рубин А/Рубин Б",
-      "team": "Сетунь",
-      "games": 6,
-      "goals": 2
-    },
-    {
       "player": "Сюбаев Марат Асымович",
       "group": "Рубин А/Рубин Б",
       "team": "СОКОЛ",
@@ -885,6 +907,13 @@ window.shlAppData = {
       "goals": 2
     },
     {
+      "player": "Абрамов Олег Владимирович",
+      "group": "Рубин А/Рубин Б",
+      "team": "Хоккей Эдишн 1.0",
+      "games": 5,
+      "goals": 2
+    },
+    {
       "player": "Андронов Николай Олегович",
       "group": "Рубин А/Рубин Б",
       "team": "СОКОЛ",
@@ -895,6 +924,27 @@ window.shlAppData = {
       "player": "Андрущенко Денис Анатольевич",
       "group": "Рубин А/Рубин Б",
       "team": "Одинцовские Русичи",
+      "games": 5,
+      "goals": 2
+    },
+    {
+      "player": "Воронков Сергей Павлович",
+      "group": "Рубин А/Рубин Б",
+      "team": "Варяг",
+      "games": 5,
+      "goals": 2
+    },
+    {
+      "player": "Жемерикин Алексей Борисович",
+      "group": "Рубин А/Рубин Б",
+      "team": "Хоккей Эдишн 1.0",
+      "games": 5,
+      "goals": 2
+    },
+    {
+      "player": "Ильин Дмитрий Алексеевич",
+      "group": "Рубин А/Рубин Б",
+      "team": "Варяг",
       "games": 5,
       "goals": 2
     },
@@ -941,16 +991,9 @@ window.shlAppData = {
       "goals": 2
     },
     {
-      "player": "Воронков Сергей Павлович",
+      "player": "Ефремов Антон Алексеевич",
       "group": "Рубин А/Рубин Б",
       "team": "Варяг",
-      "games": 4,
-      "goals": 2
-    },
-    {
-      "player": "Жемерикин Алексей Борисович",
-      "group": "Рубин А/Рубин Б",
-      "team": "Хоккей Эдишн 1.0",
       "games": 4,
       "goals": 2
     },
@@ -1018,23 +1061,9 @@ window.shlAppData = {
       "goals": 2
     },
     {
-      "player": "Васькин Евгений Владимирович",
+      "player": "Андреев Сергей Васильевич",
       "group": "Рубин А/Рубин Б",
       "team": "Хоккей Эдишн 1.0",
-      "games": 3,
-      "goals": 2
-    },
-    {
-      "player": "Глыбин Николай Николаевич",
-      "group": "Рубин А/Рубин Б",
-      "team": "Хоккей Эдишн 1.0",
-      "games": 3,
-      "goals": 2
-    },
-    {
-      "player": "Ефремов Антон Алексеевич",
-      "group": "Рубин А/Рубин Б",
-      "team": "Варяг",
       "games": 3,
       "goals": 2
     },
@@ -1070,13 +1099,6 @@ window.shlAppData = {
       "player": "Адриан Домнита-Лазар",
       "group": "Рубин А/Рубин Б",
       "team": "Ракета",
-      "games": 2,
-      "goals": 2
-    },
-    {
-      "player": "Андреев Сергей Васильевич",
-      "group": "Рубин А/Рубин Б",
-      "team": "Хоккей Эдишн 1.0",
       "games": 2,
       "goals": 2
     },
@@ -1200,17 +1222,17 @@ window.shlAppData = {
       "goals": 1
     },
     {
-      "player": "Шелудяков Алексей Владимирович",
+      "player": "Шантуров Антон Юрьевич",
       "group": "Рубин А/Рубин Б",
-      "team": "Магистраль",
+      "team": "Варяг",
       "games": 5,
       "goals": 1
     },
     {
-      "player": "Абрамов Олег Владимирович",
+      "player": "Шелудяков Алексей Владимирович",
       "group": "Рубин А/Рубин Б",
-      "team": "Хоккей Эдишн 1.0",
-      "games": 4,
+      "team": "Магистраль",
+      "games": 5,
       "goals": 1
     },
     {
@@ -1224,13 +1246,6 @@ window.shlAppData = {
       "player": "Герасимов Сергей Сергеевич",
       "group": "Рубин А/Рубин Б",
       "team": "МКБ",
-      "games": 4,
-      "goals": 1
-    },
-    {
-      "player": "Ильин Дмитрий Алексеевич",
-      "group": "Рубин А/Рубин Б",
-      "team": "Варяг",
       "games": 4,
       "goals": 1
     },
@@ -1284,13 +1299,6 @@ window.shlAppData = {
       "goals": 1
     },
     {
-      "player": "Шантуров Антон Юрьевич",
-      "group": "Рубин А/Рубин Б",
-      "team": "Варяг",
-      "games": 4,
-      "goals": 1
-    },
-    {
       "player": "Абдурахманов Камиль Рашидович",
       "group": "Рубин А/Рубин Б",
       "team": "КБ Динамо 2",
@@ -1301,6 +1309,13 @@ window.shlAppData = {
       "player": "Волков Данил Денисович",
       "group": "Рубин А/Рубин Б",
       "team": "Одинцовские Русичи",
+      "games": 3,
+      "goals": 1
+    },
+    {
+      "player": "Климанов Семен Владимирович",
+      "group": "Рубин А/Рубин Б",
+      "team": "Варяг",
       "games": 3,
       "goals": 1
     },
@@ -1347,13 +1362,6 @@ window.shlAppData = {
       "goals": 1
     },
     {
-      "player": "Вагин Никита Андреевич",
-      "group": "Рубин А/Рубин Б",
-      "team": "Хоккей Эдишн 1.0",
-      "games": 2,
-      "goals": 1
-    },
-    {
       "player": "Голубев Владимир Валерьевич",
       "group": "Рубин А/Рубин Б",
       "team": "КБ Динамо 2",
@@ -1368,14 +1376,14 @@ window.shlAppData = {
       "goals": 1
     },
     {
-      "player": "Капустянский Николай Сергеевич",
+      "player": "Ихсанов Руслан Ришатович",
       "group": "Рубин А/Рубин Б",
       "team": "Варяг",
       "games": 2,
       "goals": 1
     },
     {
-      "player": "Климанов Семен Владимирович",
+      "player": "Капустянский Николай Сергеевич",
       "group": "Рубин А/Рубин Б",
       "team": "Варяг",
       "games": 2,
@@ -1557,6 +1565,13 @@ window.shlAppData = {
       "goals": 0
     },
     {
+      "player": "Молодиченко Виталий Андреевич",
+      "group": "Рубин А/Рубин Б",
+      "team": "Варяг",
+      "games": 6,
+      "goals": 0
+    },
+    {
       "player": "Смирнов Андрей Геннадьевич",
       "group": "Рубин А/Рубин Б",
       "team": "СОКОЛ",
@@ -1578,6 +1593,13 @@ window.shlAppData = {
       "goals": 0
     },
     {
+      "player": "Абдуллин Раиль Рамазанович",
+      "group": "Рубин А/Рубин Б",
+      "team": "Хоккей Эдишн 1.0",
+      "games": 5,
+      "goals": 0
+    },
+    {
       "player": "Брагин Владимир Александрович",
       "group": "Рубин А/Рубин Б",
       "team": "СОКОЛ",
@@ -1588,6 +1610,13 @@ window.shlAppData = {
       "player": "Ваканья Андрей Борисович",
       "group": "Рубин А/Рубин Б",
       "team": "Сетунь",
+      "games": 5,
+      "goals": 0
+    },
+    {
+      "player": "Земляков Максим Сергеевич",
+      "group": "Рубин А/Рубин Б",
+      "team": "Хоккей Эдишн 1.0",
       "games": 5,
       "goals": 0
     },
@@ -1627,13 +1656,6 @@ window.shlAppData = {
       "goals": 0
     },
     {
-      "player": "Молодиченко Виталий Андреевич",
-      "group": "Рубин А/Рубин Б",
-      "team": "Варяг",
-      "games": 5,
-      "goals": 0
-    },
-    {
       "player": "Мустафин Равиль Рамилевич",
       "group": "Рубин А/Рубин Б",
       "team": "Фламмен",
@@ -1665,6 +1687,13 @@ window.shlAppData = {
       "player": "Перехода Денис Владимирович",
       "group": "Рубин А/Рубин Б",
       "team": "Ракета",
+      "games": 5,
+      "goals": 0
+    },
+    {
+      "player": "Сухарев Константин Евгеньевич",
+      "group": "Рубин А/Рубин Б",
+      "team": "Хоккей Эдишн 1.0",
       "games": 5,
       "goals": 0
     },
@@ -1715,13 +1744,6 @@ window.shlAppData = {
       "group": "Рубин А/Рубин Б",
       "team": "Ракета",
       "games": 5,
-      "goals": 0
-    },
-    {
-      "player": "Абдуллин Раиль Рамазанович",
-      "group": "Рубин А/Рубин Б",
-      "team": "Хоккей Эдишн 1.0",
-      "games": 4,
       "goals": 0
     },
     {
@@ -1781,13 +1803,6 @@ window.shlAppData = {
       "goals": 0
     },
     {
-      "player": "Земляков Максим Сергеевич",
-      "group": "Рубин А/Рубин Б",
-      "team": "Хоккей Эдишн 1.0",
-      "games": 4,
-      "goals": 0
-    },
-    {
       "player": "Зыков Алексей Владимирович",
       "group": "Рубин А/Рубин Б",
       "team": "СОКОЛ",
@@ -1840,6 +1855,13 @@ window.shlAppData = {
       "player": "Матвеев Алексей Александрович",
       "group": "Рубин А/Рубин Б",
       "team": "Фламмен",
+      "games": 4,
+      "goals": 0
+    },
+    {
+      "player": "Михайлов Иван Романович",
+      "group": "Рубин А/Рубин Б",
+      "team": "Варяг",
       "games": 4,
       "goals": 0
     },
@@ -1921,13 +1943,6 @@ window.shlAppData = {
       "goals": 0
     },
     {
-      "player": "Сухарев Константин Евгеньевич",
-      "group": "Рубин А/Рубин Б",
-      "team": "Хоккей Эдишн 1.0",
-      "games": 4,
-      "goals": 0
-    },
-    {
       "player": "Феоктистов Александр Сергеевич",
       "group": "Рубин А/Рубин Б",
       "team": "СОКОЛ",
@@ -1973,6 +1988,13 @@ window.shlAppData = {
       "player": "Абрамов Дмитрий Александрович",
       "group": "Рубин А/Рубин Б",
       "team": "Скорпион",
+      "games": 3,
+      "goals": 0
+    },
+    {
+      "player": "Богданов Александр Львович",
+      "group": "Рубин А/Рубин Б",
+      "team": "Хоккей Эдишн 1.0",
       "games": 3,
       "goals": 0
     },
@@ -2054,13 +2076,6 @@ window.shlAppData = {
       "goals": 0
     },
     {
-      "player": "Михайлов Иван Романович",
-      "group": "Рубин А/Рубин Б",
-      "team": "Варяг",
-      "games": 3,
-      "goals": 0
-    },
-    {
       "player": "Павлов Антон Евгеньевич",
       "group": "Рубин А/Рубин Б",
       "team": "Сетунь",
@@ -2096,9 +2111,23 @@ window.shlAppData = {
       "goals": 0
     },
     {
+      "player": "Сабинин Олег Юрьевич",
+      "group": "Рубин А/Рубин Б",
+      "team": "Варяг",
+      "games": 3,
+      "goals": 0
+    },
+    {
       "player": "Седов Иван Владимирович",
       "group": "Рубин А/Рубин Б",
       "team": "Скорпион",
+      "games": 3,
+      "goals": 0
+    },
+    {
+      "player": "Соловьёв Юрий Николаевич",
+      "group": "Рубин А/Рубин Б",
+      "team": "Варяг",
       "games": 3,
       "goals": 0
     },
@@ -2162,13 +2191,6 @@ window.shlAppData = {
       "player": "Бобков Павел Дмитриевич",
       "group": "Рубин А/Рубин Б",
       "team": "МКБ",
-      "games": 2,
-      "goals": 0
-    },
-    {
-      "player": "Богданов Александр Львович",
-      "group": "Рубин А/Рубин Б",
-      "team": "Хоккей Эдишн 1.0",
       "games": 2,
       "goals": 0
     },
@@ -2292,6 +2314,13 @@ window.shlAppData = {
       "goals": 0
     },
     {
+      "player": "Маментьев Егор Валерьевич",
+      "group": "Рубин А/Рубин Б",
+      "team": "Хоккей Эдишн 1.0",
+      "games": 2,
+      "goals": 0
+    },
+    {
       "player": "Минин Вячеслав Геннадьевич",
       "group": "Рубин А/Рубин Б",
       "team": "Скорпион",
@@ -2313,6 +2342,13 @@ window.shlAppData = {
       "goals": 0
     },
     {
+      "player": "Навруз Сергей Насирович",
+      "group": "Рубин А/Рубин Б",
+      "team": "Хоккей Эдишн 1.0",
+      "games": 2,
+      "goals": 0
+    },
+    {
       "player": "Оскуи Камран",
       "group": "Рубин А/Рубин Б",
       "team": "Хоккей Эдишн 1.0",
@@ -2323,6 +2359,13 @@ window.shlAppData = {
       "player": "Полежаров Евгений Николаевич",
       "group": "Рубин А/Рубин Б",
       "team": "МКБ",
+      "games": 2,
+      "goals": 0
+    },
+    {
+      "player": "Рахимов Никита Андреевич",
+      "group": "Рубин А/Рубин Б",
+      "team": "Хоккей Эдишн 1.0",
       "games": 2,
       "goals": 0
     },
@@ -2341,23 +2384,9 @@ window.shlAppData = {
       "goals": 0
     },
     {
-      "player": "Сабинин Олег Юрьевич",
-      "group": "Рубин А/Рубин Б",
-      "team": "Варяг",
-      "games": 2,
-      "goals": 0
-    },
-    {
       "player": "Самохин Станислав Александрович",
       "group": "Рубин А/Рубин Б",
       "team": "Одинцовские Русичи",
-      "games": 2,
-      "goals": 0
-    },
-    {
-      "player": "Соловьёв Юрий Николаевич",
-      "group": "Рубин А/Рубин Б",
-      "team": "Варяг",
       "games": 2,
       "goals": 0
     },
@@ -2551,13 +2580,6 @@ window.shlAppData = {
       "goals": 0
     },
     {
-      "player": "Ихсанов Руслан Ришатович",
-      "group": "Рубин А/Рубин Б",
-      "team": "Варяг",
-      "games": 1,
-      "goals": 0
-    },
-    {
       "player": "Камецков Николай Андреевич",
       "group": "Рубин А/Рубин Б",
       "team": "Варяг",
@@ -2600,13 +2622,6 @@ window.shlAppData = {
       "goals": 0
     },
     {
-      "player": "Маментьев Егор Валерьевич",
-      "group": "Рубин А/Рубин Б",
-      "team": "Хоккей Эдишн 1.0",
-      "games": 1,
-      "goals": 0
-    },
-    {
       "player": "Маркунин Максим Валерьевич",
       "group": "Рубин А/Рубин Б",
       "team": "МКБ",
@@ -2631,13 +2646,6 @@ window.shlAppData = {
       "player": "Мошков Вячеслав Алексеевич",
       "group": "Рубин А/Рубин Б",
       "team": "Скорпион",
-      "games": 1,
-      "goals": 0
-    },
-    {
-      "player": "Навруз Сергей Насирович",
-      "group": "Рубин А/Рубин Б",
-      "team": "Хоккей Эдишн 1.0",
       "games": 1,
       "goals": 0
     },
@@ -2680,13 +2688,6 @@ window.shlAppData = {
       "player": "Перчиков Александр Сергеевич",
       "group": "Рубин А/Рубин Б",
       "team": "КБ Динамо 2",
-      "games": 1,
-      "goals": 0
-    },
-    {
-      "player": "Рахимов Никита Андреевич",
-      "group": "Рубин А/Рубин Б",
-      "team": "Хоккей Эдишн 1.0",
       "games": 1,
       "goals": 0
     },
