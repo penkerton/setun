@@ -11,7 +11,7 @@
     "teamUrl": "https://shlmos.ru/team/2641",
     "sourceHost": "mtgame.ru",
     "sourceSite": "shlmos.ru",
-    "updatedAt": "2026-10-24T20:02:43Z"
+    "updatedAt": "2026-10-25T02:36:27Z"
   },
   "overview": {
     "place": 11,
@@ -107,6 +107,19 @@
     },
     {
       "place": 7,
+      "team": "СОКОЛ",
+      "games": 6,
+      "wins": 2,
+      "draws": 1,
+      "losses": 3,
+      "gf": 16,
+      "ga": 18,
+      "diff": -2,
+      "points": 5,
+      "isOwn": false
+    },
+    {
+      "place": 8,
       "team": "Скорпион",
       "games": 5,
       "wins": 1,
@@ -116,19 +129,6 @@
       "ga": 16,
       "diff": -1,
       "points": 4,
-      "isOwn": false
-    },
-    {
-      "place": 8,
-      "team": "СОКОЛ",
-      "games": 5,
-      "wins": 1,
-      "draws": 1,
-      "losses": 3,
-      "gf": 12,
-      "ga": 15,
-      "diff": -3,
-      "points": 3,
       "isOwn": false
     },
     {
@@ -147,13 +147,13 @@
     {
       "place": 10,
       "team": "Магистраль",
-      "games": 4,
+      "games": 5,
       "wins": 1,
       "draws": 0,
-      "losses": 3,
-      "gf": 13,
-      "ga": 18,
-      "diff": -5,
+      "losses": 4,
+      "gf": 16,
+      "ga": 22,
+      "diff": -6,
       "points": 2,
       "isOwn": false
     },
@@ -340,10 +340,10 @@
       "awayTeamId": 8294,
       "date": "2026-10-24",
       "time": "21:00",
-      "status": "in_progress",
+      "status": "closed",
       "tour": "SHL Рубин А/Рубин Б · 6 тур",
       "homeScore": 4,
-      "awayScore": 2
+      "awayScore": 3
     },
     {
       "gameId": 165022,
@@ -1369,6 +1369,13 @@
       "goals": 1
     },
     {
+      "player": "Белоконь Михаил Владимирович",
+      "group": "Рубин А/Рубин Б",
+      "team": "Магистраль",
+      "games": 1,
+      "goals": 1
+    },
+    {
       "player": "Загидуллин Тимур Ришатович",
       "group": "Рубин А/Рубин Б",
       "team": "Магистраль",
@@ -2387,13 +2394,6 @@
       "player": "Беларев Кирилл Алексеевич",
       "group": "Рубин А/Рубин Б",
       "team": "Прорыв",
-      "games": 1,
-      "goals": 0
-    },
-    {
-      "player": "Белоконь Михаил Владимирович",
-      "group": "Рубин А/Рубин Б",
-      "team": "Магистраль",
       "games": 1,
       "goals": 0
     },
