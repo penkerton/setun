@@ -11,7 +11,7 @@ window.shlAppData = {
     "teamUrl": "https://shlmos.ru/team/2641",
     "sourceHost": "mtgame.ru",
     "sourceSite": "shlmos.ru",
-    "updatedAt": "2026-10-25T20:14:01Z"
+    "updatedAt": "2026-10-26T02:35:06Z"
   },
   "overview": {
     "place": 9,
@@ -55,6 +55,19 @@ window.shlAppData = {
     },
     {
       "place": 3,
+      "team": "Хоккей Эдишн 1.0",
+      "games": 5,
+      "wins": 4,
+      "draws": 0,
+      "losses": 1,
+      "gf": 22,
+      "ga": 9,
+      "diff": 13,
+      "points": 8,
+      "isOwn": false
+    },
+    {
+      "place": 4,
       "team": "Ракета",
       "games": 5,
       "wins": 4,
@@ -64,19 +77,6 @@ window.shlAppData = {
       "ga": 12,
       "diff": 3,
       "points": 8,
-      "isOwn": false
-    },
-    {
-      "place": 4,
-      "team": "Хоккей Эдишн 1.0",
-      "games": 4,
-      "wins": 3,
-      "draws": 0,
-      "losses": 1,
-      "gf": 16,
-      "ga": 5,
-      "diff": 11,
-      "points": 6,
       "isOwn": false
     },
     {
@@ -173,13 +173,13 @@ window.shlAppData = {
     {
       "place": 12,
       "team": "Варяг",
-      "games": 5,
+      "games": 6,
       "wins": 0,
       "draws": 1,
-      "losses": 4,
-      "gf": 15,
-      "ga": 22,
-      "diff": -7,
+      "losses": 5,
+      "gf": 19,
+      "ga": 28,
+      "diff": -9,
       "points": 1,
       "isOwn": false
     }
@@ -288,9 +288,9 @@ window.shlAppData = {
       "awayTeamId": 11252,
       "date": "2026-10-25",
       "time": "21:45",
-      "status": "in_progress",
+      "status": "closed",
       "tour": "SHL Рубин А/Рубин Б · 6 тур",
-      "homeScore": 2,
+      "homeScore": 4,
       "awayScore": 6
     },
     {
@@ -1117,6 +1117,13 @@ window.shlAppData = {
       "goals": 2
     },
     {
+      "player": "Ихсанов Руслан Ришатович",
+      "group": "Рубин А/Рубин Б",
+      "team": "Варяг",
+      "games": 2,
+      "goals": 2
+    },
+    {
       "player": "Каришев Алексей Олегович",
       "group": "Рубин А/Рубин Б",
       "team": "МКБ",
@@ -1341,6 +1348,13 @@ window.shlAppData = {
       "goals": 1
     },
     {
+      "player": "Соловьёв Юрий Николаевич",
+      "group": "Рубин А/Рубин Б",
+      "team": "Варяг",
+      "games": 3,
+      "goals": 1
+    },
+    {
       "player": "Титов Федор Александрович",
       "group": "Рубин А/Рубин Б",
       "team": "Прорыв",
@@ -1372,13 +1386,6 @@ window.shlAppData = {
       "player": "Гончаров Владимир Анатольевич",
       "group": "Рубин А/Рубин Б",
       "team": "Скорпион",
-      "games": 2,
-      "goals": 1
-    },
-    {
-      "player": "Ихсанов Руслан Ришатович",
-      "group": "Рубин А/Рубин Б",
-      "team": "Варяг",
       "games": 2,
       "goals": 1
     },
@@ -2121,13 +2128,6 @@ window.shlAppData = {
       "player": "Седов Иван Владимирович",
       "group": "Рубин А/Рубин Б",
       "team": "Скорпион",
-      "games": 3,
-      "goals": 0
-    },
-    {
-      "player": "Соловьёв Юрий Николаевич",
-      "group": "Рубин А/Рубин Б",
-      "team": "Варяг",
       "games": 3,
       "goals": 0
     },
