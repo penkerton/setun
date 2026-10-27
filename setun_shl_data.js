@@ -11,7 +11,7 @@ window.shlAppData = {
     "teamUrl": "https://shlmos.ru/team/2641",
     "sourceHost": "mtgame.ru",
     "sourceSite": "shlmos.ru",
-    "updatedAt": "2026-10-27T11:24:55Z"
+    "updatedAt": "2026-10-27T17:09:34Z"
   },
   "overview": {
     "place": 9,
@@ -2918,6 +2918,10 @@ window.shlAppData = {
     {
       "name": "Микушин Сергей Юрьевич",
       "date": "1986-12-13"
+    },
+    {
+      "name": "Попков Евгений Вячеславович",
+      "date": "1975-12-25"
     }
   ]
 };
