@@ -11,20 +11,20 @@
     "teamUrl": "https://shlmos.ru/team/2641",
     "sourceHost": "mtgame.ru",
     "sourceSite": "shlmos.ru",
-    "updatedAt": "2026-10-28T03:23:35Z"
+    "updatedAt": "2026-10-28T11:55:44Z"
   },
   "overview": {
-    "place": 9,
+    "place": 6,
     "totalTeams": 12,
     "games": 6,
-    "wins": 2,
-    "losses": 4,
+    "wins": 3,
+    "losses": 3,
     "draws": 0,
-    "goalsFor": 15,
-    "goalsAgainst": 20,
-    "goalDiff": -5,
-    "points": 4,
-    "ppg": 0.67
+    "goalsFor": 19,
+    "goalsAgainst": 17,
+    "goalDiff": 2,
+    "points": 6,
+    "ppg": 1
   },
   "standings": [
     {
@@ -55,19 +55,6 @@
     },
     {
       "place": 3,
-      "team": "Хоккей Эдишн 1.0",
-      "games": 5,
-      "wins": 4,
-      "draws": 0,
-      "losses": 1,
-      "gf": 22,
-      "ga": 9,
-      "diff": 13,
-      "points": 8,
-      "isOwn": false
-    },
-    {
-      "place": 4,
       "team": "Ракета",
       "games": 6,
       "wins": 4,
@@ -80,7 +67,7 @@
       "isOwn": false
     },
     {
-      "place": 5,
+      "place": 4,
       "team": "Фламмен",
       "games": 6,
       "wins": 4,
@@ -93,7 +80,33 @@
       "isOwn": false
     },
     {
+      "place": 5,
+      "team": "Хоккей Эдишн 1.0",
+      "games": 5,
+      "wins": 3,
+      "draws": 0,
+      "losses": 2,
+      "gf": 19,
+      "ga": 13,
+      "diff": 6,
+      "points": 6,
+      "isOwn": false
+    },
+    {
       "place": 6,
+      "team": "Сетунь",
+      "games": 6,
+      "wins": 3,
+      "draws": 0,
+      "losses": 3,
+      "gf": 19,
+      "ga": 17,
+      "diff": 2,
+      "points": 6,
+      "isOwn": true
+    },
+    {
+      "place": 7,
       "team": "МКБ",
       "games": 5,
       "wins": 2,
@@ -106,7 +119,7 @@
       "isOwn": false
     },
     {
-      "place": 7,
+      "place": 8,
       "team": "СОКОЛ",
       "games": 6,
       "wins": 2,
@@ -119,7 +132,7 @@
       "isOwn": false
     },
     {
-      "place": 8,
+      "place": 9,
       "team": "КБ Динамо 2",
       "games": 5,
       "wins": 2,
@@ -130,19 +143,6 @@
       "diff": 7,
       "points": 4,
       "isOwn": false
-    },
-    {
-      "place": 9,
-      "team": "Сетунь",
-      "games": 6,
-      "wins": 2,
-      "draws": 0,
-      "losses": 4,
-      "gf": 15,
-      "ga": 20,
-      "diff": -5,
-      "points": 4,
-      "isOwn": true
     },
     {
       "place": 10,
@@ -263,8 +263,8 @@
       "venue": "home",
       "status": "closed",
       "tour": "SHL Рубин А/Рубин Б · 3 тур",
-      "homeScore": 1,
-      "awayScore": 3,
+      "homeScore": 5,
+      "awayScore": 0,
       "statisticUrl": "https://shlmos.ru/game/160714/statistic",
       "mediaPageUrl": "https://shlmos.ru/game/160714/media",
       "mediaUrl": "https://rutube.ru/play/embed/ec0aa49b4b06fd053c34f92581af6ba0"
@@ -639,8 +639,8 @@
       "time": "12:30",
       "status": "closed",
       "tour": "SHL Рубин А/Рубин Б · 3 тур",
-      "homeScore": 1,
-      "awayScore": 3
+      "homeScore": 5,
+      "awayScore": 0
     },
     {
       "gameId": 160710,
