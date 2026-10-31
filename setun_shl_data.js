@@ -11,7 +11,7 @@ window.shlAppData = {
     "teamUrl": "https://shlmos.ru/team/2641",
     "sourceHost": "mtgame.ru",
     "sourceSite": "shlmos.ru",
-    "updatedAt": "2026-10-31T03:33:28Z"
+    "updatedAt": "2026-10-31T11:30:05Z"
   },
   "overview": {
     "place": 6,
@@ -2991,6 +2991,10 @@ window.shlAppData = {
     {
       "name": "Ваканья Андрей Борисович",
       "date": "1986-10-18"
+    },
+    {
+      "name": "Наумов Александр Викторович",
+      "date": "1978-11-03"
     },
     {
       "name": "Храмцов Андрей Валерьевич",
