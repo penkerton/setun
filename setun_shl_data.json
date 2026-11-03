@@ -11,7 +11,7 @@
     "teamUrl": "https://shlmos.ru/team/2641",
     "sourceHost": "mtgame.ru",
     "sourceSite": "shlmos.ru",
-    "updatedAt": "2026-11-03T13:23:35Z"
+    "updatedAt": "2026-11-03T22:45:39Z"
   },
   "overview": {
     "place": 4,
@@ -184,8 +184,30 @@
       "isOwn": false
     }
   ],
-  "matches": [],
-  "upcomingMatches": [],
+  "matches": [
+    {
+      "gameId": 170076,
+      "home": "СОКОЛ",
+      "away": "Сетунь",
+      "date": "2026-11-07",
+      "time": "16:30",
+      "venue": "away",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 8 тур"
+    }
+  ],
+  "upcomingMatches": [
+    {
+      "gameId": 170076,
+      "home": "СОКОЛ",
+      "away": "Сетунь",
+      "date": "2026-11-07",
+      "time": "16:30",
+      "venue": "away",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 8 тур"
+    }
+  ],
   "pastMatches": [
     {
       "gameId": 168318,
@@ -293,7 +315,74 @@
       "mediaUrl": "https://rutube.ru/play/embed/98e0ba8213c74fe0e138692174a23bf5"
     }
   ],
-  "allUpcomingMatches": [],
+  "allUpcomingMatches": [
+    {
+      "gameId": 170075,
+      "home": "Ракета",
+      "away": "Варяг",
+      "homeTeamId": 2566,
+      "awayTeamId": 5096,
+      "date": "2026-11-07",
+      "time": "16:00",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 8 тур"
+    },
+    {
+      "gameId": 170076,
+      "home": "СОКОЛ",
+      "away": "Сетунь",
+      "homeTeamId": 18600,
+      "awayTeamId": 2641,
+      "date": "2026-11-07",
+      "time": "16:30",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 8 тур"
+    },
+    {
+      "gameId": 170074,
+      "home": "МКБ",
+      "away": "Прорыв",
+      "homeTeamId": 5518,
+      "awayTeamId": 11630,
+      "date": "2026-11-07",
+      "time": "17:45",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 8 тур"
+    },
+    {
+      "gameId": 170078,
+      "home": "Одинцовские Русичи",
+      "away": "Скорпион",
+      "homeTeamId": 2507,
+      "awayTeamId": 2701,
+      "date": "2026-11-08",
+      "time": "17:45",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 8 тур"
+    },
+    {
+      "gameId": 170079,
+      "home": "Магистраль",
+      "away": "Хоккей Эдишн 1.0",
+      "homeTeamId": 8294,
+      "awayTeamId": 11252,
+      "date": "2026-11-08",
+      "time": "19:45",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 8 тур"
+    },
+    {
+      "gameId": 170077,
+      "home": "Фламмен",
+      "away": "КБ Динамо 2",
+      "homeTeamId": 19088,
+      "awayTeamId": 19383,
+      "date": "2026-11-08",
+      "time": "20:00",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 8 тур"
+    }
+  ],
   "allPastMatches": [
     {
       "gameId": 168322,
