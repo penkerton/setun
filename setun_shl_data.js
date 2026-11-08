@@ -11,7 +11,7 @@ window.shlAppData = {
     "teamUrl": "https://shlmos.ru/team/2641",
     "sourceHost": "mtgame.ru",
     "sourceSite": "shlmos.ru",
-    "updatedAt": "2026-11-08T03:43:43Z"
+    "updatedAt": "2026-11-08T12:33:31Z"
   },
   "overview": {
     "place": 2,
@@ -1424,16 +1424,16 @@ window.shlAppData = {
       "goals": 2
     },
     {
-      "player": "Новичков Максим Владимирович",
-      "group": "Рубин А/Рубин Б",
-      "team": "МКБ",
-      "games": 3,
-      "goals": 2
-    },
-    {
       "player": "Белоконь Михаил Владимирович",
       "group": "Рубин А/Рубин Б",
       "team": "Магистраль",
+      "games": 2,
+      "goals": 2
+    },
+    {
+      "player": "Маркунин Максим Валерьевич",
+      "group": "Рубин А/Рубин Б",
+      "team": "МКБ",
       "games": 2,
       "goals": 2
     },
@@ -1697,6 +1697,13 @@ window.shlAppData = {
       "goals": 1
     },
     {
+      "player": "Новичков Максим Владимирович",
+      "group": "Рубин А/Рубин Б",
+      "team": "МКБ",
+      "games": 3,
+      "goals": 1
+    },
+    {
       "player": "Панов Виктор Сергеевич",
       "group": "Рубин А/Рубин Б",
       "team": "Фламмен",
@@ -1742,13 +1749,6 @@ window.shlAppData = {
       "player": "Мангушев Надир Ахметович",
       "group": "Рубин А/Рубин Б",
       "team": "СОКОЛ",
-      "games": 2,
-      "goals": 1
-    },
-    {
-      "player": "Маркунин Максим Валерьевич",
-      "group": "Рубин А/Рубин Б",
-      "team": "МКБ",
       "games": 2,
       "goals": 1
     },
