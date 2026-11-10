@@ -11,7 +11,7 @@ window.shlAppData = {
     "teamUrl": "https://shlmos.ru/team/2641",
     "sourceHost": "mtgame.ru",
     "sourceSite": "shlmos.ru",
-    "updatedAt": "2026-11-10T01:02:19Z"
+    "updatedAt": "2026-11-10T14:03:10Z"
   },
   "overview": {
     "place": 2,
@@ -30,13 +30,13 @@ window.shlAppData = {
     {
       "place": 1,
       "team": "Одинцовские Русичи",
-      "games": 7,
+      "games": 8,
       "wins": 6,
       "draws": 0,
-      "losses": 1,
-      "gf": 31,
-      "ga": 20,
-      "diff": 11,
+      "losses": 2,
+      "gf": 32,
+      "ga": 24,
+      "diff": 8,
       "points": 12,
       "isOwn": false
     },
@@ -82,18 +82,31 @@ window.shlAppData = {
     {
       "place": 5,
       "team": "Фламмен",
-      "games": 7,
+      "games": 8,
       "wins": 4,
       "draws": 1,
-      "losses": 2,
-      "gf": 27,
-      "ga": 28,
-      "diff": -1,
+      "losses": 3,
+      "gf": 31,
+      "ga": 34,
+      "diff": -3,
       "points": 9,
       "isOwn": false
     },
     {
       "place": 6,
+      "team": "КБ Динамо 2",
+      "games": 7,
+      "wins": 4,
+      "draws": 0,
+      "losses": 3,
+      "gf": 29,
+      "ga": 17,
+      "diff": 12,
+      "points": 8,
+      "isOwn": false
+    },
+    {
+      "place": 7,
       "team": "МКБ",
       "games": 7,
       "wins": 3,
@@ -106,7 +119,7 @@ window.shlAppData = {
       "isOwn": false
     },
     {
-      "place": 7,
+      "place": 8,
       "team": "Хоккей Эдишн 1.0",
       "games": 7,
       "wins": 3,
@@ -119,20 +132,20 @@ window.shlAppData = {
       "isOwn": false
     },
     {
-      "place": 8,
-      "team": "КБ Динамо 2",
-      "games": 6,
-      "wins": 3,
-      "draws": 0,
-      "losses": 3,
-      "gf": 23,
-      "ga": 13,
-      "diff": 10,
+      "place": 9,
+      "team": "Скорпион",
+      "games": 8,
+      "wins": 2,
+      "draws": 2,
+      "losses": 4,
+      "gf": 22,
+      "ga": 30,
+      "diff": -8,
       "points": 6,
       "isOwn": false
     },
     {
-      "place": 9,
+      "place": 10,
       "team": "Магистраль",
       "games": 7,
       "wins": 2,
@@ -145,7 +158,7 @@ window.shlAppData = {
       "isOwn": false
     },
     {
-      "place": 10,
+      "place": 11,
       "team": "СОКОЛ",
       "games": 8,
       "wins": 2,
@@ -155,19 +168,6 @@ window.shlAppData = {
       "ga": 26,
       "diff": -9,
       "points": 5,
-      "isOwn": false
-    },
-    {
-      "place": 11,
-      "team": "Скорпион",
-      "games": 7,
-      "wins": 1,
-      "draws": 2,
-      "losses": 4,
-      "gf": 18,
-      "ga": 29,
-      "diff": -11,
-      "points": 4,
       "isOwn": false
     },
     {
@@ -184,8 +184,30 @@ window.shlAppData = {
       "isOwn": false
     }
   ],
-  "matches": [],
-  "upcomingMatches": [],
+  "matches": [
+    {
+      "gameId": 170473,
+      "home": "Магистраль",
+      "away": "Сетунь",
+      "date": "2026-11-15",
+      "time": "15:00",
+      "venue": "away",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 9 тур"
+    }
+  ],
+  "upcomingMatches": [
+    {
+      "gameId": 170473,
+      "home": "Магистраль",
+      "away": "Сетунь",
+      "date": "2026-11-15",
+      "time": "15:00",
+      "venue": "away",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 9 тур"
+    }
+  ],
   "pastMatches": [
     {
       "gameId": 170076,
@@ -308,7 +330,63 @@ window.shlAppData = {
       "mediaUrl": "https://rutube.ru/play/embed/98e0ba8213c74fe0e138692174a23bf5"
     }
   ],
-  "allUpcomingMatches": [],
+  "allUpcomingMatches": [
+    {
+      "gameId": 170471,
+      "home": "Одинцовские Русичи",
+      "away": "МКБ",
+      "homeTeamId": 2507,
+      "awayTeamId": 5518,
+      "date": "2026-11-14",
+      "time": "21:00",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 9 тур"
+    },
+    {
+      "gameId": 170473,
+      "home": "Магистраль",
+      "away": "Сетунь",
+      "homeTeamId": 8294,
+      "awayTeamId": 2641,
+      "date": "2026-11-15",
+      "time": "15:00",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 9 тур"
+    },
+    {
+      "gameId": 170474,
+      "home": "КБ Динамо 2",
+      "away": "Прорыв",
+      "homeTeamId": 19383,
+      "awayTeamId": 11630,
+      "date": "2026-11-15",
+      "time": "17:00",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 9 тур"
+    },
+    {
+      "gameId": 170475,
+      "home": "Ракета",
+      "away": "Скорпион",
+      "homeTeamId": 2566,
+      "awayTeamId": 2701,
+      "date": "2026-11-15",
+      "time": "17:30",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 9 тур"
+    },
+    {
+      "gameId": 170472,
+      "home": "Хоккей Эдишн 1.0",
+      "away": "Фламмен",
+      "homeTeamId": 11252,
+      "awayTeamId": 19088,
+      "date": "2026-11-15",
+      "time": "21:45",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 9 тур"
+    }
+  ],
   "allPastMatches": [
     {
       "gameId": 170077,
@@ -318,7 +396,7 @@ window.shlAppData = {
       "awayTeamId": 19383,
       "date": "2026-11-08",
       "time": "20:00",
-      "status": "in_progress",
+      "status": "closed",
       "tour": "SHL Рубин А/Рубин Б · 8 тур",
       "homeScore": 4,
       "awayScore": 6
@@ -344,7 +422,7 @@ window.shlAppData = {
       "awayTeamId": 2701,
       "date": "2026-11-08",
       "time": "17:45",
-      "status": "open",
+      "status": "closed",
       "tour": "SHL Рубин А/Рубин Б · 8 тур",
       "homeScore": 1,
       "awayScore": 4
