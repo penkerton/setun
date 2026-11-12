@@ -11,7 +11,7 @@ window.shlAppData = {
     "teamUrl": "https://shlmos.ru/team/2641",
     "sourceHost": "mtgame.ru",
     "sourceSite": "shlmos.ru",
-    "updatedAt": "2026-11-12T05:11:30Z"
+    "updatedAt": "2026-11-12T14:24:54Z"
   },
   "overview": {
     "place": 2,
@@ -3260,6 +3260,10 @@ window.shlAppData = {
     {
       "name": "Холодов Артём Дмитриевич",
       "date": "2009-10-03"
+    },
+    {
+      "name": "Ларченко Владислав Владиславович",
+      "date": "2001-10-14"
     },
     {
       "name": "Ваканья Андрей Борисович",
