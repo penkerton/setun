@@ -11,7 +11,7 @@ window.shlAppData = {
     "teamUrl": "https://shlmos.ru/team/2641",
     "sourceHost": "mtgame.ru",
     "sourceSite": "shlmos.ru",
-    "updatedAt": "2026-11-13T04:27:56Z"
+    "updatedAt": "2026-11-13T13:44:04Z"
   },
   "overview": {
     "place": 2,
@@ -1815,7 +1815,7 @@ window.shlAppData = {
       "goals": 1
     },
     {
-      "player": "Щелоков Николай",
+      "player": "Щелоков Николай Николаевич",
       "group": "Рубин А/Рубин Б",
       "team": "Прорыв",
       "games": 4,
