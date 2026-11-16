@@ -11,7 +11,7 @@ window.shlAppData = {
     "teamUrl": "https://shlmos.ru/team/2641",
     "sourceHost": "mtgame.ru",
     "sourceSite": "shlmos.ru",
-    "updatedAt": "2026-11-15T22:21:23Z"
+    "updatedAt": "2026-11-16T04:07:52Z"
   },
   "overview": {
     "place": 2,
