@@ -11,7 +11,7 @@
     "teamUrl": "https://shlmos.ru/team/2641",
     "sourceHost": "mtgame.ru",
     "sourceSite": "shlmos.ru",
-    "updatedAt": "2026-11-17T01:23:07Z"
+    "updatedAt": "2026-11-17T15:18:51Z"
   },
   "overview": {
     "place": 2,
@@ -323,7 +323,63 @@
       "mediaUrl": "https://rutube.ru/play/embed/98e0ba8213c74fe0e138692174a23bf5"
     }
   ],
-  "allUpcomingMatches": [],
+  "allUpcomingMatches": [
+    {
+      "gameId": 170993,
+      "home": "Ракета",
+      "away": "Прорыв",
+      "homeTeamId": 2566,
+      "awayTeamId": 11630,
+      "date": "2026-11-21",
+      "time": "14:30",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 10 тур"
+    },
+    {
+      "gameId": 170992,
+      "home": "СОКОЛ",
+      "away": "Фламмен",
+      "homeTeamId": 18600,
+      "awayTeamId": 19088,
+      "date": "2026-11-21",
+      "time": "16:30",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 10 тур"
+    },
+    {
+      "gameId": 170991,
+      "home": "КБ Динамо 2",
+      "away": "Одинцовские Русичи",
+      "homeTeamId": 19383,
+      "awayTeamId": 2507,
+      "date": "2026-11-22",
+      "time": "17:00",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 10 тур"
+    },
+    {
+      "gameId": 170990,
+      "home": "Хоккей Эдишн 1.0",
+      "away": "Скорпион",
+      "homeTeamId": 11252,
+      "awayTeamId": 2701,
+      "date": "2026-11-22",
+      "time": "21:00",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 10 тур"
+    },
+    {
+      "gameId": 170989,
+      "home": "МКБ",
+      "away": "Магистраль",
+      "homeTeamId": 5518,
+      "awayTeamId": 8294,
+      "date": "2026-11-22",
+      "time": "21:45",
+      "status": "open",
+      "tour": "SHL Рубин А/Рубин Б · 10 тур"
+    }
+  ],
   "allPastMatches": [
     {
       "gameId": 170472,
