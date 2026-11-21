@@ -11,7 +11,7 @@ window.shlAppData = {
     "teamUrl": "https://shlmos.ru/team/2641",
     "sourceHost": "mtgame.ru",
     "sourceSite": "shlmos.ru",
-    "updatedAt": "2026-11-21T13:59:56Z"
+    "updatedAt": "2026-11-21T22:39:36Z"
   },
   "overview": {
     "place": 3,
@@ -81,6 +81,19 @@ window.shlAppData = {
     },
     {
       "place": 5,
+      "team": "Фламмен",
+      "games": 10,
+      "wins": 5,
+      "draws": 1,
+      "losses": 4,
+      "gf": 45,
+      "ga": 38,
+      "diff": 7,
+      "points": 11,
+      "isOwn": false
+    },
+    {
+      "place": 6,
       "team": "Хоккей Эдишн 1.0",
       "games": 8,
       "wins": 4,
@@ -93,7 +106,7 @@ window.shlAppData = {
       "isOwn": false
     },
     {
-      "place": 6,
+      "place": 7,
       "team": "МКБ",
       "games": 8,
       "wins": 3,
@@ -102,19 +115,6 @@ window.shlAppData = {
       "gf": 24,
       "ga": 19,
       "diff": 5,
-      "points": 9,
-      "isOwn": false
-    },
-    {
-      "place": 7,
-      "team": "Фламмен",
-      "games": 9,
-      "wins": 4,
-      "draws": 1,
-      "losses": 4,
-      "gf": 33,
-      "ga": 38,
-      "diff": -5,
       "points": 9,
       "isOwn": false
     },
@@ -160,13 +160,13 @@ window.shlAppData = {
     {
       "place": 11,
       "team": "СОКОЛ",
-      "games": 8,
+      "games": 9,
       "wins": 2,
       "draws": 1,
-      "losses": 5,
+      "losses": 6,
       "gf": 17,
-      "ga": 26,
-      "diff": -9,
+      "ga": 38,
+      "diff": -21,
       "points": 5,
       "isOwn": false
     },
@@ -367,10 +367,10 @@ window.shlAppData = {
       "awayTeamId": 19088,
       "date": "2026-11-21",
       "time": "16:30",
-      "status": "in_progress",
+      "status": "closed",
       "tour": "SHL Рубин А/Рубин Б · 10 тур",
       "homeScore": 0,
-      "awayScore": 0
+      "awayScore": 12
     },
     {
       "gameId": 170993,
@@ -1058,6 +1058,13 @@ window.shlAppData = {
       "goals": 13
     },
     {
+      "player": "Мокридин Дмитрий Юрьевич",
+      "group": "Рубин А/Рубин Б",
+      "team": "Фламмен",
+      "games": 8,
+      "goals": 10
+    },
+    {
       "player": "Бабак Игорь Олегович",
       "group": "Рубин А/Рубин Б",
       "team": "Ракета",
@@ -1065,24 +1072,17 @@ window.shlAppData = {
       "goals": 9
     },
     {
-      "player": "Мокридин Дмитрий Юрьевич",
+      "player": "Чеботков Иван Михайлович",
       "group": "Рубин А/Рубин Б",
       "team": "Фламмен",
-      "games": 8,
-      "goals": 7
+      "games": 6,
+      "goals": 9
     },
     {
       "player": "Тютюник Станислав Юрьевич",
       "group": "Рубин А/Рубин Б",
       "team": "Ракета",
       "games": 7,
-      "goals": 7
-    },
-    {
-      "player": "Чеботков Иван Михайлович",
-      "group": "Рубин А/Рубин Б",
-      "team": "Фламмен",
-      "games": 6,
       "goals": 7
     },
     {
@@ -1132,6 +1132,13 @@ window.shlAppData = {
       "group": "Рубин А/Рубин Б",
       "team": "Одинцовские Русичи",
       "games": 7,
+      "goals": 5
+    },
+    {
+      "player": "Белясников Александр Витальевич",
+      "group": "Рубин А/Рубин Б",
+      "team": "Фламмен",
+      "games": 6,
       "goals": 5
     },
     {
@@ -1191,13 +1198,6 @@ window.shlAppData = {
       "goals": 4
     },
     {
-      "player": "Белясников Александр Витальевич",
-      "group": "Рубин А/Рубин Б",
-      "team": "Фламмен",
-      "games": 6,
-      "goals": 4
-    },
-    {
       "player": "Вагин Никита Андреевич",
       "group": "Рубин А/Рубин Б",
       "team": "Хоккей Эдишн 1.0",
@@ -1222,6 +1222,13 @@ window.shlAppData = {
       "player": "Максимов Роман Вадимович",
       "group": "Рубин А/Рубин Б",
       "team": "Прорыв",
+      "games": 6,
+      "goals": 4
+    },
+    {
+      "player": "Феклин Михаил Анатольевич",
+      "group": "Рубин А/Рубин Б",
+      "team": "Фламмен",
       "games": 6,
       "goals": 4
     },
@@ -1254,6 +1261,13 @@ window.shlAppData = {
       "goals": 3
     },
     {
+      "player": "Кабаков Александр Валерьевич",
+      "group": "Рубин А/Рубин Б",
+      "team": "Фламмен",
+      "games": 8,
+      "goals": 3
+    },
+    {
       "player": "Попов Владимир Юрьевич",
       "group": "Рубин А/Рубин Б",
       "team": "Одинцовские Русичи",
@@ -1264,6 +1278,13 @@ window.shlAppData = {
       "player": "Смирнов Евгений Андреевич",
       "group": "Рубин А/Рубин Б",
       "team": "СОКОЛ",
+      "games": 8,
+      "goals": 3
+    },
+    {
+      "player": "Сорокин Алексей Викторович",
+      "group": "Рубин А/Рубин Б",
+      "team": "Фламмен",
       "games": 8,
       "goals": 3
     },
@@ -1471,13 +1492,6 @@ window.shlAppData = {
       "goals": 2
     },
     {
-      "player": "Сорокин Алексей Викторович",
-      "group": "Рубин А/Рубин Б",
-      "team": "Фламмен",
-      "games": 8,
-      "goals": 2
-    },
-    {
       "player": "Сюбаев Марат Асымович",
       "group": "Рубин А/Рубин Б",
       "team": "СОКОЛ",
@@ -1572,13 +1586,6 @@ window.shlAppData = {
       "player": "Титов Федор Александрович",
       "group": "Рубин А/Рубин Б",
       "team": "Прорыв",
-      "games": 6,
-      "goals": 2
-    },
-    {
-      "player": "Феклин Михаил Анатольевич",
-      "group": "Рубин А/Рубин Б",
-      "team": "Фламмен",
       "games": 6,
       "goals": 2
     },
@@ -1719,13 +1726,6 @@ window.shlAppData = {
       "player": "Абдуллин Раиль Рамазанович",
       "group": "Рубин А/Рубин Б",
       "team": "Хоккей Эдишн 1.0",
-      "games": 8,
-      "goals": 1
-    },
-    {
-      "player": "Кабаков Александр Валерьевич",
-      "group": "Рубин А/Рубин Б",
-      "team": "Фламмен",
       "games": 8,
       "goals": 1
     },
@@ -1957,6 +1957,13 @@ window.shlAppData = {
       "player": "Зимин Никита Артёмович",
       "group": "Рубин А/Рубин Б",
       "team": "Прорыв",
+      "games": 3,
+      "goals": 1
+    },
+    {
+      "player": "Колесников Дмитрий Вадимович",
+      "group": "Рубин А/Рубин Б",
+      "team": "Фламмен",
       "games": 3,
       "goals": 1
     },
@@ -2727,13 +2734,6 @@ window.shlAppData = {
       "player": "Игнаткин Андрей Владимирович",
       "group": "Рубин А/Рубин Б",
       "team": "Скорпион",
-      "games": 3,
-      "goals": 0
-    },
-    {
-      "player": "Колесников Дмитрий Вадимович",
-      "group": "Рубин А/Рубин Б",
-      "team": "Фламмен",
       "games": 3,
       "goals": 0
     },
