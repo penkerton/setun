@@ -11,24 +11,37 @@
     "teamUrl": "https://shlmos.ru/team/2641",
     "sourceHost": "mtgame.ru",
     "sourceSite": "shlmos.ru",
-    "updatedAt": "2026-11-27T01:22:11Z"
+    "updatedAt": "2026-11-27T15:56:00Z"
   },
   "overview": {
-    "place": 3,
+    "place": 1,
     "totalTeams": 12,
-    "games": 9,
-    "wins": 6,
+    "games": 10,
+    "wins": 7,
     "losses": 3,
     "draws": 0,
-    "goalsFor": 29,
+    "goalsFor": 34,
     "goalsAgainst": 19,
-    "goalDiff": 10,
-    "points": 12,
-    "ppg": 1.33
+    "goalDiff": 15,
+    "points": 14,
+    "ppg": 1.4
   },
   "standings": [
     {
       "place": 1,
+      "team": "Сетунь",
+      "games": 10,
+      "wins": 7,
+      "draws": 0,
+      "losses": 3,
+      "gf": 34,
+      "ga": 19,
+      "diff": 15,
+      "points": 14,
+      "isOwn": true
+    },
+    {
+      "place": 2,
       "team": "Прорыв",
       "games": 10,
       "wins": 6,
@@ -41,7 +54,7 @@
       "isOwn": false
     },
     {
-      "place": 2,
+      "place": 3,
       "team": "Одинцовские Русичи",
       "games": 10,
       "wins": 6,
@@ -52,19 +65,6 @@
       "diff": 7,
       "points": 13,
       "isOwn": false
-    },
-    {
-      "place": 3,
-      "team": "Сетунь",
-      "games": 9,
-      "wins": 6,
-      "draws": 0,
-      "losses": 3,
-      "gf": 29,
-      "ga": 19,
-      "diff": 10,
-      "points": 12,
-      "isOwn": true
     },
     {
       "place": 4,
@@ -94,6 +94,19 @@
     },
     {
       "place": 6,
+      "team": "МКБ",
+      "games": 10,
+      "wins": 4,
+      "draws": 3,
+      "losses": 3,
+      "gf": 32,
+      "ga": 25,
+      "diff": 7,
+      "points": 11,
+      "isOwn": false
+    },
+    {
+      "place": 7,
       "team": "КБ Динамо 2",
       "games": 9,
       "wins": 5,
@@ -106,7 +119,7 @@
       "isOwn": false
     },
     {
-      "place": 7,
+      "place": 8,
       "team": "Хоккей Эдишн 1.0",
       "games": 9,
       "wins": 4,
@@ -115,19 +128,6 @@
       "gf": 32,
       "ga": 29,
       "diff": 3,
-      "points": 9,
-      "isOwn": false
-    },
-    {
-      "place": 8,
-      "team": "МКБ",
-      "games": 9,
-      "wins": 3,
-      "draws": 3,
-      "losses": 3,
-      "gf": 27,
-      "ga": 25,
-      "diff": 2,
       "points": 9,
       "isOwn": false
     },
@@ -160,26 +160,26 @@
     {
       "place": 11,
       "team": "СОКОЛ",
-      "games": 9,
-      "wins": 2,
+      "games": 10,
+      "wins": 3,
       "draws": 1,
       "losses": 6,
-      "gf": 17,
+      "gf": 22,
       "ga": 38,
-      "diff": -21,
-      "points": 5,
+      "diff": -16,
+      "points": 7,
       "isOwn": false
     },
     {
       "place": 12,
       "team": "Варяг",
-      "games": 8,
+      "games": 11,
       "wins": 0,
       "draws": 2,
-      "losses": 6,
+      "losses": 9,
       "gf": 27,
-      "ga": 37,
-      "diff": -10,
+      "ga": 52,
+      "diff": -25,
       "points": 2,
       "isOwn": false
     }
@@ -209,6 +209,21 @@
     }
   ],
   "pastMatches": [
+    {
+      "gameId": 171949,
+      "home": "Сетунь",
+      "away": "Варяг",
+      "date": "2026-11-24",
+      "time": "14:00",
+      "venue": "home",
+      "status": "closed",
+      "tour": "SHL Рубин А/Рубин Б · 9 тур",
+      "homeScore": 5,
+      "awayScore": 0,
+      "statisticUrl": "https://shlmos.ru/game/171949/statistic",
+      "mediaPageUrl": "https://shlmos.ru/game/171949/media",
+      "mediaUrl": "https://shlmos.ru/game/171949/media"
+    },
     {
       "gameId": 170473,
       "home": "Магистраль",
@@ -425,6 +440,45 @@
     }
   ],
   "allPastMatches": [
+    {
+      "gameId": 171951,
+      "home": "СОКОЛ",
+      "away": "Варяг",
+      "homeTeamId": 18600,
+      "awayTeamId": 5096,
+      "date": "2026-11-24",
+      "time": "18:00",
+      "status": "closed",
+      "tour": "SHL Рубин А/Рубин Б · 9 тур",
+      "homeScore": 5,
+      "awayScore": 0
+    },
+    {
+      "gameId": 171950,
+      "home": "МКБ",
+      "away": "Варяг",
+      "homeTeamId": 5518,
+      "awayTeamId": 5096,
+      "date": "2026-11-24",
+      "time": "16:00",
+      "status": "closed",
+      "tour": "SHL Рубин А/Рубин Б · 9 тур",
+      "homeScore": 5,
+      "awayScore": 0
+    },
+    {
+      "gameId": 171949,
+      "home": "Сетунь",
+      "away": "Варяг",
+      "homeTeamId": 2641,
+      "awayTeamId": 5096,
+      "date": "2026-11-24",
+      "time": "14:00",
+      "status": "closed",
+      "tour": "SHL Рубин А/Рубин Б · 9 тур",
+      "homeScore": 5,
+      "awayScore": 0
+    },
     {
       "gameId": 170989,
       "home": "МКБ",
